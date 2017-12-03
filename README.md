@@ -13,10 +13,10 @@
   <p>
   
 # 产品安装：<br/>
-  1.安装数据，系统基于mysql数据库，先创建rs_report数据库，通过 mysql 命令还原数据文件 rs_report_data.bak 到  rs_report 数据库中。 <br>
-  2.安装程序，可直接把 rsbi.war 包放入tomcat中或通过源码编译后安装。 <br>
-  3.修改数据库链接文件database.properties,主要修改 username, password 两项内容。  <br>
-  4.启动tomcat访问 <br>
+  1.安装数据，系统基于mysql数据库，先创建rs_report数据库，再解压rs_report_data.zip文件，通过 mysql -u root -p rs_report< rs_report_data.bak 命令还原文件到 rs_report 数据库中。 <br>
+  2.安装程序，此项目为maven工程，通过maven打包项目。 <br>
+  3.修改数据库链接文件application.properties,主要修改 username, password 两项内容。  <br>
+  4.发布到tomcat或通过启动jetty访问 <br>
 
 <p/>
 
