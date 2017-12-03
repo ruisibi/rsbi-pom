@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruisitech.bi.mapper.bireport.OlapMapper">
+	
+	<resultMap id="BaseResultMap" type="com.ruisitech.bi.entity.bireport.OlapInfo">
+		<id column="pageid" property="pageId"/>
+		<result column="userid" property="userId"/>
+		<result column="pageinfo" property="pageInfo"/>
+		<result column="pagename" property="pageName"/>
+		<result column="crtdate" property="crtDate"/>
+		<result column="updatedate" property="updateDate"/>
+		<result column="crtuser" property="crtuser"/>
+    </resultMap>
+   
+    <select id="listDims" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+		select a.cube_id "cubeId", b.dim_desc "dim_desc", a.tname "tname", b.col_table_name "dim_tname", b.dim_type "dim_type", a.col_name "col_name", a.alias "alias", b.dim_id "dim_id", b.col_key "tableColKey", 
+		b.col_name "tableColName", dim_ord "dim_ord", cas_parent "iscas", b.group_type "grouptype", d.group_name as "groupname", b.key_val_type "valType", ordcol "ordcol", dateformat "dateformat", calc as "calc"
+		from olap_cube_col_meta a join olap_dim_list b on a.col_id = b.dim_id left join olap_dim_group d on b.group_type = d.group_id
+		where a.cube_id = #{cubeId} and col_type = 1 order by a.ord
+	</select>
+	
+	<select id="getOlap" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select pageinfo , pageId , userId , pagename 
+		from olap_user_save where pageid = #{pageId} 
+	</select>
+	
+	<select id="listreport" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select a.pageid, a.pagename, a.crtdate, a.updatedate , b.login_name "crtuser"
+		from olap_user_save a, sc_login_user b  where a.userid = b.user_id  
+		 <if test="keyword != null and keyword != ''">
+		 	and a.pagename like '%${keyword}%'
+		 </if>
+		order by a.crtdate desc
+	</select>
+	
+	<delete id="deleteOlap" parameterType="java.lang.Integer">
+		delete from olap_user_save where pageid = #{pageId}
+	</delete>
+	
+	<update id="renameOlap" parameterType="com.ruisitech.bi.entity.bireport.OlapInfo">
+		update olap_user_save set pagename = #{pageName} where pageid = #{pageId} 
+	</update>
+	
+	<update id="updateOlap" parameterType="com.ruisitech.bi.entity.bireport.OlapInfo">
+		update olap_user_save set pageinfo = #{pageInfo}, updatedate = now() 
+		where pageid = #{pageId} 
+	</update>
+	
+	<insert id="insertOlap" parameterType="com.ruisitech.bi.entity.bireport.OlapInfo">
+		insert into olap_user_save(pageid,userid,pageinfo,pagename,  crtdate, updatedate) 
+		values(#{pageId},#{userId}, #{pageInfo}, #{pageName}, now(), now())
+	</insert>
+	
+	<select id="olapExist" resultType="java.lang.Integer" parameterType="java.lang.String">
+		select count(1) from olap_user_save where pagename = #{pageName}
+	</select>
+	
+	<select id="maxOlapId" resultType="Integer">
+		select case WHEN max(pageId) is null then 1 else  max(pageId) + 1 end "rid" from olap_user_save
+	</select>
+	
+	<select id="listKpiDesc" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+		select b.rid "kpiId", kpi_name "kpiName", kpi_desc_key "kpiDesc"
+		from olap_cube_col_meta a, olap_kpi_list b
+		where col_type = 2 and a.col_id =  b.rid and a.cube_id = #{cubeId}  order by a.cube_id, a.ord  
+	</select>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruisitech.bi.mapper.frame.RoleMapper">
+    
+    <select id="listRoleMenus" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+		select a.menu_id "id",
+       a.menu_pid "pid",
+       menu_name "text",
+       b.menu_id "id2"
+	   from (select distinct (m.menu_id) menu_id,
+	                        m.menu_name menu_name,
+	                        menu_order,
+	                        m.menu_pid menu_pid
+	          from sc_menu m) a
+	    left join (select menu_id from role_menu_rela where role_id = #{roleId}) b
+	    on a.menu_id = b.menu_id
+	    order by a.menu_order, a.menu_id
+	</select>
+
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruisitech.bi.mapper.model.DataSourceMapper">
+    
+    <resultMap id="BaseResultMap" type="com.ruisitech.bi.entity.model.DataSource">
+		<id column="ds_id" property="dsid"/>
+		<result column="menu_pid" property="menuPid"/>
+		<result column="name" property="dsname"/>
+		<result column="jndi_name" property="jndiName"/>
+		<result column="use_type" property="use"/>
+		<result column="linktype" property="linkType"/>
+		<result column="linkurl" property="linkUrl"/>
+		<result column="uname" property="linkName"/>
+		<result column="psd" property="linkPwd"/>
+    </resultMap>
+    
+    <select id="listDataSource" resultMap="BaseResultMap">
+    	select ds_id , name , use_type , linktype , linkurl , uname, name as jndi_name
+    	from etl_datasource
+    </select>
+    
+    <insert id="insertDataSource" parameterType="com.ruisitech.bi.entity.model.DataSource">
+    	insert into etl_datasource(ds_Id, name, use_type, linktype, linkurl, uname, psd) 
+		values(#{dsid}, #{dsname}, #{use}, #{linkType}, #{linkUrl}, #{linkName}, #{linkPwd})
+    </insert>
+    
+    <update id="updateDataSource" parameterType="com.ruisitech.bi.entity.model.DataSource">
+    	update etl_datasource set name=#{dsname}, use_type = #{use}, linktype = #{linkType}, linkurl=#{linkUrl}, uname = #{linkName},
+		psd = #{linkPwd} where ds_id = #{dsid}
+    </update>
+    
+    <delete id="deleteDataSource" parameterType="java.lang.String">
+    	delete from etl_datasource where ds_id = #{dsid}
+    </delete>
+    
+    <select id="getDataSource" resultMap="BaseResultMap" parameterType="java.lang.String">
+    	select ds_id , name , use_type , linktype , linkurl , uname, name as jndi_name, psd
+    	from etl_datasource
+    	where ds_id = #{dsid}
+    </select>
+
+</mapper>

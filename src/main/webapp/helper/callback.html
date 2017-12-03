@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>回调函数帮助</title>
+
+<link rel="stylesheet" href="../resource/css/ht.css" type="text/css">
+<script type="text/javascript" src="../ext-res/js/jquery.js"></script>
+
+<style type="text/css">
+<!--
+.xinh-122{
+	height: auto;
+    margin: auto;
+    width: 970px;
+}
+table.lxrinfo {
+	border-collapse:collapse;
+    border: 1px solid #CACACA;
+    border-right: 0;
+    border-bottom: 0;
+    border-spacing: 0px;
+    border-cellpadding: 0px;
+}
+table.lxrinfo td {
+		font-size:14px;
+		border: 1px solid #CACACA;
+		padding:3px;
+}
+-->
+</style>
+<script language="javascript">
+
+</script>
+</head>
+
+<body>
+
+<div class="xinh-122">
+<h1 align="left">固定表、交叉表回调函数</h1>
+在固定表、交叉表中配置回调函数，实现对数据的输出控制。 <br/>
+<ul>
+回调函数参数： <br/>
+<li>
+value：当前值  <br/>
+</li>
+<li>
+col：当前列节点  <br/>
+</li>
+<li>
+row：当前行节点  <br/>
+</li>
+<li>
+data：当前数据  <br/>
+</li>
+</ul>
+
+<ul>
+内建对象： <br/>
+<li>
+out对象：控制输出的对象  <br/>
+<ul>
+方法：
+<li>print()方法: 输出内容到页面</li>
+<li>println()方法: 输出内容到页面,带有回车符号。</li>
+</ul>
+</li>
+<li>
+request对象：当前request对象  <br/>
+</li>
+<li>
+extContext对象 ：当前环境变量对象  <br/>
+<ul>
+方法：
+<li>put(‘xxx’,’xxx’)方法: 设置值到extContext中，设置后的值可以通过${xxx}获取值。</li>
+<li>get(‘xxx’)方法: 获取extContext中的数据。</li>
+</ul>
+</li>
+</ul>
+<p style="height:30px;"></p>
+<h1 align="left">表格回调函数</h1>
+
+在表格中配置回调函数，实现对数据的输出控制。 <br/>
+<ul>
+回调函数参数： <br/>
+<li>
+value：当前值  <br/>
+</li>
+<li>
+rowData：当前行数据  <br/>
+</li>
+<li>
+column：当前字段名  <br/>
+</li>
+</ul>
+
+
+<p>
+<div align="center"><input type="button" onclick="window.close()" value="关闭"></div>
+</div>
+</body>
+</html>

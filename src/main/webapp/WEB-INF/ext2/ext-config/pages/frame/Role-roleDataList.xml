@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+		<box title="角色管理 >> 数据权限">
+			<data key="roleKey">select role_name "name" from sc_role t where t.role_id = '${role_id}'</data>
+			<text>
+				<template>
+					<![CDATA[
+					<div style="margin:10px 0px 5px 3px; font-size:13px; float:left">
+					当前角色：$roleKey.name
+					</div>
+					]]>
+				</template>
+			</text>
+			<textField type="hidden" id="role_id" show="true"/>
+			<textField type="hidden" id="node" show="true"/>
+			<textField type="hidden" id="dataIds" show="true"/>
+			<div align="right" style="padding:5px;">
+				<button action="frame.Role" desc=" 保存 " type="button" onClick="getDataIds()" ></button>
+				<link title="返回" action="frame.Role" method="list"/>
+			</div>
+			<include page="/pages/frame/role/role-data.jsp"></include>
+		</box>
+</ext-config>

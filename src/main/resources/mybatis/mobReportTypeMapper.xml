@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruisitech.bi.mapper.portal.MobReportTypeMapper">
+    <resultMap id="BaseResultMap" type="com.ruisitech.bi.entity.portal.MobReportType">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="text" property="text"/>
+		<result column="note" property="note"/>
+		<result column="crtuser" property="crtUser"/>
+		<result column="crtDate" property="crtDate"/>
+		<result column="ord" property="ord"/>
+		<result column="iconCls" property="iconCls"/>
+    </resultMap>
+    
+    <select id="listcataTree" resultMap="BaseResultMap">
+		select id, name , name as "text",  'icon-subject3' as "iconCls" from portal_3greport_type order by ord
+	</select>
+	
+	<insert id="insertType" parameterType="com.ruisitech.bi.entity.portal.MobReportType">
+		insert into portal_3greport_type(name, note, crtuser, crtdate, ord) 
+		values(#{name}, #{note}, #{crtUser}, now(), #{ord})
+	</insert>
+	
+	<update id="updateType" parameterType="com.ruisitech.bi.entity.portal.MobReportType">
+		update portal_3greport_type set name=#{name}, note=#{note}, ord=#{ord} 
+		where id=#{id}
+	</update>
+	
+	<delete id="deleleType" parameterType="java.lang.Integer">
+		delete from  portal_3greport_type where id= #{id}
+	</delete>
+	
+	<select id="getType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select id , name , note , ord  from portal_3greport_type where id = #{id}
+	</select>
+	
+	<select id="cntReport" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		select count(1) cnt from portal_user_save where is3g = 'y' and cata_id = #{id}
+	</select>
+	
+	<select id="maxTypeId" resultType="java.lang.Integer">
+		select max(id) from portal_3greport_type
+	</select>
+</mapper>

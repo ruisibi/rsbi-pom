@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+		<box title="用户管理 >> 用户角色">
+				<data key="roleKey">select login_name "name" from sc_login_user t where t.user_id = '${user_id}'</data>
+			<text>
+				<template>
+					<![CDATA[
+					<div style="margin:10px 0px 5px 3px; font-size:13px; float:left">
+					当前用户  <font color='red'>$roleKey.name</font> 所属角色列表：
+					</div>
+					]]>
+				</template>
+			</text>
+			<textField id="user_id" type="hidden" show="true"></textField>
+			<div align="right" style="padding:5px;">
+				<button action="frame.UserPermission" desc="添加" method="preAddRole" checkParam="false" submit="get"></button>
+				<button action="frame.UserPermission" method="delRole" desc="删除" styleClass="btn btn-danger btn-sm" confirm="true"></button>
+				<link action="frame.User" method="" title="返回"/>
+			</div>
+			<dataGrid>
+				<col-config>
+					<col type="checkbox" alias="role_id" id="role_id" require="true" desc="多选" width="10%" />
+					<col alias="role_name" desc="角色" width="15%"/>
+					<col alias="staff_id" desc="工号" width="15%"/>
+					<col alias="login_name" desc="用户名" width="15%"/>						
+				</col-config>
+				<ds>
+					<![CDATA[
+					select a.user_id, c.staff_id, a.role_id, b.role_name,c.user_id,c.login_name
+  					from role_user_rela a, sc_role b, sc_login_user c
+ 					where a.role_id = b.role_id and c.user_id = a.user_id
+   					and c.user_id = '${user_id}'
+ 					order by create_date
+				]]>
+				</ds>
+			</dataGrid>
+		</box>
+</ext-config>

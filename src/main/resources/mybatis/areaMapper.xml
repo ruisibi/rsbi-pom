@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruisitech.bi.mapper.bireport.AreaMapper">
+    <resultMap id="BaseResultMap" type="com.ruisitech.bi.entity.bireport.Area">
+		<id column="id" property="id"/>
+		<result column="code" property="code"/>
+		<result column="prov_name" property="provName"/>
+		<result column="city_name" property="cityName"/>
+    </resultMap>
+    
+    <select id="listCityByProvCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from code_area where code = #{code}
+	</select>
+	
+</mapper>

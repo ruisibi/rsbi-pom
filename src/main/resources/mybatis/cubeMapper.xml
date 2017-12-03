@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruisitech.bi.mapper.model.CubeMapper">
+    
+    <resultMap id="BaseResultMap" type="com.ruisitech.bi.entity.model.Cube">
+		<id column="cube_id" property="cubeId"/>
+		<result column="cube_name" property="cubeName"/>
+		<result column="cube_desc" property="desc"/>
+		<result column="dsetName" property="dsetName"/>
+		<result column="dset" property="dsetId"/>
+		<result column="dsId" property="dsId"/>
+		<result column="priTable" property="priTable"/>
+    </resultMap>
+    
+   <select id="listCube" resultMap="BaseResultMap" parameterType="java.lang.String">
+   		select cube_id,  cube_name, cube_desc, 
+   		b.name "dsetName", b.dset_Id "dset", b.ds_id "dsId"
+		from olap_cube_meta a, etl_dataset b 
+		where a.dset = b.dset_id 
+		<if test="keyword != null and keyword != ''">
+			and cube_name like '%${keyword}%'
+		</if>
+   </select>
+   
+   <select id="getMaxCubeId" resultType="java.lang.Integer">
+   		select case WHEN max(cube_id) is null then 1 else  max(cube_id) + 1 end "id" from olap_cube_meta
+   </select>
+   
+   <insert id="insertCube" parameterType="com.ruisitech.bi.entity.model.Cube">
+   		insert into olap_cube_meta(cube_id, cube_name, cube_desc, dset) 
+		values(#{cubeId}, #{cubeName}, #{desc}, #{dsetId})
+   </insert>
+   
+   <update id="updateCube" parameterType="com.ruisitech.bi.entity.model.Cube">
+   		update olap_cube_meta set cube_name=#{cubeName}, cube_desc=#{desc}  
+   		where cube_id = #{cubeId}
+   </update>
+
+	<delete id="deleteCube" parameterType="java.lang.Integer">
+		delete from olap_cube_meta where cube_id = #{cubeId}
+	</delete>   
+	
+	<select id="getCubeById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select cube_id , cube_name, cube_desc, b.name as "dsetName" , b.dset_Id as dset , b.primary_table "priTable" 
+		from olap_cube_meta a, etl_dataset b where a.dset = b.dset_id
+		and cube_id = #{cubeId}
+	</select>
+	
+	<select id="getCubeDims" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+		select a.rid "id",
+       a.cube_id "cubeId",
+       a.col_type "col_type",
+       a.col_id "col_id",
+       a.col_name "col_name",
+       a.tname "tname",
+       b.dim_desc "text",
+       c.dset "dsetId",
+       c.cube_desc "cubeDesc",
+       alias "alias",
+       dim_type "dim_type",
+       a.calc "iscalc",
+       b.col_table_name "tableName",
+       b.col_key "tableColKey",
+       b.col_name "tableColName",
+       a.ord "ord",
+       dim_ord "dimord",
+       b.group_type "grouptype",
+       d.group_name "groupname",
+       b.key_val_type "valType",
+       b.ordcol "ordcol",
+       b.dateformat "dateformat"
+	   from olap_cube_col_meta a
+	  join olap_dim_list b
+	    on a.col_id = b.dim_id
+	  join olap_cube_meta c
+	    on a.cube_id = c.cube_id
+	  left join olap_dim_group d
+	    on b.group_type = d.group_id
+	  where a.cube_id =  #{cubeId}
+	   and a.col_type = 1
+	  order by a.ord
+	</select>
+	
+	<select id="getCubeKpis" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+		 select a.col_type "col_type", a.col_id "colid", a.col_name "colname", a.tname "tname",a.alias "alias", a.ord "ord",
+		 b.kpi_name "kpiname", b.unit "unit",b.aggre "aggre", b.calc_kpi "calcKpi", a.calc "calc", 
+		 b.fmt "fmt", b.rate "rate", b.kpi_desc_key "kpi_desc_key" ,
+	     a.col_id "id", b.kpi_name "text"
+	    from olap_cube_col_meta a join  olap_kpi_list b on a.col_id = b.rid  
+	    where  col_type = 2 and a.cube_id = #{cubeId}
+	    order by a.ord
+	</select>
+	
+	<select id="listCubeMeta" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+		select  a.rid as "id", a.cube_id as "cubeId", c.dset as "dsetId", f.ds_id as "dsid", a.tname "tname", a.col_type as "col_type", a.col_id as "col_id", a.col_name as "col_name", b.dim_desc as "dim_name", 
+		b.dim_desc "text", 'open' as "state", 'icon-dim' as "iconCls", alias "alias", '' as "fmt", '' as "aggre", dim_type as "dim_type", 
+		cas_parent as "iscas", b.col_table_name as "tableName", b.col_key as "tableColKey", b.col_name as "tableColName", a.ord as "ord", b.ordcol as "ordcol", 1 as "ord2", 
+		 dim_ord "dimord", 1 as "rate", '' as "unit", b.group_type as "grouptype",  d.group_name as "groupname", 0 as "calc_kpi",  a.calc as "calc", 
+		 b.key_val_type "valType", b.dateformat as "dateformat"
+		from olap_cube_col_meta a join olap_dim_list b on a.col_id = b.dim_id 
+		join olap_cube_meta c on a.cube_id = c.cube_id 
+		join etl_dataset f on f.dset_id = c.dset
+		left join olap_dim_group d on b.group_type = d.group_id
+		where a.cube_Id = #{cubeId} and a.col_type = 1 
+		 UNION all 
+		 select a.rid id, a.cube_id, d.dset, f.ds_id as "dsid", a.tname,a.col_type, a.col_id, a.col_name, '' as dim_name, c.kpi_name text, 'open' as state, 'icon-kpi' as iconCls, alias, 
+		 fmt, aggre, '' as dim_type,  '' as iscas, '' as tableName, '' as tableColKey, '' as tableColName, ord, '' as ordcol, 2 as ord2, '' as dimord, rate, unit, 
+		 '' as grouptype, '' as groupname, calc_kpi,  a.calc,'' as valType, '' as dateformat
+		from olap_cube_col_meta a, olap_kpi_list c, olap_cube_meta d,   etl_dataset f
+		where a.cube_id = #{cubeId} and a.col_id = c.rid and a.col_type = 2  and a.cube_id = d.cube_id 
+		and d.dset = f.dset_id
+		order by "ord2", "ord"
+	</select>
+	
+	<select id="listDs" resultType="java.util.HashMap" parameterType="java.lang.String">
+         select a.cube_id "cubeId", 'noname' as "tname", a.cube_name "text", 'open' as "state", 'icon-cube' as "iconCls"
+		from olap_cube_meta a
+         where cube_id in (${selectDsIds}) order by cube_id
+	</select>
+
+</mapper>

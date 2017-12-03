@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+		<bean id="sessionAuthc" class="com.ruisitech.bi.service.frame.SessionAuthcFilter" />
+		<bean id="appSessionAuthc" class="com.ruisitech.bi.service.frame.AppSessionAuthcFilter" />
+		<!-- 启用shrio授权注解拦截方式 -->  
+        <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">  
+	        <!-- 装配 securityManager -->  
+	        <property name="securityManager" ref="securityManager"/>  
+	        <property name="filters">
+				<util:map>
+					<entry key="authc" value-ref="sessionAuthc" />
+					<entry key="appAuthc" value-ref="appSessionAuthc" />
+				</util:map>
+			</property>
+	        <property name="filterChainDefinitions">  
+		        <value>  
+		        	  /ext-res/** = anon
+		        	  /resource/** = anon
+		        	  / = anon
+		        	  /index.jsp = anon
+		        	  /Login.action = anon
+		        	  /dologin.action = anon
+		        	  /app/Login!login.action = anon
+		              /frame/Logout = logout
+		              /app/** = appAuthc
+		              /** = authc
+		        </value>  
+	        </property>  
+        </bean>  
+  
+        
+        <!-- 配置进行授权和认证的 Realm -->  
+        <bean id="myRealm" class="com.ruisitech.bi.service.frame.ShiroDbRealm">  
+             <property name="userService" ref="userService" />  
+             <property name="authorizationCachingEnabled" value="false"/>  
+         </bean>  
+        <bean id="userService" class="com.ruisitech.bi.service.frame.UserService" />  
+        <!-- 配置 Shiro 的 SecurityManager Bean. -->  
+        <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">  
+             <property name="realm" ref="myRealm"/>   
+       </bean>  
+       <!-- 配置 Bean 后置处理器: 会自动的调用和 Spring 整合后各个组件的生命周期方法. -->  
+        <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/> 
+	
+</beans>

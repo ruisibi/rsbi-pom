@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruisitech.bi.mapper.model.MeasureMapper">
+    
+    <resultMap id="BaseResultMap" type="com.ruisitech.bi.entity.model.Measure">
+		<id column="rid" property="kpiId"/>
+		<result column="kpi_name" property="name"/>
+		<result column="kpi_desc_key" property="kpinote"/>
+		<result column="unit" property="unit"/>
+		<result column="fmt" property="fmt"/>
+		<result column="aggre" property="aggre"/>
+		<result column="calc_kpi" property="calcKpi"/>
+		<result column="cube_id" property="cubeId"/>
+    </resultMap>
+    
+
+   <insert id="insertKpi" parameterType="com.ruisitech.bi.entity.model.Measure">
+   		insert into olap_kpi_list(kpi_name, kpi_desc_key, unit, fmt, aggre, calc_kpi, cube_id) 
+		values(#{name}, #{kpinote}, #{unit}, #{fmt}, #{aggre}, #{calcKpi}, #{cubeId})
+   </insert>
+   
+   <update id="updateKpi" parameterType="com.ruisitech.bi.entity.model.Measure">
+		update olap_kpi_list set 
+			kpi_name = #{name}, 
+			kpi_desc_key = #{kpinote}, 
+			unit = #{unit}, 
+			fmt = #{fmt}, 
+			aggre = #{aggre}
+		where rid = #{targetId} and cube_id = #{cubeId}
+	</update>
+	
+	<delete id="deleteKpi" parameterType="com.ruisitech.bi.entity.model.Measure">
+		delete from olap_kpi_list where cube_id = #{cubeId} 
+		<if test="kpiId != null">
+			and rid = #{kpiId}
+		</if>
+	</delete>
+   
+   <select id="getMaxKpiId" resultType="java.lang.Integer">
+   		select max(rid) from olap_kpi_list
+   </select>
+</mapper>

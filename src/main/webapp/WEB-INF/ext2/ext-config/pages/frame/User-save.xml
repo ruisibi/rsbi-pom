@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+		<box title="出错了">
+		<div style="margin:15px;">
+				<text>工号存在重复，请重新填写工号。</text>
+				<link title="返回" action="frame.User" method="preAdd" allowParam="false"></link>
+		</div>
+		</box>
+</ext-config>

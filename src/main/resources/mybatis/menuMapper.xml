@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruisitech.bi.mapper.frame.MenuMapper">
+    <resultMap id="BaseResultMap" type="com.ruisitech.bi.entity.frame.Menu">
+		<id column="menu_id" property="menuId"/>
+		<result column="menu_pid" property="menuPid"/>
+		<result column="menu_name" property="menuName"/>
+		<result column="menu_desc" property="menuDesc"/>
+		<result column="menu_date" property="menuDate"/>
+		<result column="menu_order" property="menuOrder"/>
+		<result column="menu_url" property="menuUrl"/>
+		<result column="urls" property="urls"/>
+		<result column="mvs" property="mvs"/>
+		<result column="avatar" property="avatar"/>
+    </resultMap>
+    
+    <select id="listUserMenus" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+			select menu_id, menu_name, menu_url, root_link,  menu_pid , menu_order, avatar
+			 from sc_menu where menu_id in (
+			 select distinct menu_id from user_menu_rela where user_id=
+			#{userId}
+			  union
+  			select distinct menu_id from role_menu_rela a,role_user_rela b
+  			where a.role_id = b.role_id and b.user_id = #{userId}
+			
+			)
+			 order by menu_order
+	</select>
+	
+	<select id="listMenuByPid" resultType="java.util.Map" parameterType="java.lang.Integer">
+			select menu_id "id",
+		       menu_pid "pid",
+		       menu_name "text",
+		       menu_desc "desc",
+		       menu_order "order",
+		       menu_url "url",
+		       CASE
+		         WHEN EXISTS
+		          (SELECT 1 FROM sc_menu b WHERE b.menu_pid = a.menu_id) THEN
+		          'closed'
+		         ELSE
+		          'open'
+		       END "state"
+			  from sc_menu a
+			 where 1 = 1 and menu_pid = #{pid}
+			  order by menu_order, menu_id
+	</select>
+
+</mapper>

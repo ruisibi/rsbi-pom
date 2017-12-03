@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+	
+		<box title="角色管理 >> 所辖用户">
+			<data key="ruleKey">select role_name "name" from sc_role t where t.role_id = '${role_id}'</data>
+			<text>
+				<template>
+					<![CDATA[
+					<div style="margin:10px 0px 5px 3px; font-size:13px; float:left">
+					当前角色  <font color='red'>$ruleKey.name</font>  所管辖用户列表：             
+					</div>
+					]]>
+				</template>
+				
+			</text>
+			
+			<textField type="hidden" id="role_id" show="true"/>
+			<div align="right" style="padding:5px;">
+				<button action="frame.Role" desc="添加" method="roleUserPreAdd" checkParam="false" submit="get"></button>
+				<button action="frame.Role" method="roleUserDel" desc="删除" styleClass="btn btn-danger btn-sm" confirm="true"></button>
+				<link title="返回" action="frame.Role" method="list"/>
+			</div>
+			<dataGrid>
+				<col-config>
+					<col type="checkbox" alias="user_id" id="id" require="true" desc="多选" width="10%" />
+					<col alias="staff_id" desc="工号" width="15%"/>
+					<col alias="login_name" desc="用户名" width="15%"/>
+					<col alias="desc" desc="地域" width="15%" />
+					<col alias="state" desc="状态" width="15%"/>
+				</col-config>
+				<ds pageSize="15">
+					<![CDATA[
+						select a.user_id,staff_id,login_name, '' "desc", a.state "state" 
+						from sc_login_user a, role_user_rela c
+						where  c.user_id = a.user_id and c.role_id = '${role_id}'
+				]]>
+				</ds>
+			</dataGrid>
+		</box>
+	
+</ext-config>

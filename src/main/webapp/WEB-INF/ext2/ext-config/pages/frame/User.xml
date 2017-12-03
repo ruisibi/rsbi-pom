@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+<script>
+ function showstate(a, b, c){
+ 	var a = a.get("state");
+ 	if(a == 0){
+ 		out.print("停用");
+ 	}else{
+ 		out.print("启用");
+ 	}
+ }
+</script>
+
+		<box title="用户管理">
+				<textField id="staffId" desc="工 &amp;nbsp; 号"/>
+				<textField id="login_name" desc=" 用户名称"/> 
+				<select desc=" 账号状态 " id="state">
+				 <option value="">不限</option>
+				 <option value="1">启用</option>
+				 <option value="0">停用</option>
+				</select> 
+				<button action="frame.User" method="" desc="搜索" checkParam="false"/>
+			
+			
+			<div align="left" style="padding:3px;">
+				<button action="frame.User" desc="新建" method="preAdd" checkParam="false" submit="get"></button>
+				<button action="frame.User" method="preMod" submit="get" desc="修改">
+				</button>
+				<button action="frame.User" method="del" desc="删除" styleClass="btn btn-danger btn-sm" confirm="true" submit="get"></button>
+			</div>
+			
+			<dataGrid>
+				<col-config>
+					<col type="radio" alias="user_id" id="user_id" require="true" desc="单选" width="8%" />
+					<col alias="staff_id" desc="工号" width="10%"/>
+					<col alias="login_name" desc="用户名" width="10%"/>
+					<col alias="state" desc="状态" width="10%" jsFunc="showstate" align="center"/>
+					<col alias="log_cnt" desc="登陆次数" width="10%" align="center"/>
+					<col alias="LOG_DATE" desc="登陆时间" width="15%" align="center" formatPattern="yyyy-MM-dd HH:mm:ss"/>
+					<col alias="user_id" desc="操作" width="20%">
+						<colLink byAlias="user_id" action="frame.UserPermission" desc=" 关联角色 " styleClass="btn btn-primary btn-xs" method="roleList" />
+						<colLink byAlias="user_id" action="frame.UserPermission" desc=" 授权菜单 " styleClass="btn btn-primary btn-xs" method="menuList" />
+					</col>
+				</col-config>
+				<ds pageSize="15">
+					<![CDATA[
+					select user_id,staff_id,login_name, a.state "state",
+					Date_start, DATE_END, log_cnt, LOG_DATE
+					from sc_login_user a 
+					where 1=1
+					
+					#if(${staffId} != '')
+						and staff_id like '%${staffId}%'
+					#end
+					#if(${login_name} != '')
+						and login_name like '%${login_name}%'
+					#end
+					#if(${state} != '')
+						and a.state = '${state}'
+					#end 
+					]]>
+				</ds>
+			</dataGrid>
+		</box>
+</ext-config>

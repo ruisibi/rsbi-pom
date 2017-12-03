@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+		<box title="用户管理 >> 用户报表">
+			<textField type="hidden" id="user_id" show="true"/>
+			<div align="right" style="padding:5px;">
+				<button action="frame.User" desc=" 保存 " type="button" onClick="getReportIds()" ></button>
+				<link title="返回" action="frame.User" method=""/>
+			</div>
+			<include page="/pages/frame/User-report.jsp"></include>
+		</box>
+</ext-config>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruisitech.bi.mapper.model.DatasetMapper">
+    
+    <resultMap id="BaseResultMap" type="com.ruisitech.bi.entity.model.Dataset">
+		<id column="dset_id" property="dsetId"/>
+		<result column="ds_id" property="dsid"/>
+		<result column="dsname" property="dsname"/>
+		<result column="name" property="name"/>
+		<result column="crtdate" property="crtdate"/>
+		<result column="cfg" property="cfg"/>
+		<result column="primary_table" property="priTable"/>
+		<result column="useType" property="useType"/>
+    </resultMap>
+    
+   <select id="listDataset" resultMap="BaseResultMap">
+   		select a.dset_id, a.ds_id, a.name, a.crtdate, 
+		a.primary_table, b.name "dsname", use_type "useType"
+		from etl_dataset a, etl_datasource b
+		where a.ds_id = b.ds_id
+		order by crtdate desc
+   </select>
+   
+   <insert id="insertDset" parameterType="com.ruisitech.bi.entity.model.Dataset">
+   		insert into  etl_dataset(dset_Id, ds_id, name, crtdate, cfg, primary_table) 
+		values(#{dsetId}, #{dsid}, #{name}, now(), #{cfg}, #{priTable})
+   </insert>
+   
+   <update id="updateDset" parameterType="com.ruisitech.bi.entity.model.Dataset">
+   		update etl_dataset set ds_id = #{dsid}, name = #{name}, cfg = #{cfg}, primary_table = #{priTable}
+		where dset_Id = #{dsetId}
+   </update>
+   
+   <delete id="deleteDset" parameterType="java.lang.String">
+   		delete from etl_dataset where dset_id = #{dsetId}
+   </delete>
+   
+   <select id="getDatasetCfg" parameterType="java.lang.String" resultType="java.lang.String" >
+   		select cfg "cfg"
+		from etl_dataset
+		where dset_id = #{dsetId}
+   </select>
+
+</mapper>

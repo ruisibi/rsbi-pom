@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+
+<text>
+ <![CDATA[
+ <style>
+ .t_uinfo {
+ 	width: 100%;
+    border-collapse: collapse;
+	border: 1px solid #CACACA;
+    border-spacing: 0px;
+    border-cellpadding: 0px;
+ }
+ 
+ .t_uinfo td {
+ 	border: 1px solid #CACACA;
+    PADDING: 3px;
+    font-size: 12px;
+     height:25px;
+ }
+  .t_uinfo th {
+ 	border: 1px solid #CACACA;
+    PADDING: 3px;
+    font-size: 13px;
+     height:25px;
+    background-color:#F1F7FE;
+    font-weight:normal;
+ }
+ </style>
+  ]]>
+</text>
+
+
+<data key="uinfo">
+select login_name, log_date log_date, staff_id, state, log_cnt, date_start, date_end, b.name company, a.space_size
+from sc_login_user a, code_company b
+ where user_id = ${s.userId} and a.site_id = b.id
+</data>
+
+			<div align="center"  class="crossReport">
+			
+			<text>
+			<template>
+			 <![CDATA[
+			
+<table cellpadding="0" cellspacing="0" class="t_uinfo">
+<tr>
+<th align="left" width='35%'>登录名： </th>
+<td align="left">${uinfo.staff_id}</td>
+</tr>
+<tr>
+<th align="left">所属企业： </th>
+<td align="left">${uinfo.company}</td>
+</tr>
+<tr>
+<th align="left">账号状态： </th>
+<td align="left">#if($uinfo.state == 1)
+      正常
+    #end
+    #if($uinfo.state == 2)
+      试用
+    #end
+ #if($uinfo.state == 0)
+      停用
+    #end
+</td>
+</tr>
+<tr>
+<th align="left">登录次数： </th>
+<td align="left">${uinfo.log_cnt}次</td>
+</tr>
+<tr>
+<th align="left">上次登录时间： </th>
+<td align="left"> $extUtils.dateFmt(${uinfo.log_date}, 'yyyy-MM-dd HH:mm:ss') </td>
+</tr>
+<tr>
+<th align="left">账号开通时间： </th>
+<td align="left"> $extUtils.dateFmt(${uinfo.date_start}, 'yyyy-MM-dd HH:mm:ss') </td>
+</tr>
+<tr>
+<th align="left">账号截至时间： </th>
+<td align="left"> $extUtils.dateFmt(${uinfo.date_end},'yyyy-MM-dd HH:mm:ss') </td>
+</tr>
+<tr>
+<th align="left">剩余天数： </th>
+<td align="left"> $extUtils.dateBetweenNow(${uinfo.date_end}) 天  &nbsp;   <a href='../frame/Pay.action' target='_blank' class="easyui-linkbutton">充值</a> </td>
+</tr>
+<tr>
+<th align="left">已用空间： </th>
+<td align="left"> <font color='red'>${size}</font>兆  / 总空间：${uinfo.space_size}兆  &nbsp;   <a href='../frame/Pay!kr.action' target='_blank' class="easyui-linkbutton">扩容</a>  </td>
+</tr>
+</table>			
+<br/> 
+			 ]]>
+			</template>
+			</text>
+			
+			<textField type="hidden" id="flag" show="true"/>
+				<div>
+				<button type="button" onClick="parent.closeMe()" desc="关闭"/>
+				</div>
+			</div>
+			
+</ext-config>

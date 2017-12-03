@@ -1,0 +1,275 @@
+.icon-blank{
+	background:url('icons/blank.gif') no-repeat;
+}
+.icon-add{
+	background:url('icons/edit_add.png') no-repeat;
+}
+.icon-edit{
+	background:url('icons/pencil.png') no-repeat;
+}
+.icon-remove{
+	background:url('icons/edit_remove.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/edit_remove.png");
+}
+.icon-save{
+	background:url('icons/filesave.png') no-repeat;
+}
+.icon-cut{
+	background:url('icons/cut.png') no-repeat;
+}
+.icon-ok{
+	background:url('icons/ok.png') no-repeat;
+}
+.icon-no{
+	background:url('icons/no.png') no-repeat;
+}
+.icon-cancel{
+	background:url('icons/cancel.png') no-repeat;
+}
+.icon-reload{
+	background:url('icons/reload.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/reload.png");
+}
+.icon-search{
+	background:url('icons/search.png') no-repeat;
+}
+.icon-print{
+	background:url('icons/print.png') no-repeat;
+}
+.icon-help{
+	background:url('icons/help.png') no-repeat;
+}
+.icon-undo{
+	background:url('icons/undo.png') no-repeat;
+}
+.icon-redo{
+	background:url('icons/redo.png') no-repeat;
+}
+.icon-back{
+	background:url('icons/back.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/back.png");
+}
+.icon-sum{
+	background:url('icons/sum.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/sum.png");
+}
+.icon-tip{
+	background:url('icons/tip.png') no-repeat;
+}
+
+.icon-mini-add{
+	background:url('icons/mini_add.png') no-repeat 2px 2px;
+}
+.icon-mini-edit{
+	background:url('icons/mini_edit.png') no-repeat 2px 2px;
+}
+.icon-mini-refresh{
+	background:url('icons/mini_refresh.png') no-repeat 3px 2px;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/mini_refresh.png");
+}
+.icon-newpage {
+	background:url('icons/newpage.png') no-repeat;
+}
+.icon-dataset {
+	background:url('icons/dataset.png') no-repeat;
+}
+.icon-export {
+	background:url('icons/exportxls.gif') no-repeat;
+}
+.icon-dim {
+	background:url('icons/dim.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/dim.png");
+}
+.icon-kpi {
+	background:url('icons/kpi.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/kpi.png");
+}
+.icon-cube {
+	background:url('icons/cube.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/cube.png");
+}
+.icon-filter {
+	background:url('icons/hmenu-calc.gif') no-repeat;
+}
+.icon-right {
+	background:url('icons/right.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/right.png");
+}
+.icon-left {
+	background:url('icons/left.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/left.png");
+}
+.icon-kpidesc {
+	background:url('icons/kpiview.png') no-repeat;
+}
+.icon-param {
+	background:url('icons/param.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/param.png");
+}
+.icon-layout {
+	background:url('icons/layout.png') no-repeat;
+}
+.icon-error {
+	background:url('icons/error.png') no-repeat;
+}
+.icon-run {
+	background:url('icons/run.png') no-repeat;
+}
+.icon-open {
+	background:url('icons/open.png') no-repeat;
+}
+.icon-dataset2 {
+	background:url('icons/dataset2.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/dataset2.png");
+}
+.icon-dscol {
+	background:url('icons/datasetcol.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/datasetcol.png");
+}
+.icon-dsource {
+	background:url('icons/dsource.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/dsource.png");
+}
+.icon-table {
+	background:url('icons/table.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/table.png");
+}
+.icon-chart {
+	background:url('icons/chart.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/chart.png");
+}
+.icon-cross {
+	background:url('icons/cross.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/cross.png");
+}
+.icon-pic {
+	background:url('icons/pic.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/pic.png");
+}
+.icon-label {
+	background:url('icons/label.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/label.png");
+}
+.icon-gears {
+	background:url('icons/gears.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/gears.png");
+}
+.icon-push {
+	background:url('icons/push.png') no-repeat;
+}
+.icon-release {
+	background:url('icons/release.png') no-repeat;
+}
+.icon-text {
+	background:url('icons/text.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/text.png");
+}
+.icon-group {
+	background:url('icons/dimgroup.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/dimgroup.png");
+}
+.icon-set {
+	background:url('icons/set.png') no-repeat;
+}
+.icon-subject {
+	background:url('icons/subject.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/subject.png");
+}
+.icon-subject3 {
+	background:url('icons/subjecttype2.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/subjecttype2.png");
+}
+.icon-kpigroup {
+	background:url('icons/kpigroup.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/kpigroup.png");
+}
+.icon-ckpi {
+	background:url('icons/ckpi.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/ckpi.png");
+}
+.icon-cross2 {
+	background:url('icons/cross2.png') no-repeat;
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../resource/jquery-easyui-1.4.4/themes/icons/cross2.png");
+}
+.icon-dataming {
+	background:url('icons/dataming.png') no-repeat;
+}
+.icon-param2 {
+	background:url('icons/param2.png') no-repeat;
+}
+.icon-dim2 {
+	background:url('icons/dim2.png') no-repeat;
+}
+.icon-dimlevel {
+	background:url('icons/dimlevel.png') no-repeat;
+}
+.icon-var {
+	background:url('icons/var.png') no-repeat;
+}
+.icon-transform {
+	background:url('icons/transform.png') no-repeat;
+}
+.icon-jobs {
+	background:url('icons/jobs.png') no-repeat;
+}
+.icon-load {
+	background:url('icons/load.png') no-repeat;
+}
+.icon-coljoin {
+	background:url('icons/coljoin.png') no-repeat;
+}
+.icon-stop {
+	background:url('icons/stop.png') no-repeat;
+}
+.icon-sql {
+	background:url('icons/sql.png') no-repeat;
+}
+.icon-earth {
+	background:url('icons/earth.png') no-repeat;
+}
+.icon-styles {
+	background:url('icons/styles.png') no-repeat;
+}
+.icon-ustyle {
+	background:url('icons/ustyle.png') no-repeat;
+}
+.icon-model {
+	background:url('icons/model.png') no-repeat;
+}
+.icon-add2 {
+	background:url('icons/add2.png') no-repeat;
+}
+.icon-tsb {
+	background:url('icons/tsb.png') no-repeat;
+}
+.icon-box {
+	background:url('icons/box.png') no-repeat;
+	background-position:center center;
+}

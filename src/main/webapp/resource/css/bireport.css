@@ -1,0 +1,421 @@
+@charset "utf-8";
+table.d_table {
+    border-collapse:collapse;
+    border-spacing: 0px;
+    border-cellpadding: 0px;
+}
+table.d_table th {
+    background-color: #eeeeee;
+    border: 1px solid #cacaca;
+    font-size: 12px;
+    padding: 0;
+}
+table.d_table td.onesel2 {
+	height:20px;
+	background-color: #F9F9F9;
+}
+table.d_table td.onesel {
+	height:20px;
+}
+table.d_table td.blank {
+	border:none;
+}
+TABLE.d_table TD {
+    border: 1px solid #CACACA;
+    padding: 0px;
+    font-size: 12px;
+}
+table.d_table2 {
+    border-collapse:collapse;
+    border-spacing: 0px;
+    border-cellpadding: 0px;
+}
+table.d_table2 td.blank {
+	border:none;
+}
+TABLE.d_table2 TD {
+    border:none;
+    padding: 0px;
+    font-size: 12px;
+}
+#d_colDims,#d_rowDims{
+	background-color:#EEEEEE;
+}
+.colDimsList span{
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:80px;
+	border:1px solid #CACACA;
+	padding:2px;
+	margin:3px 0px 3px 3px;
+	background-color:#FFFFCC;
+	text-align:center;
+}
+.rowDimsList span{
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:117px;
+	border:1px solid #CACACA;
+	border-right:none;
+	background-color:#FFFFCC;
+	text-align:center;
+	padding:4px 2px 5px 2px;
+}
+.colDimsList span a.set, tr.scrollColThead th span a.set, .rowDimsList span a.set{
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:18px;
+	height:16px;
+	background-image:url("../img/dimset.png");
+	background-repeat:no-repeat;
+	background-position:center center;
+	text-decoration:none;
+}
+tr.scrollColThead th span a.extKpibtn {
+	background-image:url("../img/closeme.png");
+}
+.dimoptbtn {
+	opacity:0.6;
+}
+#databetween #datemodbtn {
+	font-weight:normal;
+	font-size:10px;
+}
+.chartselect .selleft{
+	width:100px;
+	float:left;
+}
+.chartselect .selright{
+	width:240px;
+	float:right;
+}
+.chartselect .selright .one{
+	margin:10px;
+	padding:10px;
+	display:none;
+	cursor:pointer;
+}
+.chartselect .selleft ul {
+	margin:0px;
+	padding:0px;
+}
+.chartselect .selleft ul li {
+	margin:0px;
+	padding:8px;
+	background-color:#EEE;
+	border-bottom:solid 1px #CCCCCC;
+	cursor:pointer;
+}
+.chartselect .selleft ul li.select {
+	background-color:#FFF;
+}
+.tsbd {
+	width:135px;
+	float:left;
+}
+.tsbd2 {
+	height:50px;
+}
+.tsbd .ts_h{
+	font-size:14px;
+	margin:10px;
+	width:120px;
+}
+.tsbd2 .ts_h2{
+	font-size:12px;
+	margin:3px 20px 3px 3px;
+	width:120px;
+	float:left;
+}
+.tsbd .h_ctx, .tsbd2 .h_ctx{
+	border:1px solid #7F9DB9;
+	overflow:hidden;
+	height:26px;
+}
+.chartctx {
+	border:1px solid #CACACA;
+	height:170px;
+	margin-left:170px;
+}
+span.charttip {
+	color:#999999;
+	padding:3px;
+	display:block;
+}
+span.charttxt {
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:90px;
+	padding:3px;
+	float:left;
+	overflow:hidden;
+	white-space:nowrap;
+}
+span.charticon {
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:20px;
+	height:16px;
+	background-image:url("../img/dimset.png");
+	cursor:pointer;
+	background-position:center center;
+	background-repeat:no-repeat;
+	opacity: 0.6;
+	float:right;
+	margin-top:3px;
+}
+span.chartdel {
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:20px;
+	height:16px;
+	background-image:url("../img/closeme.png");
+	cursor:pointer;
+	background-position:center center;
+	background-repeat:no-repeat;
+	margin:3px 0;
+}
+.tsbd span.grouptype {
+	width:16px;
+	height:16px;
+	display:-moz-inline-box;  
+	display:inline-block;
+	background-image:url("../img/chartsumtype.gif");
+	cursor:pointer;
+	background-position:center center;
+	background-repeat:no-repeat;
+	float:left;
+	margin:3px 0;
+}
+.exchangexs {
+	width:20px;
+	height:170px;
+	float:left;
+}
+#d_colDims span.colkpi{
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:110px;
+	overflow:hidden;
+	padding:5px 0px 0px 3px;
+}
+#d_kpi span.kpiValue{ 
+	display:block;
+	width:110px;
+}
+#d_rowDims span.s_rowDim{  
+	display:block;
+	width:110px;
+	white-space: nowrap;
+	overflow:hidden;
+	margin:3px;
+}
+#d_colDims span.s_colDim{
+	white-space: nowrap;
+}
+.chartdrillmenu{
+	margin-top:5px;
+	margin-left:5px;
+}
+.chartdrillDim{
+	display:-moz-inline-box;  
+	display:inline-block;
+	text-align:center;
+	background-color: #FFFFCC;
+	border: 1px solid #CACACA;
+	padding: 2px;
+	margin:0px 3px 0px 3px;
+}
+.chartdrillDim a {
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:18px;
+	height:12px;
+	background-image:url("../../ext-res/image/minus.gif");
+	background-repeat:no-repeat;
+	background-position:center center;
+	text-decoration:none;
+}
+#d_colDims span.colkpi span.kpiname{
+	display:-moz-inline-box;  
+	display:inline-block;
+	white-space:nowrap;
+	width:84px;
+}
+#p_param span.pppp {
+	background-color: #FFFFCC;
+    border: 1px solid #CACACA;
+    display: inline-block;
+    padding: 4px;
+    text-align: center;
+	margin:2px;
+	border-radius: 3px;
+}
+#p_param span.text {
+	cursor:pointer;
+}
+#p_param span.pppp span.text {
+	display:-moz-inline-box;  
+	white-space:nowrap;
+	overflow:hidden;
+}
+#reportcatalist {
+	width: 190px;
+	border: 1px solid #B7D0E3;
+	height:140px;
+	overflow:auto;
+}
+.openlist {
+	width:600px;
+	height:290px;
+	display:inline-block;
+	overflow-x: hidden;
+	overflow:auto;
+}
+.openlistbody {
+	width:600px;
+	height:320px;
+	overflow:hidden;
+	margin:auto;
+}
+.tablesleft {
+    border: 1px solid #999;
+    float: left;
+    height: 250px;
+    overflow: hidden;
+    width: 220px;
+}
+.tabletitle {
+    background-color: #e4e4e4;
+    padding-left: 3px;
+}
+.tablescenter {
+    float: left;
+    height: 250px;
+    text-align: center;
+    width: 46px;
+}
+.tablesright {
+    border: 1px solid #999;
+    float: right;
+    height: 250px;
+    overflow: hidden;
+    width: 220px;
+}
+/** olap 视图样式*/
+TABLE.grid5 {
+	width: 100%;
+    border-collapse:collapse;
+    border-spacing: 0px;
+    border-cellpadding: 0px;
+}
+TABLE.grid5 THEAD {color: black;text-align: center}
+TABLE.grid5 TH {
+    border: 1px solid #CACACA;
+    font-size: 13px;
+     height:26px;
+    background-color: #EEEEEE;
+    text-align: left;
+	font-weight:normal;
+}
+TABLE.grid5 TD.grid5-td {
+    border: 1px solid #CACACA;
+    font-size: 12px;
+    height:26px;
+	overflow:hidden;
+	padding:3px;
+}
+TABLE.grid5 TD.kpiData1 {
+	background-color:#FFF;
+}
+TABLE.grid5 TD.kpiData2 {
+	background-color:#F7F7F7;
+}
+TABLE.grid5 td.pms, TABLE.grid3 td.pms {
+    color: #ff0000;
+    font-weight: bold;
+    text-align: center;
+}
+.dimDrill{
+	display: inline-block;
+    text-decoration: none;
+    width: 17px;
+	height:14px;
+	background-image:url(../image/plus.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	cursor:pointer;
+}
+.dimgoup{
+	display: inline-block;
+    text-decoration: none;
+    width: 17px;
+	height:14px;
+	background-image:url(../image/minus.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	cursor:pointer;	
+}
+.tabhelpr{
+	color:#999999;
+	font-size:14px;
+	padding:15px;
+}
+#p_param .ptabhelpr{
+	padding:5px;
+	color: #999999;
+    font-size: 14px;
+}
+.dfilter {
+	width:290px;
+	height:218px;
+	overflow:auto;
+}
+.warning1 {
+	display: inline-block;
+    width: 16px;
+	height:16px;
+	background-image:url(../image/j1.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.warning2 {
+	display: inline-block;
+    width: 16px;
+	height:16px;
+	background-image:url(../image/j2.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.warning3 {
+	display: inline-block;
+    width: 16px;
+	height:16px;
+	background-image:url(../image/j3.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.warning4 {
+	display: inline-block;
+    width: 16px;
+	height:16px;
+	background-image:url(../image/w1.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.warning5 {
+	display: inline-block;
+    width: 16px;
+	height:16px;
+	background-image:url(../image/w2.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.warning6 {
+	display: inline-block;
+    width: 16px;
+	height:16px;
+	background-image:url(../image/w3.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruisitech.bi.mapper.app.CollectMapper">
+    <resultMap id="BaseResultMap" type="com.ruisitech.bi.entity.app.Collect">
+		<id column="report_id" property="rid"/>
+		<id column="user_id" property="userId"/>
+		<result column="crtdate" property="crtdate"/>
+		<result column="title" property="title"/>
+		<result column="url" property="url"/>
+    </resultMap>
+    
+    <select id="listCollect" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select  report_id, b.pagename "title"
+		from report_collect a, portal_user_save b
+		where a.report_id = b.pageid and b.is3g = 'y' and a.user_id = #{userId}
+		order by a.crtdate desc
+	</select>
+	
+	<select id="collectExist" resultType="Integer" parameterType="com.ruisitech.bi.entity.app.Collect">
+		select count(1) cnt
+		from report_collect a
+		where  a.user_id = #{userId} and a.report_id = #{rid}
+	</select>
+	
+	<insert id="addCollect" parameterType="com.ruisitech.bi.entity.app.Collect">
+		insert into report_collect(report_id, user_id,  crtdate) 
+		values(#{rid}, #{userId},now())
+	</insert>
+	
+	<delete id="delCollect" parameterType="com.ruisitech.bi.entity.app.Collect">
+		delete from report_collect where user_id = #{userId} and report_id = #{rid}
+	</delete>
+	
+</mapper>

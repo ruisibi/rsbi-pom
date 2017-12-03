@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruisitech.bi.mapper.model.DimensionMapper">
+    
+    <resultMap id="BaseResultMap" type="com.ruisitech.bi.entity.model.Dimension">
+		<id column="dim_id" property="dimId"/>
+		<result column="dim_desc" property="name"/>
+		<result column="dim_type" property="type"/>
+		<result column="col_key" property="colkey"/>
+		<result column="col_name" property="coltext"/>
+		<result column="dim_ord" property="dimord"/>
+		<result column="key_val_type" property="vtype"/>
+		<result column="col_table_name" property="colTable"/>
+		<result column="ordcol" property="ordcol"/>
+		<result column="cube_id" property="cubeId"/>
+		<result column="group_type" property="groupId"/>
+		<result column="group_name" property="groupName"/>
+		<result column="dateformat" property="dateformat"/>
+		<result column="olap_cube_col_meta_col_name" property="col"/>
+    </resultMap>
+    
+    <select id="getDimInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select a.COL_NAME as olap_cube_col_meta_col_name, a.tname, col_table_name, c.col_key, c.col_name, c.dim_type,
+		 dim_ord, ordcol
+		from olap_cube_col_meta a, olap_cube_meta b, olap_dim_list  c
+		 where a.cube_id = b.cube_id and COL_TYPE = 1 and a.col_id = c.dim_id and COL_ID = #{dimId} and a.cube_id = #{cubeId}
+	</select>
+
+   <insert id="insertDim" parameterType="com.ruisitech.bi.entity.model.Dimension">
+   		insert into olap_dim_list(dim_desc, dim_type,col_key, col_name, dim_ord, key_val_type, col_table_name, ordcol, cube_id, group_type, dateformat)
+		values(#{name}, #{type}, #{colkey}, #{coltext}, #{dimord}, #{vtype}, #{colTable},#{ordcol}, #{cubeId}, #{groupId}, #{dateformat})
+   </insert>
+   
+   <update id="updatedim" parameterType="com.ruisitech.bi.entity.model.Dimension">
+		update olap_dim_list set 
+			dim_desc=#{name}, 
+			dim_type=#{type},
+			col_key=#{colkey}, 
+			col_name=#{coltext},
+			dim_ord=#{dimord},
+			key_val_type=#{vtype},
+			ordcol=#{ordcol},
+			group_type=#{groupId},
+			dateformat=#{dateformat},
+			col_table_name = #{colTable}
+		where dim_id = #{targetId} and cube_id = #{cubeId}
+	</update>
+	
+	<delete id="deleteDim" parameterType="com.ruisitech.bi.entity.model.Dimension">
+		delete from olap_dim_list where cube_id = #{cubeId} 
+		<if test = "dimId != null">
+			and dim_id = #{dimId}
+		</if>
+	</delete>
+   
+   <select id="getMaxDimId" resultType="java.lang.Integer">
+ 	  select max(dim_id) from olap_dim_list
+   </select>
+   
+   <insert id="insertGroup" parameterType="com.ruisitech.bi.entity.model.Dimension">
+   		insert into olap_dim_group(group_id, group_name, ord, cube_Id)
+		values(#{groupId}, #{groupName}, #{ord}, #{cubeId})
+   </insert>
+   
+   <delete id="deleteGroupById" parameterType="java.lang.String">
+   		delete from olap_dim_group where group_id = #{groupId}
+   </delete>
+   
+   <delete id="deleteGroupByCubeId" parameterType="java.lang.Integer">
+   		delete from olap_dim_group where cube_id = #{cubeId}
+   </delete>
+   
+   <select id="listGroup" resultType="java.lang.String" parameterType="java.lang.Integer">
+		select group_id from olap_dim_group where cube_id = #{cubeId}
+	</select>
+</mapper>

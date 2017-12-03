@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>ext</shortname>
+	<tag>
+		<name>display</name>
+		<tagclass>com.ruisi.ext.runtime.tag.ExtDisplayTag</tagclass>
+		<bodycontent>empty</bodycontent>
+	</tag>
+	
+	<tag>
+		<name>include</name>
+		<tagclass>com.ruisi.ext.runtime.tag.ExtIncludeTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+      		<name>mvid</name>
+   	  		<required>true</required>
+   	  		<rtexprvalue>true</rtexprvalue>
+  		</attribute>
+  		<attribute>
+      		<name>resPath</name>
+   	  		<required>false</required>
+   	  		<rtexprvalue>true</rtexprvalue>
+  		</attribute>
+	</tag>
+	
+	<tag>
+		<name>includeRes</name>
+		<tagclass>com.ruisi.ext.runtime.tag.ExtIncludeResTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+      		<name>path</name>
+   	  		<required>false</required>
+   	  		<rtexprvalue>true</rtexprvalue>
+  		</attribute>
+  		<attribute>
+      		<name>useExtGrid</name>
+   	  		<required>false</required>
+   	  		<rtexprvalue>true</rtexprvalue>
+  		</attribute>
+	</tag>
+	
+	<tag>
+		<name>calendar</name>
+		<tagclass>com.ruisi.ext.runtime.tag.CalendarTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+      		<name>divId</name>
+   	  		<required>true</required>
+   	  		<rtexprvalue>true</rtexprvalue>
+  		</attribute>
+  		<attribute>
+      		<name>callback</name>
+   	  		<required>false</required>
+   	  		<rtexprvalue>true</rtexprvalue>
+  		</attribute>
+	</tag>
+
+
+</taglib>
+
+
+

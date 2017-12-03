@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+		<box title="角色管理">
+		
+			
+			<div align="left">
+				<textField id="role_name" desc="角色名称"/>
+				
+				<button action="frame.Role" method="list" desc="搜索" checkParam="false"/>
+			</div>
+			<div align="left" style="padding:5px;">
+			
+				<button action="frame.Role" desc="新增" method="preAdd" checkParam="false" submit="get"></button>
+				<button action="frame.Role" method="preMod" submit="get" desc="修改"></button>
+				<button action="frame.Role" method="delete" desc="删除" confirm="true" styleClass="btn btn-danger btn-sm"></button>
+			</div>
+			<!-- 查询是否需要控制用户的状态 -->
+			<data key="flag">
+				select 1 "key", 2 "value"  from dual
+			</data>
+			<dataGrid>
+				<col-config>
+					<col type="checkbox" alias="role_id" id="id" require="true" desc="多选" width="8%" />
+					<col alias="role_name" desc="角色名称" width="20%" order="true"/>
+					<col alias="create_user" desc="创建人" width="11%" order="true"/>
+					<col alias="role_id" desc="操作" width="25%">
+						<colLink byAlias="role_id" action="frame.Role" desc=" 关联用户 " method="roleUserList" styleClass="btn btn-primary btn-xs" />
+						<colLink byAlias="role_id" action="frame.Role" desc=" 授权菜单 " method="roleMenuList" styleClass="btn btn-primary btn-xs"/>
+					</col>
+				</col-config>
+				<ds pageSize="15">
+					<![CDATA[
+						select role_id,role_name,role_desc,create_user from sc_role
+						#if(${role_name} != '')
+						where role_name like '%${role_name}%'
+						#end
+						order by ord 
+							
+				]]>
+				</ds>
+			</dataGrid>
+		</box>
+</ext-config>

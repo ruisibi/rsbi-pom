@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+<br/>
+<br/>
+<div style="margin:10px;">
+<text>abcedfg</text>
+</div>
+
+<include page="/resource/css/catalog2.css" />
+
+</ext-config>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+		<box title="角色管理 >> 所辖用户 >> 添加用户">
+			<textField type="hidden" id="role_id" show="true"/>
+			<fieldset title="查询条件">
+				<textField id="staffId" desc="工 &amp;nbsp; 号"/>
+				<textField id="login_name" desc=" 用户名称"/> 
+				<select desc=" 用户地域" id="areaNo">
+					select '' value, '全部' text from dual
+				</select>
+				<select desc=" 用户状态" id="state">
+				 <option value="">不限</option>
+				 <option value="1">开启</option>
+				 <option value="0">关闭</option>
+				</select>
+				<button action="frame.Role" method="roleUserPreAdd" desc="搜索" checkParam="false"/>
+				<br/>
+			</fieldset>
+			<data key="roleKey">select role_name "name" from sc_role t where t.role_id = '${role_id}'</data>
+			<text>
+				<template>
+					<![CDATA[
+					<div style="margin:10px 0px 5px 3px; font-size:13px; float:left">
+					当前角色：$roleKey.name               
+					</div>
+					]]>
+				</template>
+			</text>
+			<div align="right" style="padding:5px;">
+				<button action="frame.Role" desc="添加所选用户到指定角色" method="roleUserAdd"></button>
+				<link title="返回" action="frame.Role" method="list"/>
+			</div>
+			<!-- 查询是否需要控制用户的状态 -->
+			<dataGrid>
+				<col-config>
+					<col type="checkbox" alias="user_id" id="id" require="true" desc="多选" width="10%" />
+					<col alias="staff_id" desc="用户工号" width="15%"/>
+					<col alias="login_name" desc="用户名" width="15%"/>
+					<col alias="desc" desc="地域" width="15%" />
+					<col alias="state" desc="状态" width="15%"/>
+				</col-config>
+				<!-- 根据flag判断是否需要控制用户，查询不同的sql -->
+				<ds pageSize="15">
+					<![CDATA[
+					select user_id,staff_id,login_name, '' "desc", a.state "state"   
+					from sc_login_user a
+					where user_id not in (select user_id from role_user_rela where role_id = '${role_id}')
+					#if(${staffId} != '')
+						and staff_id = '${staffId}'
+					#end
+					#if(${login_name} != '')
+						and login_name = '${login_name}'
+					#end
+					#if(${areaNo} != '')
+						and a.area_no = '${areaNo}'
+					#end
+					#if(${state} != '')
+						and a.state = '${state}'
+					#end
+				]]>
+				</ds>
+			</dataGrid>
+		</box>
+</ext-config>

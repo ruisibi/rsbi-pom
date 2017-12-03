@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruisitech.bi.mapper.frame.UserMapper">
+    <resultMap id="BaseResultMap" type="com.ruisitech.bi.entity.frame.User">
+		<id column="user_id" property="userId"/>
+		<result column="staff_id" property="staffId"/>
+		<result column="log_date" property="loginTime"/>
+		<result column="login_name" property="loginName"/>
+		<result column="password" property="password"/>
+		<result column="gender" property="gender"/>
+		<result column="mobilephone" property="mobilePhone"/>
+		<result column="email" property="email"/>
+		<result column="officetel" property="officeTel"/>
+		<result column="state" property="state"/>
+		<result column="log_cnt" property="logCnt"/>
+    </resultMap>
+    
+    <select id="getUserByStaffId" resultMap="BaseResultMap" parameterType="java.lang.String">
+			select user_id, staff_id, log_date, login_name, password, gender,
+			mobilephone, email, officetel, state 
+			from sc_login_user where staff_id = #{staffId}
+	</select>
+	
+	 <select id="getUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+			select user_id, staff_id, log_date, login_name, gender, log_cnt,
+			mobilephone, email, officetel, state 
+			from sc_login_user where user_id = #{userId}
+	</select>
+    
+    <update id="updateuser" parameterType="com.ruisitech.bi.entity.frame.User">
+    	update sc_login_user set login_name=#{loginName},gender=#{gender},
+		mobilephone=#{mobilePhone},email=#{email},officetel=#{officeTel},staff_id=#{staffId}, state=#{state}
+		 where user_id=#{userId}
+    </update>
+    
+    <update id="updateLogDateAndCnt" parameterType="java.lang.Integer">
+    	update sc_login_user set log_cnt = log_cnt + 1, log_date = now() where user_id=#{userId}
+    </update>
+    
+    <update id="insertuser" parameterType="com.ruisitech.bi.entity.frame.User">
+    	insert into sc_login_user(
+		user_id, 
+		login_name, password,gender,  mobilePhone, email, officeTel,DATE_START, STAFF_ID, STATE )
+		 values(
+		#{userId},
+		#{loginName},
+		#{password},
+		#{gender},
+		#{mobilePhone},
+		#{email},
+		#{officeTel},
+		now(),
+		#{staffId},
+		#{state}
+		)
+    </update>
+    
+    <select id="listUserMenus" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+		 select a.menu_id "id",
+		 	   menu_pid "pid",
+		       menu_name "text",
+		      b.menu_id "id2",
+		       c.menu_id "id3"
+		  from sc_menu a left join 
+		       (select distinct (m.menu_id)
+		          from sc_menu m, role_user_rela a, role_menu_rela b
+		         where a.role_id = b.role_id
+		           and b.menu_id = m.menu_id
+		           and a.user_id = #{userId} ) b on a.menu_id = b.menu_id           
+             left join
+		       (select r.menu_id from user_menu_rela r where r.user_id = #{userId} ) c on a.menu_id = c.menu_id 
+		 order by a.menu_order, a.menu_id
+	</select>
+	
+	<select id="checkPsd" resultType="java.lang.String" parameterType="java.lang.Integer">
+		select password from sc_login_user
+		where user_id=#{userId} 
+	</select>
+	
+	<update id="modPsd" parameterType="com.ruisitech.bi.entity.frame.User">
+		update sc_login_user set password = #{password}
+		where user_id = #{userId} 
+	</update>
+	
+	<select id="appUserinfo" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+		select login_name "login_name", log_date "log_date", staff_id "staff_id", state "state", log_cnt "log_cnt",
+		 date_start "date_start", date_end "date_end", '北京睿思科技有限公司' as "company"
+		from sc_login_user a
+		 where user_id = #{userId}
+	</select>
+
+</mapper>

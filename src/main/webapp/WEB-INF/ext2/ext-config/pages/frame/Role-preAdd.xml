@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+		<box title="角色新增">
+			<br/>
+			<textField desc="角色名称" id="name" size="39" require="true"/><br/><br/>
+			<textField desc=" 排 &amp;nbsp;  &amp;nbsp; 序  " id="ord" size="39" require="true" value="0"/><br/><br/>
+			<textField desc="备注信息" id="desc" size="23" type="textarea"/><br/><br/>
+			<button desc="保存" action="frame.Role" method="add"/> 
+			<link action="frame.Role" method="list" title="返回"/>
+		</box>
+</ext-config>

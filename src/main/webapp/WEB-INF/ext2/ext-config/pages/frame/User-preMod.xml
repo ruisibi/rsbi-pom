@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ext-config>
+		<box title="用户管理 >> 修改用户">
+		<div style="margin:10px;">
+			<textField type="hidden" id="user_id" show="true"/>
+			<data key="user">
+				select a.* from sc_login_user a
+				 where a.user_id= '${user_id}'
+			</data>
+			<br/>
+			<textField id="staffId" desc="用户工号" size="40" require="true" value="${user.staff_id}"/><text>(登录使用)</text><br/><br/>
+			<textField id="name" desc="用户名称" size="40" require="true" value="${user.login_name}"/><br/><br/>
+			<textField id="areaNo" type="hidden" show="true" value="1"/>
+			<select id="sex" desc="用户性别" value="${user.gender}">
+				<option value=""></option>
+				<option value="男">男</option>
+				<option value="女">女</option>
+			</select><br/><br/>
+			
+			<select id="state" desc="账号状态" value="${user.state}">
+				<option value="1">启用</option>
+				<option value="0">停用</option>
+			</select><br/><br/>
+			
+			<textField id="mobile" desc="手机号码" size="40" value="${user.mobilePhone}"/><br/><br/>
+			<textField id="offmobile" desc="办公电话" size="40" value="${user.OFFICETEL}"/><br/><br/>
+			<textField id="email" desc="电子邮件" size="40" value="${user.EMAIL}"/>
+			<br/><br/>
+			
+			<button desc="保存" action="frame.User" method="mod"/>
+			<link action="frame.User" title="返回"/>
+			</div>
+		</box>
+		
+		<text>
+		<![CDATA[
+		<script language="javascript">
+		function showdept(){
+			$('#pdailog').dialog({
+				title: '选择组织机构',
+				width: 300,
+				height: 320,
+				closed: false,
+				cache: false,
+				modal: true,
+				toolbar:null,
+				content: "<ul id=\"depttree\"></ul>",
+				buttons:[{
+						text:'确定',
+						iconCls:'icon-ok',
+						handler:function(){
+							var node = $("#pdailog #depttree").tree("getSelected");
+							if(node == null){
+								 $.messager.alert("出错了。","请选择组织机构。", "error");
+								 return;
+							}
+							$("#dept").val(node.text);
+							$("#dept_id").val(node.id);
+							$('#pdailog').dialog('close');
+						}
+					},{
+						text:'关闭',
+						iconCls:"icon-cancel",
+						handler:function(){
+							$('#pdailog').dialog('close');
+						}
+					}]
+			});
+			$("#depttree").tree({
+				url:'../frame/Department!tree.action?t='+Math.random(),
+				animate:true
+			});
+		}
+		</script>
+		<div id="pdailog"></div>
+		]]>
+		</text>
+</ext-config>
