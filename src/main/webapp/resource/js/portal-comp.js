@@ -808,7 +808,7 @@ function crossdrill(compId){
 						delete comp.drillDim;
 					}else{
 						var dim = findDim(dimid);
-						comp.drillDim[0] = {name:dim.dim_desc,code:dim.alias,type:dim.dim_type,tableColKey:dim.tableColKey,tableColName:dim.tableColName,dimord:dim.dim_ord,colname:dim.col_name,calc:dim.calc};
+						comp.drillDim[0] = {name:dim.dim_desc,code:dim.alias,type:dim.dim_type,tableColKey:dim.tableColKey,tableColName:dim.tableColName,dimord:dim.dim_ord,colname:dim.col_name,tname:dim.tname,calc:dim.calc};
 						
 					}
 					tableView(comp, comp.id);
