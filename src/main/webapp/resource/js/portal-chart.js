@@ -486,10 +486,10 @@ function setChartProperty(comp){
 	if(ctp == "pie" || ctp == "scatter" || ctp == "bubble" || ctp == "map" || ctp == "radar"){
 		
 	}else{
-		dt.push({name:'最小值',col:'ymin', value:(comp.kpiJson[0]!=null?comp.kpiJson[0].ymin:""), group:'纵轴', editor:'numberbox'});
+		dt.push({name:'最小值',col:'min', value:(comp.kpiJson[0]!=null?comp.kpiJson[0].min:""), group:'纵轴', editor:'numberbox'});
 	}
 	if(ctp == "gauge"){
-		dt.push({name:'最大值',col:'ymax', value:(comp.kpiJson[0]!=null?comp.kpiJson[0].ymax:""), group:'纵轴', editor:'numberbox'});
+		dt.push({name:'最大值',col:'max', value:(comp.kpiJson[0]!=null?comp.kpiJson[0].max:""), group:'纵轴', editor:'numberbox'});
 	}
 	dt.push({name:'度量比例',col:'rate', value:(comp.kpiJson[0]!=null?comp.kpiJson[0].rate:""), group:'纵轴', editor:{
 		type:'combobox',
@@ -575,7 +575,7 @@ function setChartProperty(comp){
 				}
 				comp.chartJson.xcol[col] = val;
 				chartview(comp, comp.id);
-			}else if(col == "ydispName" || col == "unit" || col == "fmt" || col == "ymin" || col == "ymax" || col == "rate"){
+			}else if(col == "ydispName" || col == "unit" || col == "fmt" || col == "min" || col == "max" || col == "rate"){
 				var o = comp.kpiJson[0];
 				if(o[col]==undefined){
 					o[col] = "";
