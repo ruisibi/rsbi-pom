@@ -676,7 +676,7 @@ public class TableService extends BaseCompService {
 		//创建计算的分组维
 		StringBuffer sb = new StringBuffer("");
 		for(int i=0; i<sqlVO.getCols().size(); i++){
-			DimDto dim = sqlVO.getDims().get(i);
+			DimDto dim = sqlVO.getCols().get(i);
 			sb.append(dim.getColname());
 			sb.append(",");
 			
