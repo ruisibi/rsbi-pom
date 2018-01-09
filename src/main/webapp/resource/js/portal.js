@@ -1238,6 +1238,7 @@ function compevent(compId){
 		}
 	}
 	str = str + "</select>";
+	var cols;
 	var findCubeCols = function(cubeId){
 		var ret = "";
 		$.ajax({
@@ -1247,8 +1248,9 @@ function compevent(compId){
 			dataType:"json",
 			async:false,
 			success: function(resp){
+				cols = resp;
 				for(k=0; k<resp.length; k++){
-					ret = ret + "<option value=\""+resp[k].col_name+"@@"+resp[k].alias+"@@"+resp[k].dim_type+"\" "+(linkaccept&&linkaccept.col==resp[k].col_name?"selected":"")+">"+resp[k].dim_desc+"</option>";
+					ret = ret + "<option value=\""+resp[k].alias+"\" "+(linkaccept&&linkaccept.alias==resp[k].alias?"selected":"")+">"+resp[k].dim_desc+"</option>";
 				}
 			}
 		});
@@ -1290,11 +1292,13 @@ function compevent(compId){
 					}
 					
 				}else{
-					var colandtype = $("#compevent_tab #acceptCol").val();
-					var tmp = colandtype.split("@@");
-					var col = tmp[0];
-					var type = tmp[2];
-					var alias = tmp[1];
+					var col = $("#compevent_tab #acceptCol").val();
+					var dim = null;
+					for(c=0; c<cols.length; c++){
+						if(cols[c].alias == col){
+							dim = cols[c];
+						}
+					}
 					var val = $("#compevent_tab #dftval").val();
 					var valType = $("#compevent_tab #valtype").val();
 					if(col == '' && val == ''){
@@ -1303,10 +1307,10 @@ function compevent(compId){
 						return;
 					}
 					if(comp.type == "chart"){
-						comp.chartJson.linkAccept = {col:col, alias:alias, type:type, dftval: val, valType: valType};
+						comp.chartJson.linkAccept = {col:dim.col_name, alias:dim.alias, type:dim.dim_type, dftval: val, valType: valType, tname:dim.tname,dim_tname:dim.dim_tname};
 						chartview(comp, comp.id);
 					}else{
-						comp.linkAccept = {col:col, alias:alias, type:type, dftval: val, valType: valType};
+						comp.linkAccept = {col:dim.col_name, alias:dim.alias, type:dim.dim_type, dftval: val, valType: valType, tname:dim.tname, dim_tname:dim.dim_tname};
 					}
 				}
 				curTmpInfo.isupdate = true;

@@ -22,7 +22,7 @@ public class LoginController {
 	@RequestMapping(value="/Login.action")
 	public String login() {
 		Subject us = SecurityUtils.getSubject(); 
-		if(us.isAuthenticated()){  //判断是否登录
+		if(us.isAuthenticated() || us.isRemembered()){  //判断是否登录
 			return "Login-login";
 		}
 		return "Login";
