@@ -487,7 +487,7 @@ public class PortalChartService extends BaseCompService {
 				if(key != null && txt != null && key.length() >0 && txt.length() >0){
 					sql.append(tableAlias.get(tableName)  + "." + key+", " + tableAlias.get(tableName) + "." + txt);
 				}else{
-					if(dim.getCalc() == 1){
+					if(dim.getCalc() != null && dim.getCalc() == 1){
 						sql.append(dim.getColname());
 					}else{
 						sql.append(tableAlias.get(tname)+"."+dim.getColname());
@@ -513,7 +513,8 @@ public class PortalChartService extends BaseCompService {
 					if(dim.getOrdcol() != null && dim.getOrdcol().length() > 0){  //处理维度排序
 						order.append(tableAlias.get(dim.getTname()) + "." + dim.getOrdcol() + " " + dim.getDimord() + ",");
 					}else{
-						order.append(tableAlias.get(dim.getTname()) + "." + dim.getOrdcol() + " " + dim.getDimord() + ",");
+						//需要处理 是否计算列
+						order.append((dim.getCalc() != null && dim.getCalc() == 1 ?dim.getColname():tableAlias.get(dim.getTname()) + "." + dim.getColname())+ " " + dim.getDimord() + ",");
 					}
 				}
 			}

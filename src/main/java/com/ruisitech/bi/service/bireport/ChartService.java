@@ -500,7 +500,8 @@ public class ChartService extends BaseCompService {
 					if(dim.getOrdcol() != null && dim.getOrdcol().length() > 0){  //处理维度排序
 						order.append(dim.getOrdcol() + " " + dim.getDimord() + ",");
 					}else{
-						order.append("" + dim.getColname() + " " + dim.getDimord() + ",");
+						//需要处理 是否计算列
+						order.append("" +(dim.getCalc() != null && dim.getCalc() == 1 ? dim.getColname():tableAlias.get(dim.getTname()) + "." + dim.getColname()) + " " + dim.getDimord() + ",");
 					}
 				}
 			}
