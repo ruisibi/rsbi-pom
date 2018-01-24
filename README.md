@@ -20,8 +20,8 @@
 
 <p/>
 
-文档地址： https://shatter.gitbooks.io/rsbi/content/ <br/>
-演示地址： http://bi.rosetech.cn/  <br/>
+文档地址： https://book.ruisitech.com/ <br/>
+演示地址： http://bi.ruisitech.com/  <br/>
 账号/口令：test/123456 <br/>
 快速开始： https://my.oschina.net/u/3438563/blog/903393 <br/>
 <p/>
