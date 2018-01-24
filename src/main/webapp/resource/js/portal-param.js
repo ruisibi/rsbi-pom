@@ -181,6 +181,11 @@ function newparam(tp, paramType, pid){
 					return;
 				}
 				var name = $("#pdailog #paramname").val();
+				if(name == ""){
+					msginfo("请输入参数显示名称!");
+					$("#pdailog #paramname").select();
+					return;
+				}
 				var defvalue = $("#pdailog #defvalue").val();
 				var size = $("#pdailog #size").val();
 				var tpname = getParamTypeDesc(paramType);
