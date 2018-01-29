@@ -14,10 +14,6 @@
 				<button action="frame.Role" method="preMod" submit="get" desc="修改"></button>
 				<button action="frame.Role" method="delete" desc="删除" confirm="true" styleClass="btn btn-danger btn-sm"></button>
 			</div>
-			<!-- 查询是否需要控制用户的状态 -->
-			<data key="flag">
-				select 1 "key", 2 "value"  from dual
-			</data>
 			<dataGrid>
 				<col-config>
 					<col type="checkbox" alias="role_id" id="id" require="true" desc="多选" width="8%" />
