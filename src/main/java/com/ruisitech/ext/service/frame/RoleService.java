@@ -260,31 +260,17 @@ public class RoleService extends ServiceSupport
 	@ResultRef("frame.Role-list")
 	public void add(final InputOption option) throws IOException 
 	{
-		String dbName = ExtContext.getInstance().getConstant(ExtConstants.dbName);
-		String key = "";
-		if(dbName.equalsIgnoreCase("mysql")){
-			key = "now()";
-		}else if(dbName.equalsIgnoreCase("oracle")){
-			key = "sysdate";
-		}else if(dbName.equalsIgnoreCase("sqlser")){
-			key = "getdate()";
-		}
-		final String db = dbName;
-		String sql = "insert into sc_role(role_name,role_desc,create_date,create_user, ord"+("oracle".equalsIgnoreCase(dbName)?",role_id":"")+") values(?,?,"+key+",?,?"+("oracle".equalsIgnoreCase(dbName)?",?":"")+")";
+		String sql = "insert into sc_role(role_name,role_desc,create_date,create_user, ord) values(?,?,now(),?,?)";
 		daoHelper.execute(sql, new PreparedStatementCallback<Object>(){
 			public Object doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
 				//UUID uuid = UUID.randomUUID();//主键用UUID生成
 				//String id = uuid.toString().replaceAll("-", "");
-			//	String userid = VDOPUtils.getLoginedUser(option.getRequest()).getStaffId();
+				Integer userid = RSBIUtils.getLoginUserInfo().getUserId();
 				//ps.setString(1, id);
 				ps.setString(1, option.getParamValue("name"));
 				ps.setString(2, option.getParamValue("desc"));
-				//ps.setString(3, userid);
+				ps.setInt(3, userid);
 				ps.setInt(4, Integer.parseInt(option.getParamValue("ord")));
-				if(db.equalsIgnoreCase("oracle")){
-					int maxid = daoHelper.queryForInt("select case WHEN max(role_id) is null then 1 else  max(role_id) + 1 end id from sc_role");
-					ps.setInt(5, maxid);
-				}
 				ps.executeUpdate();
 				return null;
 			}

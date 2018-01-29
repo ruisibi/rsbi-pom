@@ -17,7 +17,7 @@
 			</text>
 			<div align="right" style="padding:5px;">
 				<button action="frame.UserPermission" desc="添加所选角色到指定用户" method="addRole"></button>
-				<link title="返回" action="frame.UserPermission" method="roleList"/>
+				<link title="返回" action="frame.User" method=""/>
 			</div>
 			<!-- 查询是否需要控制用户的状态 -->
 			<dataGrid>
