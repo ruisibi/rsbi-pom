@@ -6,6 +6,7 @@
 		<textField type="hidden" id="pid" show="true"/>
 		<textField type="hidden" id="order" show="true"/>
 		<textField type="hidden" id="url" show="true"/>
+		<textField type="hidden" id="avatar" show="true"/>
 		<box title="菜单管理">
 		<include page="/pages/frame/Menu.jsp"></include>
 		</box>

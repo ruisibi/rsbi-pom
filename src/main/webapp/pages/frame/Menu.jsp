@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page session="false" buffer="none" %>
 <%@ taglib prefix="ext" uri="/WEB-INF/ext-runtime.tld" %>
-
+<style>
+.lone {
+	padding:3px;
+}
+</style>
 <div class="row">
     <div class="col-sm-5">
     <ul id="ggcatatree" style="200px;"></ul>
@@ -74,11 +78,11 @@
 			}
 			
 		}
-		var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">名称：</span><input type=\"text\" id=\"name\" class=\"inputform\" value=\""+(obj?obj.name:"")+"\"><br/><span class=\"inputtext\">URL：</span><input type=\"text\" id=\"url\" class=\"inputform\" value=\""+((obj?obj.url:""))+"\"><br/><span class=\"inputtext\">排序：</span><input type=\"text\" id=\"order\" class=\"inputform\" value=\""+(obj?obj.order:"1")+"\"><br/><span class=\"inputtext\">备注：</span><input type=\"text\" id=\"desc\" class=\"inputform\" value=\""+(obj?obj.desc:"")+"\"><br/></div>";
+		var ctx = "<div style=\"padding:10px;\"><div class=\"lone\"><span class=\"inputtext\">名称：</span><input type=\"text\" id=\"name\" class=\"inputform\" value=\""+(obj?obj.name:"")+"\"></div><div class=\"lone\"><span class=\"inputtext\">URL：</span><input type=\"text\" id=\"url\" class=\"inputform\" value=\""+((obj?obj.url:""))+"\" placeholder=\"如果创建目录则不用填写URL\"></div><div class=\"lone\"><span class=\"inputtext\">排序：</span><input type=\"text\" id=\"order\" class=\"inputform\" value=\""+(obj?obj.order:"1")+"\"></div><div class=\"lone\"><span class=\"inputtext\">图标：</span><input type=\"text\" id=\"avatar\" class=\"inputform\" value=\""+(obj&&obj.avatar!=null?obj.avatar:"")+"\"></div><div class=\"lone\"><span class=\"inputtext\">备注：</span><input type=\"text\" id=\"desc\" class=\"inputform\" value=\""+(obj&&obj.desc!=null?obj.desc:"")+"\"></div></div>";
 		$('#pdailog').dialog({
 			title: update?'修改菜单':'新建菜单',
 			width: 420,
-			height: 220,
+			height: 260,
 			closed: false,
 			cache: false,
 			modal: true,
@@ -100,12 +104,13 @@
 							alert("排序字段必须是数字类型。");
 							return;
 						}
+						var avatar = $("#pdailog #avatar").combobox("getValue");
 						if(update==false){
 							$.ajax({
 							   type: "POST",
 							   url: "extControl?serviceid=frame.Menu&methodId=saveMenu&t_from_id=frame.Menu",
 							   dataType:"text",
-							   data: {"name":name,"note":note,"order":order, "url":url, "pid":node.id},
+							   data: {"name":name,"note":note,"order":order, "url":url, "pid":node.id, "avatar":avatar},
 							   success: function(resp){
 								   $("#ggcatatree").tree("append", {parent:node.target, data:[{id:resp,text:name}]});
 							   }
@@ -115,8 +120,8 @@
 							   type: "POST",
 							   url: "extControl?serviceid=frame.Menu&methodId=updateMenu&t_from_id=frame.Menu",
 							   dataType:"text",
-							   data: {"name":name,"note":note,"order":order, "url":url, "id":node.id},
-							   success: function(resp){
+							   data: {"name":name,"note":note,"order":order, "url":url, "id":node.id,"avatar":avatar},
+							   success: function(){
 								   $("#ggcatatree").tree("update", {target:node.target, text:name});
 							   },
 							   error: function(a, b, c){
@@ -133,6 +138,15 @@
 						$('#pdailog').dialog('close');
 					}
 				}]
+		});
+		$("#pdailog #avatar").combobox({
+			url:'../resource/fonts/menu-icons.json',
+			valueField:'cls',
+			textField:'text',
+			height:25,
+			formatter:function(row){
+				return "<i class=\""+row.cls+"\"></i> "+row.text;
+			}
 		});
 	}
 	function delMenu(){

@@ -104,7 +104,7 @@
 					<c:forEach var="ent" items="${ menus }">
 					<li>
                         <a <c:if test="${ ent.children.size() == 0 }">class="J_menuItem" href="${ent.menuUrl}"</c:if>>
-                            <i class="${ent.avatar}"></i>
+                            <c:if test="${ent.avatar != null && ent.avatar != '' }"><i class="${ent.avatar}"></i></c:if>
                             <span class="nav-label">${ent.menuName}</span>
 							<c:if test="${ ent.children.size() > 0 }"><span class="fa arrow"></span></c:if>
                         </a>
@@ -113,6 +113,7 @@
 								<c:forEach var="child" items="${ ent.children }">
 									 <li>
 										<a <c:if test="${ child.children.size() == 0 }">class="J_menuItem" href="${child.menuUrl}" </c:if> >
+											<c:if test="${child.avatar != null && child.avatar != '' }"><i class="${child.avatar}"></i></c:if>
 											<span class="nav-label">${child.menuName}</span>
 											<c:if test="${ child.children.size() > 0 }"><span class="fa arrow"></span></c:if>
 										</a>
@@ -121,6 +122,7 @@
 												<c:forEach var="sub" items="${ child.children }">
 													 <li>
 														<a class="J_menuItem" href="${sub.menuUrl}">
+															<c:if test="${sub.avatar != null && sub.avatar != '' }"><i class="${sub.avatar}"></i></c:if>
 															<span class="nav-label">${sub.menuName}</span>
 														</a>
 													</li>

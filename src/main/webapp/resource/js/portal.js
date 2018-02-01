@@ -1358,7 +1358,7 @@ function pushpage(){
 		msginfo("请先保存报表再发布报表。");
 		return;
 	}
-	var ctx = '<div class="textpanel"><span class=\"inputtext\">名称：</span><input type=\"text\" id=\"name\" class=\"inputform2\"><br/><span class=\"inputtext\">排序：</span><input type=\"text\" id=\"ord\" class=\"inputform2\" value=\"1\"><table><tr><td valign=\"top\"><span class=\"inputtext\">上级菜单：</span></td><td><ul id=\"ggcatatree\" style=\"width:100%\"></ul></td></tr></table></div>';
+	var ctx = '<div style="padding:10px;"><span class=\"inputtext\">名称：</span><input type=\"text\" id=\"name\" class=\"inputform2\"><br/><span class=\"inputtext\">排序：</span><input type=\"text\" id=\"ord\" class=\"inputform2\" value=\"1\"><br/><span class=\"inputtext\">图标：</span><input type=\"text\" id=\"avatar\" class=\"inputform2\"><table><tr><td valign=\"top\"><span class=\"inputtext\">上级菜单：</span></td><td><ul id=\"ggcatatree\" style=\"width:100%\"></ul></td></tr></table></div>';
 	$('#pdailog').dialog({
 		title: '发布报表到菜单',
 		width: 380,
@@ -1391,6 +1391,7 @@ function pushpage(){
 					msginfo("请选择上级菜单。");
 					return;
 				}
+				var avatar = $("#pdailog #avatar").combobox("getValue");
 				//新增只能配置3级菜单
 				var p1 = $("#pdailog #ggcatatree").tree("getParent", node.target);
 				if(p1 != null){
@@ -1407,7 +1408,7 @@ function pushpage(){
 				$.ajax({
 					type:"POST",
 					url:"../control/extControl?serviceid=frame.Menu&methodId=saveMenu&t_from_id=frame.Menu",
-					data:{"name":name,"note":"","order":ord, "url":url, "pid":node.id,urls:"portal/Export.action,portal/print.action,portal/show.action"},
+					data:{"name":name,"note":"","order":ord, "url":url,"avatar":avatar, "pid":node.id,urls:"portal/Export.action,portal/print.action,portal/show.action"},
 					dataType:"html",
 					success:function(){
 						msginfo("菜单推送成功。", "suc");
@@ -1440,7 +1441,16 @@ function pushpage(){
 	});
 	var node = $('#ggcatatree').tree("getRoot");
 	$('#ggcatatree').tree("expand", node.target);
-
+	//初始化图标
+	$("#pdailog #avatar").combobox({
+		url:'../resource/fonts/menu-icons.json',
+		valueField:'cls',
+		textField:'text',
+		height:25,
+		formatter:function(row){
+			return "<i class=\""+row.cls+"\"></i> "+row.text;
+		}
+	});
 }
 //设置报表风格样式
 /**
