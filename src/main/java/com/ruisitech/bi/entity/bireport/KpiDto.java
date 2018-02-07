@@ -33,6 +33,8 @@ public class KpiDto extends BaseEntity {
 	private String funcname;  //回调函数名称
 	private String code;  //回调函数内容
 	private Boolean mergeData; //合并第二纵轴的数据
+	private String tfontcolor;
+	
 	public String getAggre() {
 		return aggre;
 	}
@@ -173,4 +175,11 @@ public class KpiDto extends BaseEntity {
 	public void setCol_name(String col_name) {
 		this.col_name = col_name;
 	}
+	public String getTfontcolor() {
+		return tfontcolor;
+	}
+	public void setTfontcolor(String tfontcolor) {
+		this.tfontcolor = tfontcolor;
+	}
+	
 }

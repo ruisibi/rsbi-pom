@@ -75,7 +75,7 @@ public class BoxService extends BaseCompService {
 		//处理参数,把参数设为hidden
 		super.parserHiddenParam(box.getPortalParams(), mv, mvParams);	
 		
-		this.json2Box(box, mv);
+		this.json2Box(box, mv, false);
 		
 		super.createDsource(this.cacheService.getDsource(box.getDsid()), mv);
 		
@@ -88,9 +88,21 @@ public class BoxService extends BaseCompService {
 	 * @param mv
 	 * @throws IOException 
 	 */
-	public void json2Box(BoxQuery box, Element mv) throws IOException{
+	public void json2Box(BoxQuery box, Element mv, boolean crtTitle) throws IOException{
 		if(box.getKpiJson()== null){
 			return;
+		}
+		//创建标题
+		if(crtTitle){
+			TextContext text = new TextContextImpl();
+			TextProperty tp = new TextProperty();
+			tp.setAlign("center");
+			tp.setColor(box.getKpiJson().getTfontcolor());
+			tp.setStyleClass("ibox-title-view");
+			text.setText(box.getName());
+			text.setTextProperty(tp);
+			mv.getChildren().add(text);
+			text.setParent(mv);
 		}
 		//创建box 的 data 标签
 		String sql = createSql(box);

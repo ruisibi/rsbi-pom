@@ -34,7 +34,6 @@ import com.ruisi.ext.engine.view.context.dc.grid.GridDataCenterContext;
 import com.ruisi.ext.engine.view.context.face.OptionsLoader;
 import com.ruisi.ext.engine.view.context.form.ButtonContext;
 import com.ruisi.ext.engine.view.context.form.ButtonContextImpl;
-import com.ruisi.ext.engine.view.context.form.CheckBoxContextImpl;
 import com.ruisi.ext.engine.view.context.form.DateSelectContextImpl;
 import com.ruisi.ext.engine.view.context.form.InputField;
 import com.ruisi.ext.engine.view.context.form.MultiSelectContextImpl;
@@ -217,19 +216,21 @@ public class PortalPageService extends BaseCompService {
 						
 						//判断是否生成title
 						String showtitle = (String)comp.get("showtitle");
-						if(showtitle != null && "false".equalsIgnoreCase(showtitle)){   //不生成head
+						if((showtitle != null && "false".equalsIgnoreCase(showtitle))
+								//数据框默认不生成title
+								|| tp.equals("box") ){   //不生成head
 							
 						}else{   //生成head
 							DivContext head = new DivContextImpl(); //内层head Div
 							head.setChildren(new ArrayList<Element>());
-							head.setStyleClass("ibox-title");
+							head.setStyleClass("ibox-title-view");
 							div.getChildren().add(head);
 							head.setParent(div);
 							
 							TextContext text = new TextContextImpl(); //head Div 的文字
 							text.setText(comp.getString("name"));
 							TextProperty ctp = new TextProperty();
-							ctp.setAlign("center");
+							ctp.setAlign("left");
 							ctp.setWeight("bold");
 							text.setTextProperty(ctp);
 							head.getChildren().add(text);
@@ -238,7 +239,7 @@ public class PortalPageService extends BaseCompService {
 						
 						DivContext content = new DivContextImpl(); //内层content Div
 						content.setStyleClass("ibox-content");
-						//content.setStyle("margin:3px;");
+						content.setStyle("border-top:none; padding:3px;");
 						content.setChildren(new ArrayList<Element>());
 						div.getChildren().add(content);
 						content.setParent(div);
@@ -477,7 +478,7 @@ public class PortalPageService extends BaseCompService {
 		if(!this.dsids.contains(dsid)){
 			dsids.add(dsid);
 		}
-		boxSerivce.json2Box(compJson, td);
+		boxSerivce.json2Box(compJson, td, true);
 		if(!this.dsids.contains(compJson.getDsid())){
 			this.dsids.add(compJson.getDsid());
 		}
