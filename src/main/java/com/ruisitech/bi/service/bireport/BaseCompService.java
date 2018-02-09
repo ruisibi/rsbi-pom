@@ -211,6 +211,7 @@ public abstract class BaseCompService {
 				mvParams.put(target.getId(), target);
 				ExtContext.getInstance().putServiceParam(mv.getMvid(), target.getId(), target);
 				
+				
 				mv.getChildren().add(target);
 				target.setParent(mv);
 			}

@@ -77,6 +77,7 @@ table.r_layout td.layouttd {
 }
 .ibox-content {
 	overflow:auto;
+	padding:0px;
 }
 .inputform2 {
 	width:120px;

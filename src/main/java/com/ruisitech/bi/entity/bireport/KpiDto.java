@@ -34,6 +34,7 @@ public class KpiDto extends BaseEntity {
 	private String code;  //回调函数内容
 	private Boolean mergeData; //合并第二纵轴的数据
 	private String tfontcolor;
+	private Integer tfontsize;  //字体大小
 	
 	public String getAggre() {
 		return aggre;
@@ -180,6 +181,12 @@ public class KpiDto extends BaseEntity {
 	}
 	public void setTfontcolor(String tfontcolor) {
 		this.tfontcolor = tfontcolor;
+	}
+	public Integer getTfontsize() {
+		return tfontsize;
+	}
+	public void setTfontsize(Integer tfontsize) {
+		this.tfontsize = tfontsize;
 	}
 	
 }

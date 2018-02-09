@@ -433,10 +433,18 @@ function setBoxProperty(comp){
 			var val = rowData.value;
 			var col = rowData.col;
 			curTmpInfo.isupdate = true;
-			
 			if(col == "name"){
 				comp.name = val;
 				$("#c_"+comp.id + " div.ctit h5").text(val);
+			}else if(col == "bgcolor"){
+				comp[col] = val;
+				if(val == ""){ //
+					$("#c_"+comp.id + " div.ibox-content").css("background-color", "inherit");
+				}else{
+					$("#c_"+comp.id + " div.ibox-content").css("background-color", val);
+				}
+			}else if(col == "showtitle" ){
+				comp[col] = val;
 			}else{
 				if(comp.kpiJson[col] == val){ //值未改变
 					return;
@@ -444,18 +452,30 @@ function setBoxProperty(comp){
 				comp.kpiJson[col] = val;
 				boxView(comp);
 			}
-			
 		},
 		data:[
-			{name:'标题',col:'name', value:(comp.name?comp.name:""), group:'数据集块属性', editor:'text'},
-			{name:'单位',col:'unit', value:(comp.kpiJson&&comp.kpiJson!=null?comp.kpiJson.unit:""), group:'数据集块属性', editor:'text'},
-			{name:'格式化',col:'fmt', value:(comp.kpiJson&&comp.kpiJson!=null?comp.kpiJson.fmt:""), group:'数据集块属性', editor:{
+			{name:'标题',col:'name', value:(comp.name?comp.name:""), group:'数据块属性', editor:'text'},
+			{name:'单位',col:'unit', value:(comp.kpiJson&&comp.kpiJson!=null?comp.kpiJson.unit:""), group:'数据块属性', editor:'text'},
+			{name:'格式化',col:'fmt', value:(comp.kpiJson&&comp.kpiJson!=null?comp.kpiJson.fmt:""), group:'数据块属性', editor:{
 				type:'combobox',
 				options:{data:fmtJson}
 			}},
-			{name:'度量比例',col:'rate', value:(comp.kpiJson&&comp.kpiJson!=null?comp.kpiJson.rate:""), group:'数据集块属性', editor:{
+			{name:'度量比例',col:'rate', value:(comp.kpiJson&&comp.kpiJson!=null?comp.kpiJson.rate:""), group:'数据块属性', editor:{
 				type:'combobox',
 				options:{data:kpirate}
+			}},
+			{name:'字体大小',col:'tfontsize', value:(comp.kpiJson&&comp.kpiJson.tfontsize?comp.kpiJson.tfontsize:"32"), group:'数据块属性', editor:'numberbox'},
+			{name:'字体颜色',col:'tfontcolor', value:(comp.kpiJson&&comp.kpiJson.tfontcolor?comp.kpiJson.tfontcolor:""), group:'数据块属性', editor:{
+				type:'combobox',
+				options:{data:colorJson, formatter:function(row){
+					return "<div style=\"background-color:"+row.value+"\">"+row.text+"</div>";
+				}}
+			}},
+			{name:'背景颜色',col:'bgcolor', value:(comp.bgcolor?comp.bgcolor:""), group:'数据块属性', editor:{
+				type:'combobox',
+				options:{data:colorJson, formatter:function(row){
+					return "<div style=\"background-color:"+row.value+"\">"+row.text+"</div>";
+				}}
 			}}
 		]
 	});

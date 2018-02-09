@@ -240,6 +240,13 @@ public class PortalPageService extends BaseCompService {
 						DivContext content = new DivContextImpl(); //内层content Div
 						content.setStyleClass("ibox-content");
 						content.setStyle("border-top:none; padding:3px;");
+						
+						//组件背景色 
+						String bgcolor = (String)comp.get("bgcolor");
+						if(bgcolor != null && bgcolor.length() > 0){
+							content.setStyle("background-color:"+bgcolor);
+						}
+						
 						content.setChildren(new ArrayList<Element>());
 						div.getChildren().add(content);
 						content.setParent(div);

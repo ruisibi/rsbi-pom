@@ -39,7 +39,7 @@ import com.ruisitech.ext.service.DataControlInterface;
 @Service
 @Scope("prototype")
 public class BoxService extends BaseCompService {
-
+	
 	public final static String deftMvId = "mv.portal.box";
 	
 	private Map<String, InputField> mvParams = new HashMap<String, InputField>(); //mv的参数
@@ -117,7 +117,7 @@ public class BoxService extends BaseCompService {
 		//创建box 显示 text 标签
 		KpiDto kpi = box.getKpiJson();
 		TextContext text = new TextContextImpl();
-		String str = "#if($!k"+kpi.getKpi_id()+"."+kpi.getAlias()+") $extUtils.numberFmt($!k"+kpi.getKpi_id()+"."+kpi.getAlias()+", '"+kpi.getFmt()+"') <font size='4' color='#999999'>" ;
+		String str = "#if($!k"+kpi.getKpi_id()+"."+kpi.getAlias()+") $extUtils.numberFmt($!k"+kpi.getKpi_id()+"."+kpi.getAlias()+", '"+kpi.getFmt()+"') <font size='2'>" ;
 		Object rate = kpi.getRate();
 		if(rate != null){
 			str += ChartUtils.writerUnit(new Integer(rate.toString()));
@@ -129,9 +129,19 @@ public class BoxService extends BaseCompService {
 		text.setFormatHtml(true);
 		TextProperty tp = new TextProperty();
 		tp.setAlign("center");
-		tp.setColor("#000000");
 		tp.setWeight("bold");
-		tp.setSize("32");
+		Integer tfontsize = box.getKpiJson().getTfontsize();
+		if(tfontsize != null){
+			tp.setSize(String.valueOf(tfontsize));
+		}else{
+			tp.setSize("32");
+		}
+		String tfontcolor = box.getKpiJson().getTfontcolor();
+		if(tfontcolor != null && tfontcolor.length() > 0){
+			tp.setColor(tfontcolor);
+		}else{
+			tp.setColor("#000000");
+		}
 		tp.setStyleClass("boxcls");
 		text.setTextProperty(tp);
 		mv.getChildren().add(text);

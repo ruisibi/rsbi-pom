@@ -339,6 +339,9 @@ function addComp(comp, layoutId, ispush){
 			textcss = textcss + "height:"+sty.theight+"px;";
 		}
 	}
+	if(json.type == "box" && json.bgcolor && json.bgcolor!=""){
+		textcss = textcss + "background-color:"+json.bgcolor+";";
+	}
 	var str = "<div class=\"ibox\" id=\"c_"+json.id+"\"><div class=\"ibox-title\"><div title=\"双击改名\" ondblclick=\"chgcompname(this, '"+json.id+"')\" class=\"ctit\" style=\""+style+"\"><h5>"+json.name+"</h5></div>"+"<div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs mvcomp\" title=\"移动组件\" cid=\""+json.id+"\"><i class=\"fa fa-hand-grab-o\"></i></button> <button class=\"btn btn-outline btn-success btn-xs\" onclick=\"showcompmenu(this,'"+layoutId+"','"+comp.id+"')\" title=\"设置组件\" ><i class=\"fa fa-wrench\"></i></button> <button class=\"btn btn-outline btn-danger btn-xs\" onclick=\"deletecomp('"+layoutId+"', '"+comp.id+"');\" title=\"删除组件\" cid=\""+json.id+"\"><i class=\"fa fa-times\"></i></button></div></div><div class=\"cctx ibox-content\" style=\""+textcss+"\">";
 	if(json.type == 'text'){
 		str = str + comp.desc.replace(/\n/g,"<br>")
