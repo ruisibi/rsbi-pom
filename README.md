@@ -17,7 +17,11 @@
   2.安装程序，此项目为maven工程，通过maven打包项目。 <br>
   3.修改数据库链接文件application.properties,主要修改 username, password 两项内容。  <br>
   4.发布到tomcat或通过启动jetty访问 <br>
+<p/>
 
+# 技术支持：<br/>
+请加群 648548832, 此群为我公司官方技术支持群，你遇到的问题都可以在群里提问，我们竭诚为您服务。 请注意： 加群需要缴费100元技术支持服务费。用微信扫描下方二维码付款，付款后再申请入群。<br/>
+![微信支付](http://bi.ruisibi.cn/resource/img/wxzf.png?v2)  <br/>
 <p/>
 
 文档地址： https://book.ruisitech.com/ <br/>
