@@ -37,7 +37,7 @@
 		</p>
 		<p>&nbsp;</p>
 		
-		<h2>开原版功能模块</h2>
+		<h2>开源版功能模块</h2>
 		<p>&nbsp;</p>
 
 
@@ -51,7 +51,7 @@
 
 <p>5.权限管理</p>
 
-<p class="text-warning">请注意：此版本为开原版， 企业使用建议  <button class="btn btn-primary btn-sm" onclick="window.open('http://www.ruisitech.com/product.html')">购买标准版</button></p>
+<p class="text-warning">请注意：此版本为开源版， 企业使用建议  <button class="btn btn-primary btn-sm" onclick="window.open('http://www.ruisitech.com/product.html')">购买标准版</button></p>
 		</div>
 </div>
  </div>
