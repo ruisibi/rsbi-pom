@@ -39,26 +39,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  1. 点击 移动BI - 创建手机报表 菜单来创建一个新的报表(创建报表前请先建立分类)。<br/>
  2. 下载手机APP, 使用注册的账号登录后点击 手机报表 菜单访问刚才创建的报表。<br/> <br/>
  
-  <font color="#FF0000">安卓app下载地址： </font><a target="_blank" href="http://shouji.baidu.com/software/10060077.html">http://shouji.baidu.com/software/10060077.html</a> （百度手机市场）<br/>
-   <font color="#FF0000">iOS app下载地址： </font><a target="_blank" href="https://itunes.apple.com/cn/app/rui-si-yun-qi-ye-zai-xian/id1099734064?mt=8">https://itunes.apple.com/cn/app/rui-si-yun-qi-ye-zai-xian/id1099734064?mt=8</a> (app Store下载)<br/>
+  <div align="center">
+<img src="http://www.ruisibi.cn/img/rsbiapp.png">
+				 <br/>
+				 扫描二维码下载睿思BI客户端App
+ </div>
  
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="50%" align="center">
-    
-     <img src="http://www.ruisitech.com/img/az.png">
- <br/>
- 安卓客户端下载
-    
-    </td>
-    <td align="center">
-    <img src="http://www.ruisitech.com/img/iosyun.png">
- <br/>
- IOS客户端下载
-    </td>
-  </tr>
-</table>
-
 </div>
 
 </div>

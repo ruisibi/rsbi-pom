@@ -21,6 +21,7 @@ import com.ruisitech.bi.entity.common.RequestStatus;
 import com.ruisitech.bi.entity.common.Result;
 import com.ruisitech.bi.entity.model.DataSource;
 import com.ruisitech.bi.mapper.model.DataSourceMapper;
+import com.ruisitech.bi.service.bireport.ModelCacheService;
 
 @Service
 public class DataSourceService {
@@ -38,6 +39,9 @@ public class DataSourceService {
 	@Autowired
 	private DataSourceMapper mapper;
 	
+	@Autowired
+	private ModelCacheService cacheService;
+	
 	public List<DataSource> listDataSource(){
 		return mapper.listDataSource();
 	}
@@ -48,10 +52,14 @@ public class DataSourceService {
 	
 	public void updateDataSource(DataSource ds){
 		mapper.updateDataSource(ds);
+		//清除缓存
+		this.cacheService.removeDsource(ds.getDsid());
 	}
 	
 	public void deleteDataSource(String dsid){
 		mapper.deleteDataSource(dsid);
+		//清除缓存
+		this.cacheService.removeDsource(dsid);
 	}
 	
 	public DataSource getDataSource(String dsid){
