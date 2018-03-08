@@ -36,7 +36,7 @@
 数据多维分析<br/>
 ![olap](http://www.ruisitech.com/img/olap12.png?v2)  <br/>
 数据可视化<br/>
-![1](http://www.ruisitech.com/img/ybpn1.png?v2)  <br/>
+![1](http://www.ruisibi.cn/img/ybpnew.png?v2)  <br/>
 数据建模<br/>
 ![2](http://www.ruisibi.cn/img/kybmodel.png?v1)  <br/>
 APP访问<br/>
