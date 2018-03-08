@@ -278,7 +278,7 @@ function exportPage(){
 								var chart = echarts.getInstanceByDom(document.getElementById(id));
 								var str = chart.getDataURL({type:'png', pixelRatio:1, backgroundColor: '#fff'});
 								str = str.split(",")[1]; //去除base64标记
-								str = $(this).attr("label") + "," + str; //加上label标记
+								str = $(this).attr("label") + "," + str+","+$("#"+id).width(); //加上label标记,宽度
 								strs = strs  +  str;
 								if(index != $("div.chartUStyle").size() - 1){
 									strs = strs + "@";

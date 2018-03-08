@@ -30,6 +30,19 @@ table.r_layout td.layouttd {
 	width:130px;
 }
 </style>
+<script language="javascript">
+$(function(){
+	//注册resize调整图形事件
+	$(window).on("resizeend", function(e){
+		$("div.chartUStyle").each(function(index, element) {
+			var id = $(this).attr("id");
+			id = id.substring(1, id.length);
+			var chart = echarts.getInstanceByDom(document.getElementById(id));
+			chart.resize($("#C"+id).width(), $("#C"+id).height());
+		});
+	});
+});
+</script>
 <body class="gray-bg">
 ${str}
 </body>

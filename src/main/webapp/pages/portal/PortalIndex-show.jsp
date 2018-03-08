@@ -30,6 +30,15 @@ $(function(){
 	$("#optarea").load("view.action",{pageId:'${pageId}', t:Math.random()}, function(){
 		 __hideLoading();
 	});
+	//注册resize调整图形事件
+	$(window).on("resizeend", function(e){
+		$("div.chartUStyle").each(function(index, element) {
+			var id = $(this).attr("id");
+			id = id.substring(1, id.length);
+			var chart = echarts.getInstanceByDom(document.getElementById(id));
+			chart.resize($("#C"+id).width(), $("#C"+id).height());
+		});
+	});
 });
 function printpage() {
 	var url2 = "about:blank";
@@ -54,7 +63,7 @@ function exportPage(tp){
 			var chart = echarts.getInstanceByDom(document.getElementById(id));
 			var str = chart.getDataURL({type:'png', pixelRatio:1, backgroundColor: '#fff'});
 			str = str.split(",")[1]; //去除base64标记
-			str = $(this).attr("label") + "," + str; //加上label标记
+			str = $(this).attr("label") + "," + str+","+$("#"+id).width(); //加上label标记,由于宽度是100%,需要加上宽度
 			strs = strs  +  str;
 			if(index != $("div.chartUStyle").size() - 1){
 				strs = strs + "@";
