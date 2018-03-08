@@ -25,7 +25,7 @@
 (微信支付二维码)
 <p/>
 
-文档地址： https://book.ruisitech.com/ <br/>
+文档地址： http://www.ruisibi.cn/book.htm <br/>
 演示地址： http://bi.ruisibi.cn/  <br/>
 账号/口令：test/123456 <br/>
 快速开始： https://my.oschina.net/u/3438563/blog/903393 <br/>
@@ -36,7 +36,7 @@
 数据多维分析<br/>
 ![olap](http://www.ruisitech.com/img/olap12.png?v2)  <br/>
 数据可视化<br/>
-![1](http://www.ruisitech.com/img/ybpn1.png?v2)  <br/>
+![1](http://www.ruisibi.cn/img/ybpnew.png?v2)  <br/>
 数据建模<br/>
 ![2](http://www.ruisibi.cn/img/kybmodel.png?v1)  <br/>
 APP访问<br/>
