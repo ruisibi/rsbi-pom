@@ -21,6 +21,8 @@
 <link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/icon.css">
 <script type="text/javascript" src="../resource/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../ext-res/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../ext-res/js/jquery.resizeend.min.js"></script>
+
 </head>
 <script language="javascript">
 $(function(){

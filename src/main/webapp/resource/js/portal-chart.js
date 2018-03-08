@@ -408,12 +408,8 @@ function setChartProperty(comp){
 	var dt = [];
 	dt.push({name:'图形标题',col:'title', value:(comp.name?comp.name:""), group:'图形属性', editor:'text'});
 	dt.push({name:'高度',col:'height', value:(comp.chartJson.height?comp.chartJson.height:""), group:'图形属性', editor:'numberbox'});
-	if(curTmpInfo.is3g == "y"){
-		//3G模式下，图形的宽度不可更改
-		dt.push({name:'宽度',col:'width', value:(comp.chartJson.width?comp.chartJson.width:""), group:'图形属性'});
-	}else{
-		dt.push({name:'宽度',col:'width', value:(comp.chartJson.width?comp.chartJson.width:""), group:'图形属性', editor:'numberbox'});
-	}
+	dt.push({name:'宽度',col:'width', value:"100%", group:'图形属性'});
+	
 	if(ctp != 'gauge'){
 		dt.push({name:'是否隐藏图例',col:'showLegend', value:(comp.chartJson.showLegend?comp.chartJson.showLegend:""), group:'图形属性',editor:{
 			type:"checkbox",
@@ -546,26 +542,13 @@ function setChartProperty(comp){
 				chartview(comp, comp.id);
 				
 			}else 
-			if(col == "height" || col == "width"){
-				if(curTmpInfo.is3g == "y" && col == "width"){  //3G 页面不能设置width
-					return;
-				}
+			if(col == "height"){
 				comp.chartJson[col] = val;
 				//获取chart对象
-				/**
-				var charts = Highcharts.charts;
-				var chart = null;
-				for(i=0;i<charts.length;i++){
-					var c = charts[i];
-					if($(c.container).parent().attr("id") ==  "C" + comp.id){
-						chart = c;
-					}
-				}
-				chart.setSize(curTmpInfo.is3g == "y"?458:comp.chartJson.width, comp.chartJson.height);
-				**/
-				$("#C"+comp.id).css({"width" : comp.chartJson.width+"px", "height": comp.chartJson.height+"px"});
 				var chart = echarts.getInstanceByDom(document.getElementById('C'+comp.id));
-				chart.resize('auto', 'auto');
+				//chart.resize($("#C"+comp.id).width(), Number(comp.chartJson.height));
+				$("#C"+comp.id).height(comp.chartJson.height+"px");
+				chart.resize("auto", "auto");
 			}else if(col == "tickInterval" || col == "routeXaxisLable" || col == "xdispName" || col == "top"){
 				if(comp.chartJson.xcol[col]==undefined){
 					comp.chartJson.xcol[col] = "";

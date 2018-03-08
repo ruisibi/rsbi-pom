@@ -175,10 +175,10 @@ public class PortalChartService extends BaseCompService {
 		
 		ctx.setShape(chartJson.getType());
 		if("pie".equals(ctx.getShape()) || "gauge".equals(ctx.getShape())){
-			ctx.setWidth(chartJson.getWidth() == null ? "360" : String.valueOf(chartJson.getWidth()));
+			ctx.setWidth("100%");
 			ctx.setHeight(chartJson.getHeight() == null ? "250" : String.valueOf(chartJson.getHeight()));
 		}else{
-			ctx.setWidth(chartJson.getWidth() == null ? "600" : String.valueOf(chartJson.getWidth()));
+			ctx.setWidth("100%");
 			ctx.setHeight(chartJson.getHeight() == null ? "250" : String.valueOf(chartJson.getHeight()));
 		}
 		//默认图形为居中

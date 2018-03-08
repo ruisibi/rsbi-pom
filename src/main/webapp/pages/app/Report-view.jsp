@@ -14,6 +14,7 @@
     <script language="javascript" src="../ext-res/js/ext-base.js?v2"></script>
     <script language="javascript" src="../ext-res/js/sortabletable.js"></script>
     <script type="text/javascript" src="../ext-res/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="../ext-res/js/jquery.resizeend.min.js"></script>
   </head>
    <style>
 table.r_layout td.layouttd {

@@ -1039,6 +1039,35 @@ function initlayout(){
 	var id = pageInfo.layout;
 	var json = pageInfo.body;
 	crtLayoutHTML(json, true);
+	//注册window resize 事件, 改变图形大小 
+	$(window).on("resizeend", function(e){
+		resetCharts();
+	});
+	//注册布局切换事件，改变图形大小
+	$("#Jlayout").layout({
+		onAdd:function(c){
+			if(c == "east"){
+				window.setTimeout(function(){resetCharts();}, 200);
+				resetCharts();
+			}
+		},
+		onRemove:function(c){
+			if(c == "east"){
+				window.setTimeout(function(){resetCharts();}, 200);
+			}
+		}
+	});
+}
+/*改变图像大小*/
+function resetCharts(){
+	for(i=0; i<curTmpInfo.comps.length; i++){
+		var c = curTmpInfo.comps[i];
+		var id = c.id;
+		if(c.type == "chart"){
+			var chart = echarts.getInstanceByDom(document.getElementById('C'+id));
+			chart.resize($("#C"+id).width(), $("#C"+id).height());
+		}
+	}
 }
 /**
 isbind 是否绑定事件
@@ -1130,7 +1159,7 @@ function crtLayoutHTML(json, isbind){
 			$(".indicator").hide();
 			if($(source).hasClass("ibox")){
 				//组件间的拖拽
-				if($(this).children().size() == 0){
+				if($(this).hasClass("laytd")){ //拖拽在td上
 					$(this).append(source);
 				}else{
 					if(curTmpInfo.tp == "before"){
@@ -1139,6 +1168,14 @@ function crtLayoutHTML(json, isbind){
 						$("#"+curTmpInfo.id).after(source);
 					}
 				}
+				window.setTimeout(function(){
+					var id = $(source).attr("id").replace("c_", "");
+					var comp = findCompById(id);
+					if(comp.type == "chart"){  //拖拽后重新调整图形大小
+						var chart = echarts.getInstanceByDom(document.getElementById('C'+comp.id));
+						chart.resize($("#C"+comp.id).width(), $("#C"+comp.id).height());
+					}
+				}, 200);
 			}else{
 				//alert(curTmpInfo.tp + "," + curTmpInfo.id);
 				var node = $("#comp_tree").tree("getNode", source);

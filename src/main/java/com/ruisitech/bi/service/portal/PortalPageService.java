@@ -214,6 +214,12 @@ public class PortalPageService extends BaseCompService {
 						tabTd.getChildren().add(div);
 						div.setParent(tabTd);
 						
+						//判断组件是否是TD中最后一个，如果是，不要 margin-bottom 样式
+						if(k == children.size() - 1){
+							div.setStyle("margin-bottom:none;");
+						}
+						div.setStyle((div.getStyle() == null ? "" : div.getStyle()) + "border:none;");  //去除div边框
+						
 						//判断是否生成title
 						String showtitle = (String)comp.get("showtitle");
 						if((showtitle != null && "false".equalsIgnoreCase(showtitle))

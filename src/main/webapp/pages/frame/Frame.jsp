@@ -171,7 +171,7 @@
                                     </a>
                                 </li>
 								<li>
-                                    <a href="http://shatter.gitbooks.io/rsbi/content/" target="_blank">
+                                    <a href="http://www.ruisibi.cn/book.htm" target="_blank">
                                         <div>使用手册</div>
                                     </a>
                                 </li>
