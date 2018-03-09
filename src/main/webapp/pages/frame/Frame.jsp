@@ -78,7 +78,11 @@
 		
 	});
 </script>
-
+<style>
+.nav > li > a {
+    font-weight: 600;
+}
+</style>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
     <div id="wrapper">
         <!--左侧导航开始-->

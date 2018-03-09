@@ -25,6 +25,7 @@ function insertChart(layoutId, charttype, typeIndex, maparea){
 	$("#layout_"+layoutId).append(str);
 	//注册拖放事件
 	bindCompEvent(comp);
+	bindResizeEvent(comp.id, 'chart');
 	//滚动位置
 	window.setTimeout(function(){
 		$("#optarea").scrollTop($("#c_"+compId).offset().top);

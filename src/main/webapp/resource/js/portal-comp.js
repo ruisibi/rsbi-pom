@@ -245,6 +245,7 @@ function insertText(state, layoutId, compId){
 							$("#optarea").scrollTop($("#c_"+obj.id).offset().top);
 							//注册拖放事件
 							bindCompEvent(obj);
+							bindResizeEvent(obj.id, 'text');
 						}
 						if(state == 'update'){
 							var txt = $("#txtctx").val();
@@ -339,8 +340,15 @@ function addComp(comp, layoutId, ispush){
 			textcss = textcss + "height:"+sty.theight+"px;";
 		}
 	}
+	textcss = textcss + "padding:3px;";
 	if(json.type == "box" && json.bgcolor && json.bgcolor!=""){
 		textcss = textcss + "background-color:"+json.bgcolor+";";
+	}
+	if(json.type == "box" && json.height && json.height != ""){
+		textcss = textcss + "height:"+json.height+"px;";
+	}
+	if(json.type == "text" && json.height){
+		textcss = textcss + "height:"+json.height+"px;";
 	}
 	var str = "<div class=\"ibox\" id=\"c_"+json.id+"\"><div class=\"ibox-title\"><div title=\"双击改名\" ondblclick=\"chgcompname(this, '"+json.id+"')\" class=\"ctit\" style=\""+style+"\"><h5>"+json.name+"</h5></div>"+"<div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs mvcomp\" title=\"移动组件\" cid=\""+json.id+"\"><i class=\"fa fa-hand-grab-o\"></i></button> <button class=\"btn btn-outline btn-success btn-xs\" onclick=\"showcompmenu(this,'"+layoutId+"','"+comp.id+"')\" title=\"设置组件\" ><i class=\"fa fa-wrench\"></i></button> <button class=\"btn btn-outline btn-danger btn-xs\" onclick=\"deletecomp('"+layoutId+"', '"+comp.id+"');\" title=\"删除组件\" cid=\""+json.id+"\"><i class=\"fa fa-times\"></i></button></div></div><div class=\"cctx ibox-content\" style=\""+textcss+"\">";
 	if(json.type == 'text'){
@@ -417,6 +425,7 @@ function bindCompEvent(obj){
 		onDragEnter:function(e,source){
 			curTmpInfo.id = $(this).attr("id");
 			curTmpInfo.tp = "before";
+			curTmpInfo.mouseOnDiv = true;
 			$(".indicator").css({
 				display:'block',
 				left:$(this).offset().left,
@@ -426,28 +435,26 @@ function bindCompEvent(obj){
 			e.stopPropagation(); //阻止事件冒泡
 		},
 		onDragLeave:function(e,source){
-			if($(this).hasClass("div.ibox")){
-				var obj = $(this).parent();
-				var last = obj.children().last();
-				if(last.attr("id") ==  $(source).attr("id")){
-					last = last.prev();
-				}
-				if(last.size() == 0){
-					$(".indicator").css({
-						display:'block',
-						left:obj.offset().left,
-						top:obj.offset().top - 10
-					});
-				}else{
-					curTmpInfo.id = last.attr("id");
-					curTmpInfo.tp = "after";
-					$(".indicator").css({
-						display:'block',
-						left:last.offset().left,
-						top:last.offset().top + last.height()
-					});
-				}
-					
+			curTmpInfo.mouseOnDiv = false;
+			var obj = $(this).parent();
+			var last = obj.children().last();
+			if(last.attr("id") ==  $(source).attr("id")){
+				last = last.prev();
+			}
+			if(last.size() == 0){
+				$(".indicator").css({
+					display:'block',
+					left:obj.offset().left,
+					top:obj.offset().top - 10
+				});
+			}else{
+				curTmpInfo.id = last.attr("id");
+				curTmpInfo.tp = "after";
+				$(".indicator").css({
+					display:'block',
+					left:last.offset().left,
+					top:last.offset().top + last.height()
+				});
 			}
 			e.cancelBubble=true;
 			e.stopPropagation(); //阻止事件冒泡			
@@ -522,10 +529,10 @@ function editTableData(compId){
 	var comp = findCompById(compId);
 	var str = "";
 	for(var i=0; comp.rows&&i<comp.rows.length; i++){
-		str = str + "<span id=\"d_"+comp.rows[i].id+"\" class=\"dimcol\"><span class=\"text\">"+comp.rows[i].dimdesc+"</span><a style=\"opacity: 0.6;\" href=\"javascript:;\" onclick=\"setRdimInfo(this, "+comp.rows[i].id+", '"+comp.rows[i].dimdesc+"','"+compId+"')\"> &nbsp; </a></span>";
+		str = str + "<span id=\"d_"+comp.rows[i].id+"\" class=\"dimcol\"><span class=\"text\">"+comp.rows[i].dimdesc+"</span><div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs\" onclick=\"setRdimInfo(this, "+comp.rows[i].id+", '"+comp.rows[i].dimdesc+"','"+compId+"')\"><i class=\"fa fa-wrench\"></i></button></div></span>";
 	}
 	for(var i=0; comp.kpiJson&&i<comp.kpiJson.length; i++){
-		str = str + "<span id=\"k_"+comp.kpiJson[i].kpi_id+"\" class=\"col\"><span class=\"text\">"+comp.kpiJson[i].kpi_name+"</span><a style=\"opacity: 0.6;\" href=\"javascript:;\" onclick=\"setKpiInfo(this,"+comp.kpiJson[i].kpi_id+",'"+compId+"');\"> &nbsp; </a></span>";
+		str = str + "<span id=\"k_"+comp.kpiJson[i].kpi_id+"\" class=\"col\"><span class=\"text\">"+comp.kpiJson[i].kpi_name+"</span><div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs\" onclick=\"setKpiInfo(this,"+comp.kpiJson[i].kpi_id+",'"+compId+"');\"><i class=\"fa fa-wrench\"></i></button></div></span>";
 	}
 	if(str == ""){
 		str = "<div class=\"tipinfo\">拖拽立方体维度或度量到此处作为交叉表的字段</div>";
@@ -535,7 +542,7 @@ function editTableData(compId){
 	var colstr = "";
 	for(var i=0; comp.cols&&i<comp.cols.length; i++){
 		var o = comp.cols[i];
-		colstr = colstr + "<span id=\"d_"+o.id+"\" class=\"dimcol\"><span class=\"text\">"+o.dimdesc+"</span><a style=\"opacity: 0.6;\" href=\"javascript:;\" onclick=\"setCdimInfo(this, "+o.id+", '"+o.dimdesc+"','"+compId+"')\"> &nbsp; </a></span>";
+		colstr = colstr + "<span id=\"d_"+o.id+"\" class=\"dimcol\"><span class=\"text\">"+o.dimdesc+"</span><div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs\"  onclick=\"setCdimInfo(this, "+o.id+", '"+o.dimdesc+"','"+compId+"')\"><i class=\"fa fa-wrench\"></i></button></div></span>";
 	}
 	if(colstr != ''){
 		colstr = "<span id=\"tabCols\"> &nbsp; &nbsp; <b>列字段：</b>" + colstr + "</span>";
@@ -608,7 +615,7 @@ function editTableData(compId){
 					return;
 				}
 				//添加字段
-				var str = "<span id=\"k_"+node.attributes.col_id+"\" class=\"col\"><span class=\"text\">"+node.text+"</span><a style=\"opacity: 0.6;\" href=\"javascript:;\" onclick=\"setKpiInfo(this,"+node.attributes.col_id+",'"+json.id+"');\"> &nbsp; </a></span>";
+				var str = "<span id=\"k_"+node.attributes.col_id+"\" class=\"col\"><span class=\"text\">"+node.text+"</span><div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs\" onclick=\"setKpiInfo(this,"+node.attributes.col_id+",'"+json.id+"');\"><i class=\"fa fa-wrench\"></i></button></div></span>";
 				var obj = $("#tableData");
 				if(obj.find("#tabRows").size() == 0){
 					obj.html("<span id=\"tabRows\"><b>交叉表字段：</b>"+str+"</span>");
@@ -634,7 +641,7 @@ function editTableData(compId){
 						return;
 					}
 					//添加字段
-					var str = "<span id=\"d_"+node.attributes.col_id+"\" class=\"dimcol\"><span class=\"text\">"+node.text+"</span><a style=\"opacity: 0.6;\" href=\"javascript:;\" onclick=\"setRdimInfo(this, "+node.attributes.col_id+", '"+node.text+"','"+json.id+"')\"> &nbsp; </a></span>";
+					var str = "<span id=\"d_"+node.attributes.col_id+"\" class=\"dimcol\"><span class=\"text\">"+node.text+"</span><div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs\" onclick=\"setRdimInfo(this, "+node.attributes.col_id+", '"+node.text+"','"+json.id+"')\"><i class=\"fa fa-wrench\"></i></button></div></span>";
 					var obj = $("#tableData");
 					if(obj.find("#tabRows").size() == 0){
 						obj.html("<span id=\"tabRows\"><b>交叉表字段：</b>"+str+"</span>");
@@ -742,11 +749,7 @@ function setTableProperty(comp){
 				type:"checkbox",
 				options:{"on":true, "off":false}
 			}},
-			{name:'锁定表头',col:'lockhead', value:(comp.lockhead?comp.lockhead:""), group:'交叉表属性', editor:{
-				type:"checkbox",
-				options: {"on":true, "off":false}
-			}},
-			{name:'锁定后交叉表高度',col:'height', value:(comp.height?comp.height:""), group:'交叉表属性', editor:"numberbox"},
+			{name:'交叉表高度',col:'height', value:(comp.height?comp.height:""), group:'交叉表属性', editor:"numberbox"},
 			{name:"交叉表下钻",col:"xxx",value:"<div align=\"center\"><a href='javascript:;' onclick=\"crossdrill('"+comp.id+"')\">设置</a></div>",group:"交叉表属性"}
 			]
 		});
@@ -895,12 +898,6 @@ function setTextProperty(comp){
 					}else{
 						o.css("background-color", val);
 					}
-				}else if(col == "tlineheight"){
-					if(val == '' || val == null){
-						o.css("line-height", "inherit");
-					}else{
-						o.css("line-height",val+"px");
-					}
 				}
 			}
 			
@@ -921,7 +918,6 @@ function setTextProperty(comp){
 					return "<div style=\"background-color:"+row.value+"\">"+row.text+"</div>";
 				}}
 			}},
-			{name:'行高(lineHeight)',col:'tlineheight', value:(s.tlineheight?s.tlineheight:""), group:'文本属性', editor:'numberbox'},
 			{name:'字体大小',col:'tfontsize', value:(s.tfontsize?s.tfontsize:""), group:'文本字体', editor:'numberbox'},
 			{name:'字体颜色',col:'tfontcolor', value:(s.tfontcolor?s.tfontcolor:""), group:'文本字体', editor:{
 				type:'combobox',
@@ -1169,7 +1165,7 @@ function dimexchange(){
 		//移除维度dom
 		$("#tableData #d_"+dimid).remove();
 		//列字段添加维度
-		var o = "<span id=\"d_"+tmp.id+"\" class=\"dimcol\"><span class=\"text\">"+tmp.dimdesc+"</span><a style=\"opacity: 0.6;\" href=\"javascript:;\" onclick=\"setRdimInfo(this, "+tmp.id+", '"+tmp.dimdesc+"','"+compId+"')\"> &nbsp; </a></span>";
+		var o = "<span id=\"d_"+tmp.id+"\" class=\"dimcol\"><span class=\"text\">"+tmp.dimdesc+"</span><div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs\" onclick=\"setRdimInfo(this, "+tmp.id+", '"+tmp.dimdesc+"','"+compId+"')\"><i class=\"fa fa-wrench\"></i></button></div></span>";
 		if($("#tableData #tabRows span.dimcol").size() > 0){
 			$("#tableData #tabRows span.dimcol").last().after(o);
 		}else{
@@ -1201,7 +1197,7 @@ function dimexchange(){
 		if(cols.length == 1){
 			$("#tableData").append("<span id=\"tabCols\"> &nbsp; &nbsp; <b>列字段：</b></span>");
 		}
-		$("#tableData #tabCols").append("<span id=\"d_"+tmp.id+"\" class=\"dimcol\"><span class=\"text\">"+tmp.dimdesc+"</span><a style=\"opacity: 0.6;\" href=\"javascript:;\" onclick=\"setCdimInfo(this, "+tmp.id+", '"+tmp.dimdesc+"','"+compId+"')\"> &nbsp; </a></span>");
+		$("#tableData #tabCols").append("<span id=\"d_"+tmp.id+"\" class=\"dimcol\"><span class=\"text\">"+tmp.dimdesc+"</span><div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs\" onclick=\"setCdimInfo(this, "+tmp.id+", '"+tmp.dimdesc+"','"+compId+"')\"><i class=\"fa fa-wrench\"></i></button></div></span>");
 	}
 	curTmpInfo.isupdate = true;
 	tableView(comp, compId);

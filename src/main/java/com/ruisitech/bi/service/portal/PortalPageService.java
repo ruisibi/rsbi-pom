@@ -216,7 +216,7 @@ public class PortalPageService extends BaseCompService {
 						
 						//判断组件是否是TD中最后一个，如果是，不要 margin-bottom 样式
 						if(k == children.size() - 1){
-							div.setStyle("margin-bottom:none;");
+							div.setStyle("margin-bottom:auto;");
 						}
 						div.setStyle((div.getStyle() == null ? "" : div.getStyle()) + "border:none;");  //去除div边框
 						
@@ -250,7 +250,7 @@ public class PortalPageService extends BaseCompService {
 						//组件背景色 
 						String bgcolor = (String)comp.get("bgcolor");
 						if(bgcolor != null && bgcolor.length() > 0){
-							content.setStyle("background-color:"+bgcolor);
+							content.setStyle((content.getStyle() == null ? "" : content.getStyle())  + "background-color:"+bgcolor+";");
 						}
 						
 						content.setChildren(new ArrayList<Element>());
@@ -500,16 +500,19 @@ public class PortalPageService extends BaseCompService {
 	public void createText(Element td, JSONObject compJson){
 		TextContext text = new TextContextImpl();
 		JSONObject style = (JSONObject)compJson.get("style");
+		TextProperty tp = new TextProperty();
+		Integer height = compJson.getInteger("height");
+		if(height != null){
+			tp.setHeight(String.valueOf(height));
+		}
 		if(style != null && !style.isEmpty()){
-			TextProperty tp = new TextProperty();
 			tp.setAlign((String)style.get("talign"));
-			tp.setHeight((String)style.get("tfontheight"));
 			tp.setSize((String)style.get("tfontsize"));
 			String fontweight = (String)style.get("tfontweight");
 			tp.setWeight("true".equals(fontweight)?"bold":"normal");
 			tp.setColor((String)style.get("tfontcolor"));
 			tp.setId("C"+IdCreater.create());
-			text.setTextProperty(tp);
+			
 			
 			css.append("#"+tp.getId()+"{");
 			String italic = (String)style.get("titalic");
@@ -530,6 +533,7 @@ public class PortalPageService extends BaseCompService {
 			}
 			css.append("}");
 		}
+		text.setTextProperty(tp);
 		String desc = compJson.getString("desc");
 		text.setText(desc);
 		text.setParent(td);
@@ -669,12 +673,7 @@ public class PortalPageService extends BaseCompService {
 	
 		String id = ExtConstants.reportIdPrefix + IdCreater.create();
 		cr.setId(id);
-		String lock = table.getLockhead();
-		if("true".equals(lock)){
-			cr.setOut("lockUI");
-		}else{
-			cr.setOut("HTML");
-		}
+		cr.setOut("lockUI");
 		String height = table.getHeight();
 		if(height != null && height.length() > 0){
 			cr.setHeight(height);

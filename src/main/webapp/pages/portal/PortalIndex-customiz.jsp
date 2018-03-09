@@ -33,8 +33,6 @@
 	<script type="text/javascript" src="../ext-res/js/echarts.min.js"></script>
     <script type="text/javascript" src="../ext-res/js/sortabletable.js"></script>
     <script type="text/javascript" src="../ext-res/js/jquery.resizeend.min.js"></script>
-    
-    
 </head>
 
 <script language="javascript">

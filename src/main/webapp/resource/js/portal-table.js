@@ -103,7 +103,7 @@ function editGridData(compId){
 	var str = "";
 	for(var i=0; comp.cols&&i<comp.cols.length; i++){
 		var o = comp.cols[i];
-		str = str + "<span id=\"d_"+o.id+"\" class=\"dimcol\"><span class=\"text\">"+o.name+"</span><a style=\"opacity: 0.6;\" href=\"javascript:;\" onclick=\"setGridCol(this, '"+o.id+"', '"+o.name+"','"+compId+"')\"> &nbsp; </a></span>";
+		str = str + "<span id=\"d_"+o.id+"\" class=\"dimcol\"><span class=\"text\">"+o.name+"</span><div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs\" onclick=\"setGridCol(this, '"+o.id+"', '"+o.name+"','"+compId+"')\"><i class=\"fa fa-wrench\"></i></button></div></span>";
 	}
 	if(str == ""){
 		str = "<div class=\"tipinfo\">拖拽数据表字段到此处作为表格的列字段</div>";
@@ -168,7 +168,7 @@ function editGridData(compId){
 				return;
 			}
 			grid.cols.push({id:node.id,name:node.attributes.name,tname:node.attributes.tname,type:node.attributes.type,expression:node.attributes.expression});
-			var str = "<span id=\"d_"+node.id+"\" class=\"dimcol\"><span class=\"text\">"+node.text+"</span><a style=\"opacity: 0.6;\" href=\"javascript:;\" onclick=\"setGridCol(this, '"+node.id+"', '"+node.text+"','"+compId+"')\"> &nbsp; </a></span>";
+			var str = "<span id=\"d_"+node.id+"\" class=\"dimcol\"><span class=\"text\">"+node.text+"</span><div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs\" onclick=\"setGridCol(this, '"+node.id+"', '"+node.text+"','"+compId+"')\"><i class=\"fa fa-wrench\"></i></button></div></span>";
 			var obj = $("#gridData");
 			if(obj.find("#tabRows").size() == 0){
 				obj.html("<span id=\"tabRows\"><b>表格字段：</b>"+str+"</span>");
@@ -399,11 +399,7 @@ function setGridProperty(comp){
 				type:"checkbox",
 				options:{"on":true, "off":false}
 			}},
-			{name:'锁定表头',col:'lockhead', value:(comp.lockhead?comp.lockhead:""), group:'表格属性', editor:{
-				type:"checkbox",
-				options: {"on":true, "off":false}
-			}},
-			{name:'锁定后表格高度',col:'height', value:(comp.height?comp.height:""), group:'表格属性', editor:"numberbox"},
+			{name:'表格高度',col:'height', value:(comp.height?comp.height:""), group:'表格属性', editor:"numberbox"},
 			{name:'禁用分页',col:'isnotfy', value:(comp.isnotfy?comp.isnotfy:""), group:'表格属性', editor:{
 				type:"checkbox",
 				options: {"on":true, "off":false}
@@ -565,11 +561,58 @@ function editBoxData(compId){
 		}
 	});
 }
+function bindResizeEvent(compId, tp){
+	var max, min;
+	if(tp == "chart"){
+		max = 800,min = 150;
+	}else if(tp == "box"){
+		max = 300, min = 30;
+	}else if(tp == "table" || tp == "grid"){
+		max = 900, min = 60;
+	}else if(tp == "text"){
+		max = 600, min = 30
+	}
+	$("#c_"+compId+" .cctx").resizable({
+		maxHeight:max,
+		minHeight:min,
+		handles:"s",
+		edge:10,
+		onResize:function(e){
+			if(tp == "box"){
+				$(this).find(".boxcls").css("line-height", ($(this).height() - 6) + "px");
+			}
+		},
+		onStopResize:function(e){
+			var c = findCompById(compId);
+			var h = $(this).height();
+			if(c.type == "chart"){
+				c.chartJson.height = h - 6; //减去padding距离
+				//设置图像高度
+				var o = document.getElementById('C'+compId);
+				if(o){
+					var chart = echarts.getInstanceByDom(o);
+					$("#C"+compId).height(h+"px");
+					chart.resize("auto", "auto");
+				}
+			}else if(c.type == "box"){
+				c.height = h - 6; //减去padding距离
+			}else if(c.type == "table"){
+				c.height = h - 6 - 26; //减去padding距离， 表头距离
+				$("#c_"+compId+" .lock-dg-body").animate({"height":c.height+"px"});
+			}else if(c.type == "grid"){
+				c.height = (h - 6 - 26 - (c.isnotfy =="true" ?  0 : 32)); //减去padding距离，表头距离， 分页距离
+				$("#c_"+compId+" .lock-dg-body").animate({"height": c.height+"px"});
+			}else if(c.type == "text"){
+				c.height = h - 6; //减去padding距离
+			}
+		}
+	});
+}
 function boxView(comp){
 	if(!comp.kpiJson){
 		return;
 	}
-	var json = {"kpiJson":comp.kpiJson, "dsid":comp.dsid, "dsetId":comp.dsetId, portalParams:pageInfo.params,params:comp.params};
+	var json = {"kpiJson":comp.kpiJson, height:comp.height, "dsid":comp.dsid, "dsetId":comp.dsetId, portalParams:pageInfo.params,params:comp.params};
 	__showLoading();
 	$.ajax({
 	   type: "POST",

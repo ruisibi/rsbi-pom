@@ -1101,13 +1101,12 @@ function crtLayoutHTML(json, isbind){
 	if(isbind){
 		for(i=0; i<cps.length; i++){
 			bindCompEvent(cps[i]);
+			//注册组件 resize 事件
+			bindResizeEvent(cps[i].id, cps[i].type);
 			if(cps[i].type == "table"){
-				//initDropDiv(cps[i].id);
 				tableView(cps[i], cps[i].id);
 			}else if(cps[i].type == "chart"){
 				chartview(cps[i], cps[i].id);
-			}else if(cps[i].type == 'input' && cps[i].pcol){
-				loadParamData(cps[i]);
 			}else if(cps[i].type == 'grid'){
 				gridView(cps[i]);
 			}else if(cps[i].type == "box"){
@@ -1157,9 +1156,8 @@ function crtLayoutHTML(json, isbind){
 		},
 		onDrop:function(e,source){
 			$(".indicator").hide();
-			if($(source).hasClass("ibox")){
-				//组件间的拖拽
-				if($(this).hasClass("laytd")){ //拖拽在td上
+			if($(source).hasClass("ibox")){ //组件间的拖拽
+				if(!curTmpInfo.mouseOnDiv){
 					$(this).append(source);
 				}else{
 					if(curTmpInfo.tp == "before"){
@@ -1177,7 +1175,6 @@ function crtLayoutHTML(json, isbind){
 					}
 				}, 200);
 			}else{
-				//alert(curTmpInfo.tp + "," + curTmpInfo.id);
 				var node = $("#comp_tree").tree("getNode", source);
 				//从组件树拖拽， 创建组件
 				var layoutId = $(this).attr("id").split("_")[1];
@@ -1198,13 +1195,13 @@ function crtLayoutHTML(json, isbind){
 					}
 					//注册拖放事件
 					bindCompEvent(comp);
+					bindResizeEvent(comp.id, 'table');
 					//滚动位置
 					window.setTimeout(function(){
 						$("#optarea").scrollTop($("#c_"+comp.id).offset().top);
 					}, 500);
 				}else if(tp == "chart"){
-					//insertChart(layoutId);
-					setcharttype(true, layoutId, curTmpInfo.id, curTmpInfo.tp)
+					setcharttype(true, layoutId, curTmpInfo.id, curTmpInfo.tp)					
 				}else if(tp == "grid"){
 					var comp = {"id":newGuid(), "name":"表格", "type":"grid"};
 					var str = addComp(comp, layoutId, true);
@@ -1219,6 +1216,7 @@ function crtLayoutHTML(json, isbind){
 					}
 					//注册拖放事件
 					bindCompEvent(comp);
+					bindResizeEvent(comp.id, 'grid');
 					//滚动位置
 					window.setTimeout(function(){
 						$("#optarea").scrollTop($("#c_"+comp.id).offset().top);
@@ -1237,11 +1235,14 @@ function crtLayoutHTML(json, isbind){
 					}
 					//注册拖放事件
 					bindCompEvent(comp)
+					//resize事件
+					bindResizeEvent(comp.id, 'box');
 				}
 				
 			}
 			delete curTmpInfo.tp;
 			delete curTmpInfo.id;
+			delete curTmpInfo.mouseOnDiv;
 			curTmpInfo.isupdate = true;
 		}
 

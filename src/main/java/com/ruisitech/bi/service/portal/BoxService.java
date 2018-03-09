@@ -129,7 +129,11 @@ public class BoxService extends BaseCompService {
 		text.setFormatHtml(true);
 		TextProperty tp = new TextProperty();
 		tp.setAlign("center");
-		tp.setWeight("bold");
+		tp.setWeight("normal");
+		if(box.getHeight() != null){
+			tp.setLineHeight(box.getHeight());
+			tp.setHeight(String.valueOf(box.getHeight()));
+		}
 		Integer tfontsize = box.getKpiJson().getTfontsize();
 		if(tfontsize != null){
 			tp.setSize(String.valueOf(tfontsize));

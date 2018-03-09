@@ -22,7 +22,20 @@
    
 </head>
 <style>
-
+table.r_layout {
+	table-layout:fixed;
+	width:100%;
+}
+table.r_layout td.layouttd {
+	padding:10px;
+}
+.ibox {
+	margin-bottom:20px;
+}
+.ibox-content {
+	overflow:auto;
+	padding:0px;
+}
 </style>
 
 <script language="javascript">

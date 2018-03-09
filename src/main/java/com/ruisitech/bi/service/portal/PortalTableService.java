@@ -372,12 +372,7 @@ public class PortalTableService  extends BaseCompService {
 		//设置ID
 		String id = ExtConstants.reportIdPrefix + IdCreater.create();
 		cr.setId(id);
-		String lock = table.getLockhead();
-		if("true".equals(lock)){
-			cr.setOut("lockUI");
-		}else{
-			cr.setOut("HTML");
-		}
+		cr.setOut("lockUI");
 		String height =  table.getHeight();
 		if(height != null && height.length() > 0){
 			cr.setHeight(height);

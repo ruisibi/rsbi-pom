@@ -8,6 +8,7 @@ import com.ruisitech.bi.entity.common.BaseEntity;
 public class BoxQuery extends BaseEntity {
 
 	private String id;
+	private Integer height; //通过 line-height 控制文字高度
 	private String type;
 	private String name;
 	private String dsetId;
@@ -63,5 +64,10 @@ public class BoxQuery extends BaseEntity {
 	public void setParams(List<CompParamDto> params) {
 		this.params = params;
 	}
-	
+	public Integer getHeight() {
+		return height;
+	}
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
 }

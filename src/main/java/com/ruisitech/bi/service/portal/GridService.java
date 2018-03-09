@@ -103,13 +103,8 @@ public class GridService extends BaseCompService {
 
 	public GridReportContext json2Grid(GridQuery gridJson){
 		GridReportContext grid = new GridReportContextImpl();
-		String lockhead = gridJson.getLockhead();
 		Integer height = gridJson.getHeight();
-		if("true".equals(lockhead)){
-			grid.setOut("lockUI");
-		}else{
-			grid.setOut("html");
-		}
+		grid.setOut("lockUI");
 		if(height != null){
 			grid.setHeight(String.valueOf(height));
 		}
