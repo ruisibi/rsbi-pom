@@ -3777,20 +3777,20 @@ code {
 }
 
 .ibox-title {
-    height: 34px;
+    height: 30px;
     border-color: #edf1f2;
     background-color: #f6f8f8;
     color: #333;
     font-weight: 700;
     border-radius: 2px 2px 0 0;
-    padding: 10px 15px 3px 15px;
+    padding: 8px 15px 3px 15px;
     border-bottom: 1px solid transparent;
     display: block;
     clear: both;
 }
 
 .ibox-title-view {
-    height: 26px;
+    height: 30px;
     font-weight: 700;
     padding: 5px 15px 3px 15px;
     display: block;
@@ -3807,6 +3807,7 @@ code {
     border-image: none;
     border-style: solid solid none;
     border-width: 1px 0px;
+	position:relative;
 }
 
 table.table-mail tr td {
@@ -7674,6 +7675,7 @@ TABLE.grid3 TR.row-embed{
 .pagesizeinfo .pagesizeRight{
 	text-align:right;
 	padding:3px;
+	font-size:9px;
 }
 /**指标着色**/
 .kpi_up {
@@ -7781,7 +7783,7 @@ TABLE.lockgrid div.dg-cell {
 }
 .tableheader .panel-title {
 	font-size:14px;
-	height:23px;
+	height:20px;
 	padding:3px;
 	color:black;
 }

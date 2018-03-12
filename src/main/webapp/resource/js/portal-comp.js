@@ -284,32 +284,7 @@ function addComp(comp, layoutId, ispush){
 		}
 		curTmpInfo.comps.push(json);
 	}
-	//生成标题的样式
-	var style = "";
-	if(json.style){
-		var sty = json.style;
-		if(json.style.align && json.style.align != ''){
-			style = style +"text-align:"+json.style.align+";";
-		}
-		if(json.style.fontsize && json.style.fontsize != ''){
-			style = style + "font-size:"+json.style.fontsize+"px;";
-		}
-		if(json.style.fontcolor && json.style.fontcolor != ''){
-			style = style + "color:"+json.style.fontcolor+";";
-		}
-		if(sty.fontweight && sty.fontweight=="true"){
-			style = style + "font-weight:bold;";
-		}
-		if(sty.italic && sty.italic =="true"){
-			style = style + "font-style:italic;";
-		}
-		if(sty.underscore && sty.underscore =="true"){
-			style = style + "text-decoration: underline;";
-		}
-		if(sty.bgcolor && sty.bgcolor != ''){
-			style = style + "background-color:"+sty.bgcolor+";";
-		}
-	}
+	
 	//生成文本组件的样式
 	var textcss = "";
 	if(json.style){
@@ -340,17 +315,14 @@ function addComp(comp, layoutId, ispush){
 			textcss = textcss + "height:"+sty.theight+"px;";
 		}
 	}
-	textcss = textcss + "padding:3px;";
+	textcss = textcss + "padding:3px;";  //设置组件padding为 3
 	if(json.type == "box" && json.bgcolor && json.bgcolor!=""){
 		textcss = textcss + "background-color:"+json.bgcolor+";";
 	}
-	if(json.type == "box" && json.height && json.height != ""){
-		textcss = textcss + "height:"+json.height+"px;";
+	if((json.type == "box" || json.type == "text") && json.height ){
+		textcss = textcss + "height:"+(json.height + 8)+"px;";  //加上padding
 	}
-	if(json.type == "text" && json.height){
-		textcss = textcss + "height:"+json.height+"px;";
-	}
-	var str = "<div class=\"ibox\" id=\"c_"+json.id+"\"><div class=\"ibox-title\"><div title=\"双击改名\" ondblclick=\"chgcompname(this, '"+json.id+"')\" class=\"ctit\" style=\""+style+"\"><h5>"+json.name+"</h5></div>"+"<div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs mvcomp\" title=\"移动组件\" cid=\""+json.id+"\"><i class=\"fa fa-hand-grab-o\"></i></button> <button class=\"btn btn-outline btn-success btn-xs\" onclick=\"showcompmenu(this,'"+layoutId+"','"+comp.id+"')\" title=\"设置组件\" ><i class=\"fa fa-wrench\"></i></button> <button class=\"btn btn-outline btn-danger btn-xs\" onclick=\"deletecomp('"+layoutId+"', '"+comp.id+"');\" title=\"删除组件\" cid=\""+json.id+"\"><i class=\"fa fa-times\"></i></button></div></div><div class=\"cctx ibox-content\" style=\""+textcss+"\">";
+	var str = "<div class=\"ibox\" id=\"c_"+json.id+"\"><div class=\"ibox-title\"><div title=\"双击改名\" ondblclick=\"chgcompname(this, '"+json.id+"')\" class=\"ctit\"><h5>"+json.name+"</h5></div>"+"<div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs mvcomp\" title=\"移动组件\" cid=\""+json.id+"\"><i class=\"fa fa-hand-grab-o\"></i></button> <button class=\"btn btn-outline btn-success btn-xs\" onclick=\"showcompmenu(this,'"+layoutId+"','"+comp.id+"')\" title=\"设置组件\" ><i class=\"fa fa-wrench\"></i></button> <button class=\"btn btn-outline btn-danger btn-xs\" onclick=\"deletecomp('"+layoutId+"', '"+comp.id+"');\" title=\"删除组件\" cid=\""+json.id+"\"><i class=\"fa fa-times\"></i></button></div></div><div class=\"cctx ibox-content\" style=\""+textcss+"\"><div class=\"ccctx\">";
 	if(json.type == 'text'){
 		str = str + comp.desc.replace(/\n/g,"<br>")
 	}else if(json.type == "table"){
@@ -366,7 +338,7 @@ function addComp(comp, layoutId, ispush){
 		var ret = "<div align=\"center\" class=\"tipinfo\">(点击组件右上角设置按钮配置数据块显示的度量)</div>";
 		str = str + ret;
 	}
-	str = str + "</div></div>";
+	str = str + "</div><div class=\"win-size-grip\"></div></div></div>";
 	return str;
 }
 function chgcompname(ts, compId){
@@ -398,6 +370,65 @@ function showcompmenu(ts, layoutId, compId){
 	curTmpInfo.layoutId = layoutId;
 	curTmpInfo.compId = compId;
 	$("#" + divId).menu("show", {left:offset.left, top:offset.top + 20});
+}
+function bindResizeEvent(compId, tp){
+	var max, min;
+	if(tp == "chart"){
+		max = 900,min = 150;
+	}else if(tp == "box"){
+		max = 500, min = 30;
+	}else if(tp == "table" || tp == "grid"){
+		max = 900, min = 60;
+	}else if(tp == "text"){
+		max = 600, min = 30;
+	}else if(tp == "pic"){
+		max = 2000, min = 30;
+	}else{
+		max = 2000, min = 30;
+	}
+	$("#c_"+compId+" .cctx").myresizable({
+		handleSelector: "> .win-size-grip",
+		resizeWidth: false,
+		resizeHeight: true,
+		resizeHeightFrom: 'bottom',  
+		onDrag:function(e, $el, opt){
+			if(tp == "box"){
+				$el.find(".boxcls").css("line-height", $el.height() + "px");
+			}
+		},
+		onDragEnd:function(e, $el, newWidth, newHeight, opt){
+			var c = findCompById(compId);
+			var h = Math.round(($el.height())/10) * 10;  //没加padding的值
+			$el.animate({"height":(h + 8 )+"px"});  //加padding
+			if(c.type == "chart"){
+				c.chartJson.height = h;
+				//设置图像高度
+				var o = document.getElementById('C'+compId);
+				if(o){
+					var chart = echarts.getInstanceByDom(o);
+					$("#C"+compId).height((h)+"px"); 
+					chart.resize("auto", "auto");
+				}
+			}else if(c.type == "box"){
+				c.height = h; 
+			}else if(c.type == "table"){
+				c.height = h -  26; //减去 表头距离
+				$("#c_"+compId+" .lock-dg-body").animate({"height":c.height+"px"});
+			}else if(c.type == "grid"){
+				c.height = (h - 25 - (c.isnotfy =="true" ?  0 : 35)); //减去表头距离， 分页距离
+				$("#c_"+compId+" .lock-dg-body").animate({"height": c.height+"px"});
+			}else if(c.type == "text"){
+				c.height = h; 
+			}else if(c.type == "pic"){
+				if(c.height && c.width){  //图片存在宽度和高度，需要在拖动后重新定义
+					c.width = Math.round(c.width * h / c.height);
+				}
+				c.height = h;
+				$("#c_"+compId+" .cctx img").animate({"height": (c.height)+"px","width":c.width});
+			}
+			curTmpInfo.isupdate = true;
+		}
+	});
 }
 function bindCompEvent(obj){
 	//注册移动事件
@@ -959,7 +990,7 @@ function tableView(table, compId){
 	   data: JSON.stringify(json),
 	   success: function(resp){
 		  __hideLoading();
-		  $("#c_" + compId + " div.cctx").html(resp);
+		  $("#c_" + compId + " div.cctx div.ccctx").html(resp);
 	   },
 	   error:function(resp){
 		    __hideLoading();

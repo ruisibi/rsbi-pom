@@ -14,25 +14,20 @@
    <script type="text/javascript" src="../ext-res/js/jquery.min.js"></script>
    <script type="text/javascript" src="../resource/js/json.js"></script>
    <script type="text/javascript" src="../ext-res/js/ext-base.js"></script>
-
-<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/gray/easyui.css">
 	<link rel="stylesheet" type="text/css" href="../resource/jquery-easyui-1.4.4/themes/icon.css">
 	<script type="text/javascript" src="../resource/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../resource/jquery-easyui-1.4.4/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="../ext-res/My97DatePicker/WdatePicker.js"></script>
-    
     <script type="text/javascript" src="../resource/js/portal.js"></script>
     <script type="text/javascript" src="../resource/js/portal-comp.js"></script>
     <script type="text/javascript" src="../resource/js/portal-chart.js"></script>
     <script type="text/javascript" src="../resource/js/portal-param.js"></script>
     <script type="text/javascript" src="../resource/js/portal-table.js"></script>
-    
-      <!--
-    <script type="text/javascript" src="../resource/js/portal-compress.js?v3"></script>
-    -->
 	<script type="text/javascript" src="../ext-res/js/echarts.min.js"></script>
     <script type="text/javascript" src="../ext-res/js/sortabletable.js"></script>
     <script type="text/javascript" src="../ext-res/js/jquery.resizeend.min.js"></script>
+	<script type="text/javascript" src="../ext-res/js/jquery-resizable.js"></script>
 </head>
 
 <script language="javascript">

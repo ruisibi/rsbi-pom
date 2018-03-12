@@ -1234,7 +1234,7 @@ function crtLayoutHTML(json, isbind){
 						}
 					}
 					//注册拖放事件
-					bindCompEvent(comp)
+					bindCompEvent(comp);
 					//resize事件
 					bindResizeEvent(comp.id, 'box');
 				}

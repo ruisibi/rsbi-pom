@@ -264,6 +264,13 @@ span.rlayout div.onelayout {
 .exportpanel .select{
 	border:solid 1px #990000;
 }
-.ibox .cctx {
-	/**overflow:auto;**/
+ .win-size-grip {
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	padding: 4px;
+	bottom: 0;
+	right: 0;
+	cursor: nwse-resize;
+	background: url(../img/wingrip.png) no-repeat;
 }

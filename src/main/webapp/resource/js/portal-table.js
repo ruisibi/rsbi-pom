@@ -198,7 +198,7 @@ function gridView(grid){
 	   data: JSON.stringify(json),
 	   success: function(resp){
 		   __hideLoading();
-		   $("#c_" + grid.id + " div.cctx").html(resp);
+		   $("#c_" + grid.id + " div.cctx div.ccctx").html(resp);
 	   },
 	   error:function(resp){
 		   __hideLoading();
@@ -561,53 +561,6 @@ function editBoxData(compId){
 		}
 	});
 }
-function bindResizeEvent(compId, tp){
-	var max, min;
-	if(tp == "chart"){
-		max = 800,min = 150;
-	}else if(tp == "box"){
-		max = 300, min = 30;
-	}else if(tp == "table" || tp == "grid"){
-		max = 900, min = 60;
-	}else if(tp == "text"){
-		max = 600, min = 30
-	}
-	$("#c_"+compId+" .cctx").resizable({
-		maxHeight:max,
-		minHeight:min,
-		handles:"s",
-		edge:10,
-		onResize:function(e){
-			if(tp == "box"){
-				$(this).find(".boxcls").css("line-height", ($(this).height() - 6) + "px");
-			}
-		},
-		onStopResize:function(e){
-			var c = findCompById(compId);
-			var h = $(this).height();
-			if(c.type == "chart"){
-				c.chartJson.height = h - 6; //减去padding距离
-				//设置图像高度
-				var o = document.getElementById('C'+compId);
-				if(o){
-					var chart = echarts.getInstanceByDom(o);
-					$("#C"+compId).height(h+"px");
-					chart.resize("auto", "auto");
-				}
-			}else if(c.type == "box"){
-				c.height = h - 6; //减去padding距离
-			}else if(c.type == "table"){
-				c.height = h - 6 - 26; //减去padding距离， 表头距离
-				$("#c_"+compId+" .lock-dg-body").animate({"height":c.height+"px"});
-			}else if(c.type == "grid"){
-				c.height = (h - 6 - 26 - (c.isnotfy =="true" ?  0 : 32)); //减去padding距离，表头距离， 分页距离
-				$("#c_"+compId+" .lock-dg-body").animate({"height": c.height+"px"});
-			}else if(c.type == "text"){
-				c.height = h - 6; //减去padding距离
-			}
-		}
-	});
-}
 function boxView(comp){
 	if(!comp.kpiJson){
 		return;
@@ -622,7 +575,7 @@ function boxView(comp){
 	   data: JSON.stringify(json),
 	   success: function(resp){
 		   __hideLoading();
-		  $("#c_"+comp.id + " div.cctx").html(resp);
+		  $("#c_"+comp.id + " div.cctx div.ccctx").html(resp);
 	   },
 	   error:function(resp){
 		   __hideLoading();

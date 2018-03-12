@@ -356,7 +356,7 @@ function setcharttype(addChart, layoutId){
 }
 function resetchart(compId){
 	//重置图形区域为空
-	$("#c_" + compId + " div.cctx").html("<div align=\"center\" class=\"tipinfo\">(点击组件右上角设置按钮配置图形数据)</div>");
+	$("#c_" + compId + " div.cctx div.ccctx").html("<div align=\"center\" class=\"tipinfo\">(点击组件右上角设置按钮配置图形数据)</div>");
 }
 function chartview(json, compId){
 	if(json.kpiJson[0] == null){
@@ -382,7 +382,7 @@ function chartview(json, compId){
 	   data: JSON.stringify(chartJson),
 	   success: function(resp){
 		   __hideLoading();
-		  $("#c_" + compId + " div.cctx").html(resp);
+		  $("#c_" + compId + " div.cctx div.ccctx").html(resp);
 	   },
 	   error:function(resp){
 		   __hideLoading();
