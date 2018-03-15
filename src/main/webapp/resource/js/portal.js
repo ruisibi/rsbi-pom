@@ -1344,11 +1344,15 @@ function compevent(compId){
 						$('#pdailog').dialog('close');
 						return;
 					}
+					if(valType == ""){
+						msginfo("默认值类型是必填项!")
+						return;
+					}
 					if(comp.type == "chart"){
-						comp.chartJson.linkAccept = {col:dim.col_name, alias:dim.alias, type:dim.dim_type, dftval: val, valType: valType, tname:dim.tname,dim_tname:dim.dim_tname};
+						comp.chartJson.linkAccept = {col:dim.col_name, alias:dim.alias, type:dim.dim_type, dftval: val, valType: valType, tname:dim.tname,dim_tname:dim.dim_tname,calc:dim.calc};
 						chartview(comp, comp.id);
 					}else{
-						comp.linkAccept = {col:dim.col_name, alias:dim.alias, type:dim.dim_type, dftval: val, valType: valType, tname:dim.tname, dim_tname:dim.dim_tname};
+						comp.linkAccept = {col:dim.col_name, alias:dim.alias, type:dim.dim_type, dftval: val, valType: valType, tname:dim.tname, dim_tname:dim.dim_tname,calc:dim.calc};
 					}
 				}
 				curTmpInfo.isupdate = true;

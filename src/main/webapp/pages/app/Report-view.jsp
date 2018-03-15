@@ -17,17 +17,18 @@
     <script type="text/javascript" src="../ext-res/js/jquery.resizeend.min.js"></script>
   </head>
    <style>
+table.r_layout {
+	table-layout:fixed;
+	width:100%;
+}
 table.r_layout td.layouttd {
 	padding:10px;
 }
-.ibox {
-	margin-bottom:20px;
-}
-.ibox-content {
-	padding:0px;
-}
 .inputform2 {
-	width:130px;
+	width:120px;
+}
+.inputtext {
+	width:90px;
 }
 </style>
 <script language="javascript">

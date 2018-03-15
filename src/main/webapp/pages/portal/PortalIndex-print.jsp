@@ -29,12 +29,11 @@ table.r_layout {
 table.r_layout td.layouttd {
 	padding:10px;
 }
-.ibox {
-	margin-bottom:20px;
+.inputform2 {
+	width:120px;
 }
-.ibox-content {
-	overflow:auto;
-	padding:0px;
+.inputtext {
+	width:90px;
 }
 </style>
 

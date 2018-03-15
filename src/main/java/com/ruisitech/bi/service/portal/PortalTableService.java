@@ -203,12 +203,17 @@ public class PortalTableService  extends BaseCompService {
 			String alias = (String)linkAccept.get("alias");
 			String valtype = (String)linkAccept.get("valType");
 			String tname = (String)linkAccept.get("tname");  //维度来源表
-			String dimTname = (String)linkAccept.get("dim_tname");  //维度映射的表 
+			String dimTname = (String)linkAccept.get("dim_tname");  //维度映射的表
+			Integer calc = (Integer)linkAccept.get("calc");
 			String ncol = "$" + alias;
 			if("string".equalsIgnoreCase(valtype)){
 				ncol = "'" + ncol + "'";
 			}
-			sql.append("#if($"+alias+" != '') and  "+tableAlias.get(dimTname == null || dimTname.length() == 0 ? tname:dimTname)+"." + col + " = " + ncol + " #end");
+			sql.append("#if( $"+alias+" && $"+alias+" != '') and  ");
+			if(calc == null || calc == 0){  //表达式不增加别名
+				sql.append(tableAlias.get(dimTname == null || dimTname.length() == 0 ? tname:dimTname)+".");
+			}
+			sql.append(col + " = " + ncol + " #end");
 		}
 		
 		if(dims.size() > 0){

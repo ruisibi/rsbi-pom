@@ -83,13 +83,6 @@ table.r_layout {
 table.r_layout td.layouttd {
 	padding:10px;
 }
-.ibox {
-	margin-bottom:20px;
-}
-.ibox-content {
-	overflow:auto;
-	padding:0px;
-}
 .inputform2 {
 	width:120px;
 }
