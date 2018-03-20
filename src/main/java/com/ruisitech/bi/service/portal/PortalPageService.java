@@ -146,7 +146,7 @@ public class PortalPageService extends BaseCompService {
 			for(int i=0; i<pp.size(); i++){
 				this.parserParam(pp.getJSONObject(i), div, mv, release?false:true);
 			}
-			if(!export){
+			//if(!export){
 				//创建提交按钮
 				ButtonContext btn = new ButtonContextImpl();
 				btn.setDesc("查询");
@@ -154,7 +154,7 @@ public class PortalPageService extends BaseCompService {
 				btn.setMvId(new String[]{mv.getMvid()});
 				div.getChildren().add(btn);
 				btn.setParent(div);
-			}
+			//}
 		}
 		
 		JSONObject body = pageJson.getJSONObject("body");

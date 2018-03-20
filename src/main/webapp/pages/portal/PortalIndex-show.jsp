@@ -40,16 +40,47 @@ $(function(){
 		});
 	});
 });
+function getPageParam(){
+	var pms = null;
+	$.ajax({
+		type:"post",
+		url:"getReportJson.action",
+		data: {reportId: '${pageId}'},
+		dataType:"json",
+		async:false,
+		success: function(resp){
+			pms = resp.params;
+		}
+	});
+	var pstr = "";
+	for(i=0; pms!=null&&i<pms.length; i++){
+		var pid = pms[i].paramid;
+		var ptype = pms[i].type;
+		var val = null;
+		if(ptype=="text" || ptype == "dateselect" || ptype == "monthselect" || ptype == "yearselect" || ptype == "radio"){
+			val = $("#"+pid).val().replace(/^\s+|\s+$/g,"");
+		}else if(ptype == "checkbox"){
+			val = $('#'+pid).combobox("getValues");
+		}
+		pstr = pstr + pid+"="+val;
+		if(i != pms.length - 1){
+			pstr = pstr + "&";
+		}
+	}
+	return pstr;
+}
 function printpage() {
+	var pms = getPageParam();
 	var url2 = "about:blank";
 	var name = "printwindow";
 	window.open(url2, name);
-	var ctx = "<form name='prtff' method='post' target='printwindow' action=\"print.action\" id='expff'><input type='hidden' name='pageId' id='pageId' value='${pageId}'></form>";
+	var ctx = "<form name='prtff' method='post' target='printwindow' action=\"print.action?"+pms+"\" id='expff'><input type='hidden' name='pageId' id='pageId' value='${pageId}'></form>";
 	$(ctx).appendTo("body").submit().remove();
 }
 function exportPage(tp){
+	var pms = getPageParam();
 	var expType = "html";
-	var ctx = "<form name='expff' method='post' action=\"export.action\" id='expff'><input type='hidden' name='type' id='type'><input type='hidden' name='pageId' id='pageId' value='${pageId}'><input type='hidden' name='picinfo' id='picinfo'></form>";
+	var ctx = "<form name='expff' method='post' action=\"export.action?"+pms+"\" id='expff'><input type='hidden' name='type' id='type'><input type='hidden' name='pageId' id='pageId' value='${pageId}'><input type='hidden' name='picinfo' id='picinfo'></form>";
 	if($("#expff").size() == 0 ){
 		$(ctx).appendTo("body");
 	}

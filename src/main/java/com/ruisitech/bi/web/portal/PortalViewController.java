@@ -136,4 +136,8 @@ public class PortalViewController {
 		return "portal/PortalIndex-print";
 	}
 	
+	@RequestMapping(value="/getReportJson.action")
+	public @ResponseBody Object getReportJson(String reportId) {
+		return portalService.getPortalCfg(reportId);
+	}
 }

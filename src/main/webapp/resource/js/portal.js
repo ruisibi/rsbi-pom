@@ -490,7 +490,77 @@ function autoLayout(){
 		closed: false,
 		cache: false,
 		modal: true,
-		toolbar:null,
+		toolbar:[{
+			text:"插入行",
+			handler:function(e){
+				var o = $("#autoLayoutTable td.tdselect");
+				if(o.size() == 0){
+					msginfo("请先选择单元格。");
+					return;
+				}
+				curTmpInfo.curtabtd = o[0];
+				lyt_insertRow();
+				curTmpInfo.curtabtd = null;
+			}
+		},{
+			text:"插入列",
+			handler:function(e){
+				var o = $("#autoLayoutTable td.tdselect");
+				if(o.size() == 0){
+					msginfo("请先选择单元格。");
+					return;
+				}
+				curTmpInfo.curtabtd = o[0];
+				lyt_insertCol();
+				curTmpInfo.curtabtd = null;
+			}
+		},{
+			text:"删除行",
+			handler:function(e){
+				var o = $("#autoLayoutTable td.tdselect");
+				if(o.size() == 0){
+					msginfo("请先选择单元格。");
+					return;
+				}
+				curTmpInfo.curtabtd = o[0];
+				lyt_deleteRow();
+				curTmpInfo.curtabtd = null;
+			}
+		},{
+			text:"删除列",
+			handler:function(e){
+				var o = $("#autoLayoutTable td.tdselect");
+				if(o.size() == 0){
+					msginfo("请先选择单元格。");
+					return;
+				}
+				curTmpInfo.curtabtd = o[0];
+				lyt_deleteCol();
+				curTmpInfo.curtabtd = null;
+			}
+		},{
+			text:"合并",
+			handler:function(e){
+				var o = $("#autoLayoutTable td.tdselect");
+				if(o.size() == 0){
+					msginfo("请先选择单元格。");
+					return;
+				}
+				lyt_mergeCell();
+			}
+		},{
+			text:"取消合并",
+			handler:function(e){
+				var o = $("#autoLayoutTable td.tdselect");
+				if(o.size() == 0){
+					msginfo("请先选择单元格。");
+					return;
+				}
+				curTmpInfo.curtabtd = o[0];
+				lyt_unmergeCell();
+				curTmpInfo.curtabtd = null;
+			}
+		}],
 		onLoad:function(){},
 		content:ctx,
 		buttons:[{

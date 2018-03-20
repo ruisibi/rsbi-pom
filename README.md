@@ -20,14 +20,11 @@
 <p/>
 
 # 技术支持：<br/>
-请加QQ群 648548832, 此群为我公司官方技术支持群，你遇到的问题都可以在群里提问，我们竭诚为您服务。 请注意： 加群需要缴费100元技术支持服务费。用微信扫描下方二维码付款，付款后再申请入群。<br/>
-![微信支付](http://bi.ruisibi.cn/resource/img/wxzf.png?v2)  <br/>
-(微信支付二维码)
+请加QQ群 648548832, 此群为我公司官方技术支持群，你遇到的问题都可以在群里提问。<br/>
 <p/>
 
 文档地址： http://www.ruisibi.cn/book.htm <br/>
-演示地址： http://bi.ruisibi.cn/  <br/>
-账号/口令：test/123456 <br/>
+演示地址： http://bi.ruisitech.com/  <br/>
 快速开始： https://my.oschina.net/u/3438563/blog/903393 <br/>
 <p/>
 
