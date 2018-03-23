@@ -3,6 +3,9 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+        <dependent-module archiveName="ext3-1.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/rsbi/libs/ext3-1.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/rsbi/target/classes"/>
         <property name="context-root" value="rsbi"/>
     </wb-module>

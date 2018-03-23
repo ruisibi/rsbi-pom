@@ -31,7 +31,7 @@
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-core</artifactId>
-		    <version>4.3.12.RELEASE</version>
+		    <version>${spring.version}</version>
 		</dependency>
         
         
@@ -39,7 +39,7 @@
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-jdbc</artifactId>
-		    <version>4.3.12.RELEASE</version>
+		    <version>${spring.version}</version>
 		</dependency>
         
 
@@ -82,6 +82,7 @@
 		    <groupId>com.ruisi.ext</groupId>  
 		    <artifactId>ext3</artifactId>  
 		    <version>1.4</version>  
+		    <type>jar</type>  
 		    <scope>system</scope>  
 		    <systemPath>${project.basedir}/libs/ext3-1.4.jar</systemPath>  
 		</dependency>
@@ -124,7 +125,7 @@
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-beans</artifactId>
-		    <version>4.3.11.RELEASE</version>
+		     <version>${spring.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 		<dependency>
@@ -231,6 +232,14 @@
             <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.servlet.jsp/jsp-api -->
+		<dependency>
+		    <groupId>javax.servlet.jsp</groupId>
+		    <artifactId>jsp-api</artifactId>
+		    <version>2.2</version>
+		    <scope>provided</scope>
+		</dependency>
+        
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>

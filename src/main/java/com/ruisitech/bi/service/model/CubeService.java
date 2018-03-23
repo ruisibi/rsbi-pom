@@ -11,6 +11,7 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ruisitech.bi.entity.common.RequestStatus;
 import com.ruisitech.bi.entity.common.Result;
@@ -66,6 +67,7 @@ public class CubeService {
 		return ret;
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
 	public Result insertCube(Cube cube){
 		Result ret = new Result();
 		try{
@@ -86,6 +88,7 @@ public class CubeService {
 		return ret;
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
 	public Result deleteCube(Integer cubeId){
 		Result ret = new Result();
 		try{
@@ -111,6 +114,7 @@ public class CubeService {
 		return ret; 
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
 	public Result updateCube(Cube cube){
 		Result ret = new Result();
 		try{
