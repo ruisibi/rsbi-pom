@@ -3782,7 +3782,6 @@ code {
     background-color: #f6f8f8;
     color: #333;
     font-weight: 700;
-    border-radius: 2px 2px 0 0;
     padding: 8px 15px 3px 15px;
     border-bottom: 1px solid transparent;
     display: block;
@@ -7675,7 +7674,6 @@ TABLE.grid3 TR.row-embed{
 .pagesizeinfo .pagesizeRight{
 	text-align:right;
 	padding:3px;
-	font-size:9px;
 }
 /**指标着色**/
 .kpi_up {
@@ -7692,19 +7690,18 @@ TABLE.lockgrid {
 }
 TABLE.lockgrid TH {
 	text-align: center;
-    border: 1px solid #CACACA;
     PADDING: 2px;
     font-size: 13px;
     height:26px;
-    background-color: #EEEEEE;
-	font-weight:normal;
 	white-space:nowrap;
+	font-weight:normal;
 }
 TABLE.lockgrid TD.lockgrid-td, TD.grid3-foot {
-	border: 1px solid #CACACA;
-    padding: 2px;
+    padding: 8px 2px 8px 2px;
     font-size: 12px;
     height:20px;
+	border-bottom:1px solid #e7eaec;
+	line-height:1.42857;
 }
 TABLE.lockgrid div.dg-cell {
 	word-wrap: break-word;
@@ -7719,16 +7716,12 @@ TABLE.lockgrid div.dg-cell {
 	overflow:hidden;
 }
 .lock-dg .lock-dg-header {
-	background-color:#f5f5f5;
-	border:solid 1px #ddd;
-	border-bottom: none;
+	border-bottom:1px solid #e7eaec;
 	overflow:hidden;
 }
 .lock-dg .lock-dg-body {
 	height:300px;
 	overflow:auto;
-	border:solid 1px #ddd;
-	border-top:none;
 }
 .crossDirll-level {
 	float:left;
