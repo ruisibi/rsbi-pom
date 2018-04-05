@@ -7694,7 +7694,9 @@ TABLE.lockgrid TH {
     font-size: 13px;
     height:26px;
 	white-space:nowrap;
-	font-weight:normal;
+}
+TABLE.lockgrid th.crossHead0,TABLE.lockgrid th.crossHead1,TABLE.lockgrid th.crossHead2 {
+	text-align: center;
 }
 TABLE.lockgrid TD.lockgrid-td, TD.grid3-foot {
     padding: 8px 2px 8px 2px;

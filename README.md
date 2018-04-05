@@ -2,7 +2,7 @@
 
 ### 系统已升级为maven工程，通过 springmvc + spring + mybatis 构建。
 
-“睿思BI”商业智能系统是由[成都睿思商智科技有限公司](http://www.ruisibi.cn)自主研发的企业数据分析系统。 系统包含数据建模、数据报表、多维分析、仪表盘、移动BI等功能模块，方便企业快速建立一套易用，灵活、低成本的商业智能平台，实现数据的快速分析及可视化。 <br>
+“睿思BI”商业智能系统是由[成都睿思商智科技有限公司](https://www.ruisitech.com)自主研发的企业数据分析系统。 系统包含数据建模、数据报表、多维分析、仪表盘、移动BI等功能模块，方便企业快速建立一套易用，灵活、低成本的商业智能平台，实现数据的快速分析及可视化。 <br>
 
 # 产品特点：<br>
   1.轻量级BI, 支持快速建模，快速可视化数据。 <br> 
@@ -25,7 +25,7 @@
 
 文档地址： http://www.ruisibi.cn/book.htm <br/>
 演示地址： http://bi.ruisitech.com/  <br/>
-快速开始： https://my.oschina.net/u/3438563/blog/903393 <br/>
+快速开始： https://blog.csdn.net/zhuifengsn/article/details/79822585 <br/>
 <p/>
 
 # 产品截图：<br/>

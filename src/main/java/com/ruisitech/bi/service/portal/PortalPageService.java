@@ -236,7 +236,7 @@ public class PortalPageService extends BaseCompService {
 							TextContext text = new TextContextImpl(); //head Div 的文字
 							text.setText(comp.getString("name"));
 							TextProperty ctp = new TextProperty();
-							ctp.setAlign("left");
+							ctp.setAlign("center");
 							ctp.setWeight("bold");
 							text.setTextProperty(ctp);
 							head.getChildren().add(text);
