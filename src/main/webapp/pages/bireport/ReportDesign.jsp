@@ -108,7 +108,7 @@ $(function(){
         <ul class="nav navbar-nav navbar-left">
 		<li class="dropdown">
         	<a href="#"  class="dropdown-toggle" data-toggle="dropdown">
-            	文件
+            	<i class="fa fa-file"></i>文件
                 <b class="caret"></b>
             </a>
         	<ul class="dropdown-menu">
@@ -119,7 +119,7 @@ $(function(){
         </li>
 		<li class="dropdown">
         	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            	导出
+            	<i class="fa fa-file-excel-o"></i>导出
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
@@ -130,8 +130,8 @@ $(function(){
 				<li><a href="javascript:exportPage('pdf');">PDF</a></li>
             </ul>
         </li>
-		<li><a href="javascript:printData();">打印</a></li>
-		<li><a href="javascript:kpidesc();">度量解释</a></li>
+		<li><a href="javascript:printData();"><i class="fa fa-print"></i>打印</a></li>
+		<li><a href="javascript:kpidesc();"><i class="fa fa-list-alt"></i>解释</a></li>
         </ul>
     </div>
 </nav>

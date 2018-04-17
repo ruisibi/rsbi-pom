@@ -175,7 +175,7 @@
                                     </a>
                                 </li>
 								<li>
-                                    <a href="http://www.ruisibi.cn/book.htm" target="_blank">
+                                    <a href="http://www.ruisitech.com/docs.htm" target="_blank">
                                         <div>使用手册</div>
                                     </a>
                                 </li>

@@ -18,6 +18,7 @@ import com.ruisitech.bi.entity.common.DSColumn;
 import com.ruisitech.bi.entity.model.DataSource;
 import com.ruisitech.bi.entity.model.Dataset;
 import com.ruisitech.bi.mapper.model.DatasetMapper;
+import com.ruisitech.bi.service.bireport.ModelCacheService;
 
 @Service
 public class DatasetService {
@@ -28,12 +29,17 @@ public class DatasetService {
 	@Autowired
 	private DataSourceService dsService;
 	
+	@Autowired
+	private ModelCacheService cacheService;
+	
 	public List<Dataset> listDataset(){
 		return mapper.listDataset();
 	}
 	
 	public void updateDset(Dataset ds){
 		mapper.updateDset(ds);
+		//删除缓存
+		cacheService.removeDset(ds.getDsid());
 	}
 	
 	public void insertDset(Dataset ds){
@@ -42,6 +48,8 @@ public class DatasetService {
 	
 	public void deleteDset(String dsetId){
 		mapper.deleteDset(dsetId);
+		//删除缓存
+		cacheService.removeDset(dsetId);
 	}
 	
 	public String getDatasetCfg(String dsetId){

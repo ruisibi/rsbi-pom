@@ -127,11 +127,11 @@ table.r_layout td.layouttd {
         <!--向左对齐-->
         <ul class="nav navbar-nav navbar-left">
 		<c:if test="${ income != 'menu' }">
-		<li><a href="customization.action?pageId=${pageId}">定制</a></li>
+		<li><a href="customization.action?pageId=${pageId}"><i class="fa fa-edit"></i>定制</a></li>
 		</c:if>
 		<li class="dropdown">
         	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            	导出
+            	<i class="fa fa-file-excel-o"></i>导出
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
@@ -142,9 +142,9 @@ table.r_layout td.layouttd {
 				<li><a href="javascript:exportPage('pdf');">PDF</a></li>
             </ul>
         </li>
-		<li><a href="javascript:printpage();">打印</a></li>
+		<li><a href="javascript:printpage();"><i class="fa fa-print"></i>打印</a></li>
 		<c:if test="${ income != 'menu' }">
-		<li><a href="PortalIndex.action">返回</a></li>
+		<li><a href="PortalIndex.action"><i class="fa fa-arrow-left"></i>返回</a></li>
 		</c:if>
         </ul>
     </div>
