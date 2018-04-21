@@ -322,20 +322,20 @@ function addComp(comp, layoutId, ispush){
 	if((json.type == "box" || json.type == "text") && json.height ){
 		textcss = textcss + "height:"+(json.height + 8)+"px;";  //加上padding
 	}
-	var str = "<div class=\"ibox\" id=\"c_"+json.id+"\"><div class=\"ibox-title\"><div title=\"双击改名\" ondblclick=\"chgcompname(this, '"+json.id+"')\" class=\"ctit\"><h5>"+json.name+"</h5></div>"+"<div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs mvcomp\" title=\"移动组件\" cid=\""+json.id+"\"><i class=\"fa fa-hand-grab-o\"></i></button> <button class=\"btn btn-outline btn-success btn-xs\" onclick=\"showcompmenu(this,'"+layoutId+"','"+comp.id+"')\" title=\"设置组件\" ><i class=\"fa fa-wrench\"></i></button> <button class=\"btn btn-outline btn-danger btn-xs\" onclick=\"deletecomp('"+layoutId+"', '"+comp.id+"');\" title=\"删除组件\" cid=\""+json.id+"\"><i class=\"fa fa-times\"></i></button></div></div><div class=\"cctx ibox-content\" style=\""+textcss+"\"><div class=\"ccctx\">";
+	var str = "<div class=\"ibox\" id=\"c_"+json.id+"\"><div class=\"ibox-title\"><div title=\"双击改名\" ondblclick=\"chgcompname(this, '"+json.id+"')\" class=\"ctit\"><h5>"+json.name+"</h5></div>"+"<div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs\" onclick=\"showcompmenu(this,'"+layoutId+"','"+comp.id+"')\" title=\"设置组件\" ><i class=\"fa fa-wrench\"></i></button> <button class=\"btn btn-outline btn-danger btn-xs\" onclick=\"deletecomp('"+layoutId+"', '"+comp.id+"');\" title=\"删除组件\" cid=\""+json.id+"\"><i class=\"fa fa-times\"></i></button></div></div><div class=\"cctx ibox-content\" style=\""+textcss+"\"><div class=\"ccctx\">";
 	if(json.type == 'text'){
 		str = str + comp.desc.replace(/\n/g,"<br>")
 	}else if(json.type == "table"){
-		var ret = "<div align=\"center\" class=\"tipinfo\">(点击组件右上角设置按钮配置交叉表的数据)</div>";
+		var ret = "<div align=\"center\" class=\"tipinfo\">(点击<i class=\"fa fa-wrench\"></i>按钮配置交叉表)</div>";
 		str = str + ret;
 	}else if(json.type == "chart"){
-		var ret = "<div align=\"center\" class=\"tipinfo\">(点击组件右上角设置按钮配置图形数据)</div>";
+		var ret = "<div align=\"center\" class=\"tipinfo\">(点击<i class=\"fa fa-wrench\"></i>按钮配置图形)</div>";
 		str = str + ret;
 	}else if(json.type == 'grid'){
-		var ret = "<div align=\"center\" class=\"tipinfo\">(点击组件右上角设置按钮配置表格数据)</div>";
+		var ret = "<div align=\"center\" class=\"tipinfo\">(点击<i class=\"fa fa-wrench\"></i>按钮配置表格)</div>";
 		str = str + ret;
 	}else if(json.type == "box"){
-		var ret = "<div align=\"center\" class=\"tipinfo\">(点击组件右上角设置按钮配置数据块显示的度量)</div>";
+		var ret = "<div align=\"center\" class=\"tipinfo\">(点击<i class=\"fa fa-wrench\"></i>按钮配置数据块)</div>";
 		str = str + ret;
 	}
 	str = str + "</div><div class=\"win-size-grip\"></div></div></div>";
@@ -434,7 +434,8 @@ function bindCompEvent(obj){
 	//注册移动事件
 	$("#c_" + obj.id).draggable({
 		revert:true,
-		handle:$("#c_" + obj.id + " button.mvcomp"),
+		handle:$("#c_" + obj.id + " .ibox-title"),
+		delay:180,
 		proxy:function(source){
 			var width = $(source).width();
 			var height = $(source).height();
@@ -444,10 +445,12 @@ function bindCompEvent(obj){
 		},
 		onStartDrag:function(e){
 			resetWindows('min');
+			$(this).hide();
 		},
 		onStopDrag:function(e){
 			$(".indicator").hide();
 			resetWindows('max');
+			$(this).show();
 		}
 	});
 	

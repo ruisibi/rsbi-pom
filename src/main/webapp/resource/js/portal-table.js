@@ -188,7 +188,7 @@ function gridView(grid){
 		return;
 	}
 	var json = eval("("+JSON.stringify(grid)+")");
-	json.params = pageInfo.params;
+	json.portalParams = pageInfo.params;
 	__showLoading();
 	$.ajax({
 	   type: "POST",

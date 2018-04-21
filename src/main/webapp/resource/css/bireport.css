@@ -131,6 +131,7 @@ tr.scrollColThead th span a.extKpibtn {
 	border:1px solid #7F9DB9;
 	overflow:hidden;
 	height:26px;
+	border-radius:5px;
 }
 .chartctx {
 	border:1px solid #CACACA;
