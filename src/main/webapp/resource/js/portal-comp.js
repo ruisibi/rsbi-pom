@@ -322,7 +322,7 @@ function addComp(comp, layoutId, ispush){
 	if((json.type == "box" || json.type == "text") && json.height ){
 		textcss = textcss + "height:"+(json.height + 8)+"px;";  //加上padding
 	}
-	var str = "<div class=\"ibox\" id=\"c_"+json.id+"\"><div class=\"ibox-title\"><div title=\"双击改名\" ondblclick=\"chgcompname(this, '"+json.id+"')\" class=\"ctit\"><h5>"+json.name+"</h5></div>"+"<div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs\" onclick=\"showcompmenu(this,'"+layoutId+"','"+comp.id+"')\" title=\"设置组件\" ><i class=\"fa fa-wrench\"></i></button> <button class=\"btn btn-outline btn-danger btn-xs\" onclick=\"deletecomp('"+layoutId+"', '"+comp.id+"');\" title=\"删除组件\" cid=\""+json.id+"\"><i class=\"fa fa-times\"></i></button></div></div><div class=\"cctx ibox-content\" style=\""+textcss+"\"><div class=\"ccctx\">";
+	var str = "<div class=\"ibox\" id=\"c_"+json.id+"\"><div class=\"ibox-title\"><div class=\"ctit\"><h5>"+json.name+"</h5></div>"+"<div class=\"ibox-tools\"><button class=\"btn btn-outline btn-success btn-xs\" onclick=\"showcompmenu(this,'"+layoutId+"','"+comp.id+"')\" title=\"设置组件\" ><i class=\"fa fa-wrench\"></i></button> <button class=\"btn btn-outline btn-danger btn-xs\" onclick=\"deletecomp('"+layoutId+"', '"+comp.id+"');\" title=\"删除组件\" cid=\""+json.id+"\"><i class=\"fa fa-times\"></i></button></div></div><div class=\"cctx ibox-content\" style=\""+textcss+"\"><div class=\"ccctx\">";
 	if(json.type == 'text'){
 		str = str + comp.desc.replace(/\n/g,"<br>")
 	}else if(json.type == "table"){
@@ -340,17 +340,6 @@ function addComp(comp, layoutId, ispush){
 	}
 	str = str + "</div><div class=\"win-size-grip\"></div></div></div>";
 	return str;
-}
-function chgcompname(ts, compId){
-	var comp = findCompById(compId);
-	$.messager.prompt('组件标题', '请输入新的组件标题：', function(msg){
-		if(msg){
-			comp.name = msg;
-			$("#c_"+compId+" .ctit h5").text(msg);
-			curTmpInfo.isupdate = true;
-		}
-	});
-	$(".messager-input").val(comp.name).select();
 }
 function showcompmenu(ts, layoutId, compId){
 	var offset = $(ts).offset();

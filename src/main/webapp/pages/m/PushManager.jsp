@@ -141,14 +141,12 @@ function editReport(id){
  </div>
  
    <div class="col-sm-9 animated fadeInRight">
-	<div class="ibox">
+	
 
-			<div class="ibox-title">
-				<h5>手机报表列表</h5>
-			</div>
-	<div class="ibox-content">
+			
 
-	  <table id="cubelist" title="" style="width:auto;height:auto;" >
+
+	  <table id="cubelist" title="手机报表列表" style="width:auto;height:auto;" >
       <thead>
       <tr>
       	<th data-options="field:'ck',checkbox:true"></th>
@@ -162,9 +160,7 @@ function editReport(id){
        </table>
    
 
-	 </div>
 
-	</div>
 	 </div>
  </div>
 </div>

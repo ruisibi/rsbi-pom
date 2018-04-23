@@ -215,7 +215,13 @@ public class ReportService extends BaseCompService {
 			return;
 		}
 		
+		//添加kpiOther
+		DimDto kpiOther = new DimDto();
+		kpiOther.setType("kpiOther");
+		table.getCols().add(kpiOther);
 		CrossReportContext cr = tableService.json2Table(table);
+		//移除kpiOther
+		table.getCols().remove(table.getCols().size() - 1);
 		String id = ExtConstants.reportIdPrefix + IdCreater.create();
 		cr.setId(id);
 		cr.setOut("html");
