@@ -43,20 +43,14 @@ public class GridService extends BaseCompService {
 	
 	private Map<String, InputField> mvParams = new HashMap<String, InputField>(); //mv的参数
 	
+	@Autowired
 	private DataControlInterface dataControl; //数据权限控制
 	
 	@Autowired
 	private ModelCacheService cacheService;
 	
 	public @PostConstruct void init() {
-		String clazz = ExtContext.getInstance().getConstant("dataControl");
-		if(clazz != null && clazz.length() != 0){
-			try {
-				dataControl = (DataControlInterface)Class.forName(clazz).newInstance();
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-		}
+		
 	}  
 	
 	public @PreDestroy void destory() {

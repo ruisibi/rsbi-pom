@@ -389,7 +389,7 @@ function setGridProperty(comp){
 				}
 				comp[col] = val;
 			}
-			if(col == "height" || col == "lockhead" || col == "isnotfy" || col == "pageSize"){
+			if( col == "lockhead" || col == "isnotfy" || col == "pageSize"){
 				gridView(comp);
 			}
 		},
@@ -399,12 +399,11 @@ function setGridProperty(comp){
 				type:"checkbox",
 				options:{"on":true, "off":false}
 			}},
-			{name:'表格高度',col:'height', value:(comp.height?comp.height:""), group:'表格属性', editor:"numberbox"},
 			{name:'禁用分页',col:'isnotfy', value:(comp.isnotfy?comp.isnotfy:""), group:'表格属性', editor:{
 				type:"checkbox",
 				options: {"on":true, "off":false}
 			}},
-			{name:'每页显示条数',col:'pageSize', value:(comp.pageSize?comp.pageSize:"10"), group:'表格属性', editor:"numberbox"}
+			{name:'每页显示条数',col:'pageSize', value:(comp.pageSize?comp.pageSize:"10"), group:'表格属性', editor:{type:'numberspinner',options:{min:1,max:100,increment:5}}}
 			]
 		});
 }
@@ -460,7 +459,7 @@ function setBoxProperty(comp){
 				type:'combobox',
 				options:{data:kpirate}
 			}},
-			{name:'字体大小',col:'tfontsize', value:(comp.kpiJson&&comp.kpiJson.tfontsize?comp.kpiJson.tfontsize:"32"), group:'数据块属性', editor:'numberbox'},
+			{name:'字体大小',col:'tfontsize', value:(comp.kpiJson&&comp.kpiJson.tfontsize?comp.kpiJson.tfontsize:"32"), group:'数据块属性', editor:{type:'numberspinner',options:{min:9,max:100,increment:3}}},
 			{name:'字体颜色',col:'tfontcolor', value:(comp.kpiJson&&comp.kpiJson.tfontcolor?comp.kpiJson.tfontcolor:""), group:'数据块属性', editor:{
 				type:'combobox',
 				options:{data:colorJson, formatter:function(row){

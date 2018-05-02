@@ -54,18 +54,11 @@ public class ChartService extends BaseCompService {
 	private ModelCacheService cacheService;
 	@Autowired
 	private AreaMapper areaMapper;
-	
+	@Autowired
 	private DataControlInterface dataControl; //数据权限控制
 	
 	public @PostConstruct void init() {
-		String clazz = ExtContext.getInstance().getConstant("dataControl");
-		if(clazz != null && clazz.length() != 0){
-			try {
-				dataControl = (DataControlInterface)Class.forName(clazz).newInstance();
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-		}
+		
 	}  
 	
 	public @PreDestroy void destory() {

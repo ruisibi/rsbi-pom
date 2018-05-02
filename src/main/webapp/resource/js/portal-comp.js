@@ -235,6 +235,7 @@ function insertText(state, layoutId, compId){
 		content: '<div class="textpanel"><textarea name="txtctx" id="txtctx" style=\"width:450px;height:145px;\"></textarea></div>',
 		buttons:[{
 					text:'确定',
+					iconCls:"icon-ok",
 					handler:function(){
 						if(state == 'insert'){
 							var txt = $("#txtctx").val();
@@ -259,6 +260,7 @@ function insertText(state, layoutId, compId){
 					}
 				},{
 					text:'取消',
+					iconCls:"icon-cancel",
 					handler:function(){
 						$('#pdailog').dialog('close');
 					}
@@ -761,7 +763,7 @@ function setTableProperty(comp){
 				$("#c_"+comp.id + " div.ctit h5").text(val);
 			}else if(col == "showtitle"){
 				comp.showtitle = val;
-			}else if(col == "lockhead" || col == "height"){
+			}else if(col == "lockhead"){
 				comp[col] = val;
 				tableView(comp, comp.id);
 			}
@@ -772,7 +774,6 @@ function setTableProperty(comp){
 				type:"checkbox",
 				options:{"on":true, "off":false}
 			}},
-			{name:'交叉表高度',col:'height', value:(comp.height?comp.height:""), group:'交叉表属性', editor:"numberbox"},
 			{name:"交叉表下钻",col:"xxx",value:"<div align=\"center\"><a href='javascript:;' onclick=\"crossdrill('"+comp.id+"')\">设置</a></div>",group:"交叉表属性"}
 			]
 		});
@@ -941,7 +942,7 @@ function setTextProperty(comp){
 					return "<div style=\"background-color:"+row.value+"\">"+row.text+"</div>";
 				}}
 			}},
-			{name:'字体大小',col:'tfontsize', value:(s.tfontsize?s.tfontsize:""), group:'文本字体', editor:'numberbox'},
+			{name:'字体大小',col:'tfontsize', value:(s.tfontsize?s.tfontsize:""), group:'文本字体', editor:{type:'numberspinner',options:{min:9,max:100,increment:3}}},
 			{name:'字体颜色',col:'tfontcolor', value:(s.tfontcolor?s.tfontcolor:""), group:'文本字体', editor:{
 				type:'combobox',
 				options:{data:colorJson, formatter:function(row){

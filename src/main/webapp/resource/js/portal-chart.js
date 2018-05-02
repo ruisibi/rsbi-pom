@@ -408,8 +408,6 @@ function setChartProperty(comp){
 	var ctp = comp.chartJson.type;
 	var dt = [];
 	dt.push({name:'图形标题',col:'title', value:(comp.name?comp.name:""), group:'图形属性', editor:'text'});
-	dt.push({name:'高度',col:'height', value:(comp.chartJson.height?comp.chartJson.height:""), group:'图形属性', editor:'numberbox'});
-	dt.push({name:'宽度',col:'width', value:"100%", group:'图形属性'});
 	
 	if(ctp != 'gauge'){
 		dt.push({name:'是否隐藏图例',col:'showLegend', value:(comp.chartJson.showLegend?comp.chartJson.showLegend:""), group:'图形属性',editor:{
@@ -435,8 +433,8 @@ function setChartProperty(comp){
 	}
 	if(ctp == "pie" || ctp == "gauge" || ctp == "radar" || ctp == "map"){   //控制设置图形的marginleft 和 marginright
 	}else{
-		dt.push({name:'左间距',col:'marginLeft', value:(comp.chartJson.marginLeft?comp.chartJson.marginLeft:""), group:'图形属性', editor:'numberbox'});
-		dt.push({name:'右间距',col:'marginRight', value:(comp.chartJson.marginRight?comp.chartJson.marginRight:""), group:'图形属性', editor:'numberbox'});
+		dt.push({name:'左间距',col:'marginLeft', value:(comp.chartJson.marginLeft?comp.chartJson.marginLeft:""), group:'图形属性', editor:{type:'numberspinner',options:{min:10,max:100,increment:5}}});
+		dt.push({name:'右间距',col:'marginRight', value:(comp.chartJson.marginRight?comp.chartJson.marginRight:""), group:'图形属性', editor:{type:'numberspinner',options:{min:10,max:100,increment:5}}});
 	}
 	if(ctp == "pie" || ctp == "gauge" || ctp == "scatter" || ctp == "bubble" || ctp == "radar" || ctp == "map"){
 		
@@ -446,16 +444,16 @@ function setChartProperty(comp){
 	if(ctp == 'pie' || ctp =="gauge" || ctp == "scatter" || ctp == "bubble" || ctp == "radar" || ctp == "map"){
 		
 	}else{
-		dt.push({name:'显示间隔',col:'tickInterval', value:(comp.chartJson.xcol&&comp.chartJson.xcol.tickInterval?comp.chartJson.xcol.tickInterval:""), group:'横轴', editor:'numberbox'});
+		dt.push({name:'显示间隔',col:'tickInterval', value:(comp.chartJson.xcol&&comp.chartJson.xcol.tickInterval?comp.chartJson.xcol.tickInterval:""), group:'横轴', editor:{type:'numberspinner',options:{min:0,max:20,increment:1}}});
 	}
 	if(ctp == 'pie' || ctp =="gauge" || ctp == "scatter" || ctp == "bubble" || ctp == "radar" || ctp == "map"){
 		
 	}else{
-		dt.push({name:'旋转角度',col:'routeXaxisLable', value:(comp.chartJson.xcol&&comp.chartJson.xcol.routeXaxisLable?comp.chartJson.xcol.routeXaxisLable:""), group:'横轴', editor:'numberbox'});
+		dt.push({name:'旋转角度',col:'routeXaxisLable', value:(comp.chartJson.xcol&&comp.chartJson.xcol.routeXaxisLable?comp.chartJson.xcol.routeXaxisLable:""), group:'横轴', editor:{type:'numberspinner',options:{min:0,max:360,increment:5}}});
 	}
 	if(ctp == "gauge" || ctp == "scatter" || ctp == "bubble" || ctp == "radar" || ctp == "map"){
 	}else{
-		dt.push({name:'取Top',col:'top', value:(comp.chartJson.xcol.top?comp.chartJson.xcol.top:""), group:'横轴', editor:'numberbox'});
+		dt.push({name:'取Top',col:'top', value:(comp.chartJson.xcol.top?comp.chartJson.xcol.top:""), group:'横轴', editor:{type:'numberspinner',options:{min:1,max:100,increment:5}}});
 	}
 	//散点图或气泡图需要y2轴的属性
 	if(ctp =="scatter" || ctp == "bubble"){
@@ -483,10 +481,10 @@ function setChartProperty(comp){
 	if(ctp == "pie" || ctp == "scatter" || ctp == "bubble" || ctp == "map" || ctp == "radar"){
 		
 	}else{
-		dt.push({name:'最小值',col:'min', value:(comp.kpiJson[0]!=null?comp.kpiJson[0].min:""), group:'纵轴', editor:'numberbox'});
+		dt.push({name:'最小值',col:'min', value:(comp.kpiJson[0]!=null?comp.kpiJson[0].min:""), group:'纵轴', editor:{type:'numberspinner',options:{increment:10}}});
 	}
 	if(ctp == "gauge"){
-		dt.push({name:'最大值',col:'max', value:(comp.kpiJson[0]!=null?comp.kpiJson[0].max:""), group:'纵轴', editor:'numberbox'});
+		dt.push({name:'最大值',col:'max', value:(comp.kpiJson[0]!=null?comp.kpiJson[0].max:""), group:'纵轴', editor:{type:'numberspinner',options:{increment:10}}});
 	}
 	dt.push({name:'度量比例',col:'rate', value:(comp.kpiJson[0]!=null?comp.kpiJson[0].rate:""), group:'纵轴', editor:{
 		type:'combobox',
@@ -542,14 +540,6 @@ function setChartProperty(comp){
 				comp.chartJson[col] = val;
 				chartview(comp, comp.id);
 				
-			}else 
-			if(col == "height"){
-				comp.chartJson[col] = val;
-				//获取chart对象
-				var chart = echarts.getInstanceByDom(document.getElementById('C'+comp.id));
-				//chart.resize($("#C"+comp.id).width(), Number(comp.chartJson.height));
-				$("#C"+comp.id).height(comp.chartJson.height+"px");
-				chart.resize("auto", "auto");
 			}else if(col == "tickInterval" || col == "routeXaxisLable" || col == "xdispName" || col == "top"){
 				if(comp.chartJson.xcol[col]==undefined){
 					comp.chartJson.xcol[col] = "";

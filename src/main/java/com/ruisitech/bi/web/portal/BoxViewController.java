@@ -29,7 +29,7 @@ public class BoxViewController extends BaseController {
 
 	@RequestMapping(value="/BoxView.action", method = RequestMethod.POST)
 	public @ResponseBody Object tableView(@RequestBody BoxQuery box, HttpServletRequest req, HttpServletResponse res) throws Exception {
-		ExtContext.getInstance().removeMV(GridService.deftMvId);
+		ExtContext.getInstance().removeMV(BoxService.deftMvId);
 		MVContext mv = serivce.json2MV(box);
 		CompPreviewService ser = new CompPreviewService(req, res, req.getServletContext());
 		ser.setParams(serivce.getMvParams());

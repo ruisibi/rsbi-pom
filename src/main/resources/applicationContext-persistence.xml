@@ -82,5 +82,8 @@
         <property name="basePackage" value="com.ruisitech.bi.mapper"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
+    
+    <!-- 数据权限bean -->
+	<bean class="com.ruisitech.ext.service.DataControlImpl" name="dataControl"></bean>
 
 </beans>
