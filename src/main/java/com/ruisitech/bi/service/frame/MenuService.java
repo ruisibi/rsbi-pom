@@ -2,11 +2,13 @@ package com.ruisitech.bi.service.frame;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ruisitech.bi.entity.frame.Menu;
 import com.ruisitech.bi.mapper.frame.MenuMapper;
+import com.ruisitech.bi.util.RSBIUtils;
 
 @Service
 public class MenuService {
@@ -15,7 +17,8 @@ public class MenuService {
 	private MenuMapper mapper;
 	
 	public List<Menu> listUserMenus(){
-		List<Menu> menuList = mapper.listUserMenus(1);
+		Integer userId = RSBIUtils.getLoginUserInfo().getUserId();
+		List<Menu> menuList = mapper.listUserMenus(userId);
 		List<Menu> roots = this.findMenuChildren(0, menuList);
 		for(int i=0; i<roots.size(); i++){
 			Menu root = (Menu)roots.get(i);
