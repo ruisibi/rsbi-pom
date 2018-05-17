@@ -152,8 +152,13 @@ public class BoxService extends BaseCompService {
 		KpiDto kpi = box.getKpiJson();
 		StringBuffer sql = new StringBuffer();
 		sql.append("select ");
-		sql.append(kpi.getCol_name());
 		Integer rate = kpi.getRate();
+		if(kpi.getCalc() != null && kpi.getCalc() == 1){  //表达式，直接取表达式
+			sql.append(kpi.getCol_name());
+		}else{  //获取字段别名
+			String name = super.convertKpiName(kpi, tableAlias);
+			sql.append( name);
+		}
 		if(rate != null){
 			sql.append("/" + rate);
 		}

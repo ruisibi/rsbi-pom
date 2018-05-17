@@ -418,9 +418,13 @@ public class PortalChartService extends BaseCompService {
 		}else{
 			for(int i=0; i<kpis.size(); i++){
 				KpiDto kpi = kpis.get(i);
-				sql.append(kpi.getCol_name() + " ");
+				if(kpi.getCalc() != null && kpi.getCalc() == 1){  //表达式，直接取表达式
+					sql.append(kpi.getCol_name() + " ");
+				}else{  //获取字段别名
+					String name = super.convertKpiName(kpi, tableAlias);
+					sql.append( name + " ");
+				}
 				sql.append(kpi.getAlias());
-				
 				if(i != kpis.size() - 1){
 					sql.append(",");
 				}

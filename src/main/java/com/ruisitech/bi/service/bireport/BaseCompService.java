@@ -19,6 +19,7 @@ import com.ruisi.ext.engine.view.context.form.TextFieldContext;
 import com.ruisi.ext.engine.view.context.form.TextFieldContextImpl;
 import com.ruisi.ext.engine.view.exception.ExtConfigException;
 import com.ruisi.ispire.dc.grid.GridShift;
+import com.ruisitech.bi.entity.bireport.KpiDto;
 import com.ruisitech.bi.entity.model.DataSource;
 import com.ruisitech.bi.entity.portal.CompParamDto;
 import com.ruisitech.bi.entity.portal.PortalParamDto;
@@ -293,5 +294,18 @@ public abstract class BaseCompService {
 			}
 		}
 		return sb.toString().replaceAll("\\[x\\]", "\\$");
+	}
+	
+	/**
+	 * 获取字段别名
+	 * @param kpi
+	 * @param tableAlias
+	 * @return
+	 */
+	public String convertKpiName(KpiDto kpi, Map<String, String> tableAlias){
+		String colName = kpi.getCol_name();
+		String alias = tableAlias.get(kpi.getTname()) + ".";
+		String name = colName.replaceAll("\\((\\S+)\\)", "(" + alias+"$1" + ")");
+		return name;
 	}
 }

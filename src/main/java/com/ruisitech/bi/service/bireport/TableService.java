@@ -228,13 +228,13 @@ public class TableService extends BaseCompService {
 		}else{
 			for(int i=0; i<kpis.size(); i++){
 				KpiDto kpi = kpis.get(i);
-				//if(kpi.getRate() == null){
+				if(kpi.getCalc() != null && kpi.getCalc() == 1){  //表达式，直接取表达式
 					sql.append(kpi.getCol_name() + " ");
-				//}else{
-				//	sql.append("(" + kpi.getColName() + ")/"+kpi.getRate()+" ");
-				//}
+				}else{  //获取字段别名
+					String name = super.convertKpiName(kpi, tableAlias);
+					sql.append( name + " ");
+				}
 				sql.append(kpi.getAlias());
-				
 				if(i != kpis.size() - 1){
 					sql.append(",");
 				}
