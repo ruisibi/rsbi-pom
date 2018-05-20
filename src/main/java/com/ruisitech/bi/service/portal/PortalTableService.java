@@ -11,13 +11,12 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.ruisi.ext.engine.ExtConstants;
 import com.ruisi.ext.engine.init.TemplateManager;
 import com.ruisi.ext.engine.util.IdCreater;
@@ -38,6 +37,7 @@ import com.ruisi.ext.engine.view.context.form.TextFieldContextImpl;
 import com.ruisitech.bi.entity.bireport.DimDto;
 import com.ruisitech.bi.entity.bireport.KpiDto;
 import com.ruisitech.bi.entity.bireport.TableQueryDto;
+import com.ruisitech.bi.entity.portal.LinkAcceptDto;
 import com.ruisitech.bi.entity.portal.PortalTableQuery;
 import com.ruisitech.bi.service.bireport.BaseCompService;
 import com.ruisitech.bi.service.bireport.ModelCacheService;
@@ -191,14 +191,17 @@ public class PortalTableService  extends BaseCompService {
 		}
 		
 		//处理事件接受的参数限制条件
-		Map<String, Object> linkAccept = table.getLinkAccept();
-		if(linkAccept != null && !linkAccept.isEmpty()){
-			String col = (String)linkAccept.get("col");
-			String alias = (String)linkAccept.get("alias");
-			String valtype = (String)linkAccept.get("valType");
-			String tname = (String)linkAccept.get("tname");  //维度来源表
-			String dimTname = (String)linkAccept.get("dim_tname");  //维度映射的表
-			Integer calc = (Integer)linkAccept.get("calc");
+		LinkAcceptDto linkAccept = table.getLinkAccept();
+		if(linkAccept != null && release == 1 ){  //预览状态
+			String col = linkAccept.getCol();
+			String alias = super.findEventParamName(table.getId());
+			if(alias == null){
+				alias = linkAccept.getAlias();
+			}
+			String valtype = linkAccept.getValType();
+			String tname = linkAccept.getTname();  //维度来源表
+			String dimTname = linkAccept.getDimTname();  //维度映射的表
+			Integer calc = linkAccept.getCalc();
 			String ncol = "$" + alias;
 			if("string".equalsIgnoreCase(valtype)){
 				ncol = "'" + ncol + "'";
@@ -402,6 +405,7 @@ public class PortalTableService  extends BaseCompService {
 		cr.setParent(mv);
 		
 		//判断是否有事件，是否需要添加参数
+		/**
 		Map<String, Object> linkAccept = table.getLinkAccept();
 		if(linkAccept != null && !linkAccept.isEmpty()){
 			//创建参数
@@ -416,6 +420,7 @@ public class PortalTableService  extends BaseCompService {
 			ExtContext.getInstance().putServiceParam(mv.getMvid(), linkText.getId(), linkText);
 			mv.setShowForm(true);
 		}
+		**/
 		
 		Map<String, CrossReportContext> crs = new HashMap<String, CrossReportContext>();
 		crs.put(cr.getId(), cr);

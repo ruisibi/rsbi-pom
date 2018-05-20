@@ -10,13 +10,12 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.ruisi.bi.engine.view.context.chart.ChartContext;
 import com.ruisi.bi.engine.view.context.chart.ChartContextImpl;
 import com.ruisi.bi.engine.view.context.chart.ChartKeyContext;
@@ -425,7 +424,7 @@ public class ChartService extends BaseCompService {
 			}
 		}
 		
-		//
+		/**
 		Map<String, Object> linkAccept = chart.getChartJson().getLinkAccept();
 		if(linkAccept != null && !linkAccept.isEmpty()){
 			String col = (String)linkAccept.get("col");
@@ -436,6 +435,7 @@ public class ChartService extends BaseCompService {
 			}
 			sql.append(" and  " + col + " = " + ncol);
 		}
+		**/
 		
 		if(dims.size() > 0){
 			sql.append(" group by ");

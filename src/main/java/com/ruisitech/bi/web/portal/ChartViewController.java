@@ -27,7 +27,7 @@ public class ChartViewController {
 
 	@RequestMapping(value="/ChartView.action", method = RequestMethod.POST)
 	public @ResponseBody Object tableView(@RequestBody PortalChartQuery chartJson,  HttpServletRequest req, HttpServletResponse res) throws Exception {
-		
+		req.setAttribute("compId", chartJson.getId());
 		ExtContext.getInstance().removeMV(PortalChartService.deftMvId);
 		MVContext mv = chartService.json2MV(chartJson);
 		
@@ -41,5 +41,10 @@ public class ChartViewController {
 	@RequestMapping(value="/ChartType.action")
 	public String chartType() {
 		return "portal/ChartView-chartType";
+	}
+	
+	@RequestMapping(value="/chartColors.action")
+	public @ResponseBody Object chartColors() {
+		return chartService.queryChartColors();
 	}
 }

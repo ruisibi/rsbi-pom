@@ -433,8 +433,14 @@ function setChartProperty(comp){
 	}
 	if(ctp == "pie" || ctp == "gauge" || ctp == "radar" || ctp == "map"){   //控制设置图形的marginleft 和 marginright
 	}else{
-		dt.push({name:'左间距',col:'marginLeft', value:(comp.chartJson.marginLeft?comp.chartJson.marginLeft:""), group:'图形属性', editor:{type:'numberspinner',options:{min:10,max:100,increment:5}}});
-		dt.push({name:'右间距',col:'marginRight', value:(comp.chartJson.marginRight?comp.chartJson.marginRight:""), group:'图形属性', editor:{type:'numberspinner',options:{min:10,max:100,increment:5}}});
+		dt.push({name:'左间距',col:'marginLeft', value:(comp.chartJson.marginLeft?comp.chartJson.marginLeft:"65"), group:'图形属性', editor:{type:'numberspinner',options:{min:10,max:100,increment:5}}});
+		dt.push({name:'右间距',col:'marginRight', value:(comp.chartJson.marginRight?comp.chartJson.marginRight:"10"), group:'图形属性', editor:{type:'numberspinner',options:{min:10,max:100,increment:5}}});
+	}
+	if(ctp == "line" || ctp == "column" || ctp == "area" || ctp == "bar" || ctp =="scatter" || ctp == "bubble"){
+		dt.push({name:'是否显示值',col:'dataLabel', value:(comp.chartJson.dataLabel?comp.chartJson.dataLabel:""), group:'图形属性', editor:{
+			type:"checkbox",
+			options: {"on":true, "off":false}
+		}});
 	}
 	if(ctp == "pie" || ctp == "gauge" || ctp == "scatter" || ctp == "bubble" || ctp == "radar" || ctp == "map"){
 		
@@ -742,4 +748,57 @@ function findDimById(dimId, dims){
 		}
 	}
 	return ret;
+}
+//设置系列颜色
+function setSeriesColor(a, b, c, d, e, compId){
+	var comp = findCompById(compId);
+	if(comp.chartJson.type == "pie" || comp.chartJson.type == "map"){
+		return;
+	}
+	$.getJSON("chartColors.action", {}, function(dt){
+		var strs = [];
+		for(i=0;i<dt.length;i++){
+			if(comp.colors && i+1 == comp.colors[d]){
+				strs.push("<span class=\"selcolor\">");
+			}
+			strs.push("<span style=\"background-color:"+dt[i]+";\" idx=\""+(i + 1)+"\" class=\"seriesColor"+"\"></span>");
+			if(comp.colors && i+1 == comp.colors[d]){
+				strs.push("</span>");
+			}
+		}
+		var ctx = strs.join(" ")+"<br/><button class=\"btn btn-info btn-sm\">使用默认色</button>";
+		$('#pdailog').dialog({
+			title: d + ' - 设置系列颜色',
+			width: 380,
+			height: 240,
+			closed: false,
+			cache: false,
+			modal: true,
+			toolbar:null,
+			content: ctx,
+			buttons:[{
+				text:'取消',
+				handler:function(){
+					$('#pdailog').dialog('close');
+				}
+			}]
+		});
+		$("#pdailog .seriesColor").click(function(){
+			var colorIdx = $(this).attr("idx");
+			if(!comp.colors){
+				comp.colors = {};
+			}
+			comp.colors[d] = colorIdx;
+			curTmpInfo.isupdate = true;
+			$('#pdailog').dialog('close');
+			chartview(comp, compId);
+		});
+		$("#pdailog button").click(function(){
+			if(comp.colors){
+				delete comp.colors[d];
+				$('#pdailog').dialog('close');
+				chartview(comp, compId);
+			}
+		});
+	});
 }

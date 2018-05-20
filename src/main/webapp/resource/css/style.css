@@ -6806,7 +6806,6 @@ body.rtls.top-navigation .footer.fixed {
  *   SKIN 1 - H+ - 后台主题UI框架
  *   NAME - Blue light
  *
-*/
 
 .skin-1 .minimalize-styl-2 {
     margin: 14px 5px 5px 30px;
@@ -6948,14 +6947,13 @@ body.skin-1 {
     background: #0e9aef;
     color: #fff;
 }
-
+*/
 
 /*
  *
  *   SKIN 3 - H+ - 后台主题UI框架
  *   NAME - Yellow/purple
  *
-*/
 
 .skin-3 .minimalize-styl-2 {
     margin: 14px 5px 5px 30px;
@@ -7105,7 +7103,7 @@ body.skin-3 {
     background: #38283c;
     color: #fff;
 }
-
+**/
 @media (min-width: 768px) {
     .navbar-top-links .dropdown-messages,
     .navbar-top-links .dropdown-tasks,
@@ -7151,7 +7149,6 @@ body.skin-3 {
         display: block;
     }
     .ibox-tools {
-        float: none;
         text-align: right;
         display: block;
     }
@@ -7781,4 +7778,11 @@ TABLE.lockgrid div.dg-cell {
 	height:20px;
 	padding:3px;
 	color:black;
+}
+.eventback {
+	position:absolute;
+	width:50px;
+	right:5px;
+	cursor:pointer;
+	z-index:9999;
 }

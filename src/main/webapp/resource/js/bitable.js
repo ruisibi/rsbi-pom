@@ -935,6 +935,77 @@ function kpiproperty(){
 	$("#pdailog #kpiunit").find("option[value='"+kpi.rate+"']").attr("selected",true);
 	//$("#pdailog #aggreType").find("option[value='"+kpi.aggre+"']").attr("selected",true);
 }
+function linkdetail(pms){
+	var comp = findCompById(1);
+	$.ajax({
+	   type: "POST",
+	   url: "header.action",
+	   dataType:"JSON",
+	   data: {dsetId:comp.dsetId,dsid:comp.dsid},
+	   success: function(resp){
+		   if($("#dsColumn_div").size() == 0){
+				$("<div id=\"dsColumn_div\"></div>").appendTo("body");
+			}
+		    var ctx = "<table id=\"detailTable\"></table>";
+			$('#dsColumn_div').dialog({
+				title: '度量提取明细',
+				width: 660,
+				height: 400,
+				closed: false,
+				cache: false,
+				modal: true,
+				toolbar:null,
+				content: ctx,
+				toolbar:[{iconCls: 'icon-export',text:"导出",handler: function(){
+					location.href = 'exportDetail.action';
+				}}],
+				onClose:function(){
+					$('#dsColumn_div').dialog('destroy');
+				},
+				buttons:[{
+					text:'关闭',
+					iconCls:"icon-ok",
+					handler:function(){
+						$('#dsColumn_div').dialog('close');
+					}
+				}]
+			});
+			var cols = [];
+			for(i=0; i<resp.length; i++){
+				cols.push({field:"c"+i,title:resp[i].name,width:'90'});
+			}
+			$("#detailTable").datagrid({
+				fitColumns:true,
+				pagination:true,
+				columns:[cols],
+				singleSelect:true,
+				pageSize:20,
+				fit:true,
+				loader:function(param, func, err){
+					var json = {pms:pms, dsetId:comp.dsetId,dsid:comp.dsid, page:param.page, rows:param.rows};
+					$.ajax({
+					   type: "POST",
+					   url: "detail.action",
+					   contentType : "application/json",
+					   dataType:"JSON",
+					   data: JSON.stringify(json),
+					   success: function(resp){
+						   //$("#detailTable").datagrid("loadData", resp);
+						   func(resp);
+					   },
+					   error:function(resp){
+						   $.messager.alert('出错了','系统出错，请联系管理员。','error');
+					   }
+					});
+				}
+			});
+			
+	   },
+	   error:function(resp){
+		   $.messager.alert('出错了','系统出错，请联系管理员。','error');
+	   }
+	});
+}
 function getDimTop(){
 	var dimid = curTmpInfo.ckid;
 	var compId = curTmpInfo.compId.replace("T", "");

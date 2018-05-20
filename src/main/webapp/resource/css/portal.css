@@ -74,7 +74,6 @@ table.r_layout td.layouttd {
     text-align: center;
 	width:120px;
 	font-size:14px;
-	border-radius:5px;
 }
 .tableDatasty .dimcol {
     border: 1px solid #0C6ADF;
@@ -84,7 +83,6 @@ table.r_layout td.layouttd {
     text-align: left;
 	font-size:14px;
 	width:120px;
-	border-radius:5px;
 }
 .tableDatasty .boxcol {
     border: 1px solid #DF7809;
@@ -104,16 +102,17 @@ table.r_layout td.layouttd {
 }
 .tsbd .h_ctx{
 	border:1px solid #7F9DB9;
-	height:30px;
+	height:28px;
 	overflow:hidden;
 	border-radius:5px;
-	padding:3px 3px 0px 3px;
+	padding:2px;
 }
 .tsbd .h_ctx_multi {
     border: 1px solid #7F9DB9;
     height: 60px;
     overflow: auto;
 	line-height:16px;
+	border-radius:5px;
 }
 .chartctx {
 	border:1px solid #CACACA;
@@ -277,4 +276,17 @@ span.rlayout div.onelayout {
 	right: 0;
 	cursor: nwse-resize;
 	background: url(../img/wingrip.png) no-repeat;
+}
+.seriesColor {
+	width: 16px;
+	height: 16px;
+	padding: 5px;
+	display:inline-block;
+	cursor:pointer;
+	margin:5px;
+}
+.selcolor {
+	border:1px solid #990000;
+	height:30px;
+	display:inline-block;
 }

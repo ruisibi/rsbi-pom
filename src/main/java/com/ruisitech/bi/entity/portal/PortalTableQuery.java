@@ -22,7 +22,7 @@ public class PortalTableQuery extends BaseEntity {
 	private List<DimDto> rows;
 	
 	private Map<String, Object> link;
-	private Map<String, Object> linkAccept;
+	private LinkAcceptDto linkAccept;
 	
 	private List<PortalParamDto> portalParams;
 	private List<CompParamDto> params;
@@ -75,10 +75,11 @@ public class PortalTableQuery extends BaseEntity {
 	public void setLink(Map<String, Object> link) {
 		this.link = link;
 	}
-	public Map<String, Object> getLinkAccept() {
+	
+	public LinkAcceptDto getLinkAccept() {
 		return linkAccept;
 	}
-	public void setLinkAccept(Map<String, Object> linkAccept) {
+	public void setLinkAccept(LinkAcceptDto linkAccept) {
 		this.linkAccept = linkAccept;
 	}
 	public List<PortalParamDto> getPortalParams() {

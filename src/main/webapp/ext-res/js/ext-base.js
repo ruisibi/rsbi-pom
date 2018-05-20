@@ -14,6 +14,13 @@
 		}
 	});
 }
+/**
+jquery easyUI 回调函数
+*/
+function fmtdt(value,row,index){
+	var myDate = new Date(value.time);
+	return myDate.getFullYear() + "-" + (myDate.getMonth()+1) + "-" + myDate.getDate();
+}
 function formatDate(dt, fmt){
 	var date = new Date(dt.time);
 	 var o = { 
@@ -39,6 +46,9 @@ function __showLoading(){
 	var sload = $('#loadingdiv');
 	if(sload.size() == 0){
 		sload = $('<div id="loadingdiv" class="sk-spinner sk-spinner-three-bounce" style="position:absolute;z-index:9999"><div class="sk-bounce1"></div><div class="sk-bounce2"></div><div class="sk-bounce3"></div></div>').appendTo('body');
+		window.loadCompCnt = 1;	
+	}else{
+		window.loadCompCnt =  window.loadCompCnt + 1;
 	}
 	var doc = $(document);
 	var win = $(window);
@@ -48,7 +58,11 @@ function __showLoading(){
 	sload.show();
 }
 function __hideLoading(){
-	$("#loadingdiv").remove();
+	window.loadCompCnt =  window.loadCompCnt - 1;
+	if(window.loadCompCnt == 0){
+		$("#loadingdiv").remove();
+		delete window.loadCompCnt;
+	}
 }
 /**
 配置气泡大小
@@ -69,7 +83,13 @@ function formatNumber(num,pattern, shortname){
  	return num;
  }
  var shortdw;
-   if(shortname && num > 1000000){
+  if(shortname && num > 100000000){
+	 num = num / 100000000;
+	 shortdw = "亿";
+  }else if(shortname && num > 10000000){
+	 num = num / 10000000;
+	 shortdw = "千万";
+  }else if(shortname && num > 1000000){
 	 num = num / 1000000;
 	 shortdw = "百万";
   }else if(shortname && num > 10000){
@@ -78,6 +98,9 @@ function formatNumber(num,pattern, shortname){
   }else if(shortname && num > 1000){
 	  num = num / 1000;
 	  shortdw = "千";
+  }
+  if(pattern.indexOf("%") <= 0 && shortname){
+	  return (Math.round(num * 10) / 10) + (shortdw?shortdw:"");
   }
   if(pattern.indexOf("%") > 0){
 	  num = num * 100;
@@ -158,7 +181,7 @@ function formatNumber(num,pattern, shortname){
   return r;
 }
 function getCalendar(divId, dt, minval, maxval){
-	var url = '../control/Calendar.action';
+	var url = 'CalendarView.action';
 	$("#"+divId).load(url, {dt:dt, "max":maxval, "min":minval});
 }
 /**
@@ -365,32 +388,7 @@ function tableBodyscroll(id){
 		$("#"+id+" .lock-dg-header").css("margin-left", "-"+left+"px");
 	});
 }
-/**
-* 图形,表格连接
-**/
-function chartComp_Link(x, xval, url, pms, compId, tps){
-	if(url == null || url == 'null'){
-		alert("未定义接收组件。");
-		return;
-	}
-	pms = pms + x+"="+xval;
-	var pp = {};
-	var p = pms.split("&");
-	for(i=0; i<p.length; i++){
-		var tmp = p[i].split("=");
-		var k = tmp[0];
-		var v = tmp[1];
-		pp[k] = v;
-	}
-	for(i=0; i<url.length; i++){
-		var u = url[i];
-		var d = compId[i];
-		__showLoading();
-		jQuery("#"+(tps[i]=="chart"?"p":"")+d).load(u, pp, function(){
-			__hideLoading();
-		});
-	}
-}
+
 /**
  * 维度钻取
  * @return
@@ -420,6 +418,7 @@ function fieldDirll(config){
 		}
 	});
 }
+
 function __nodeRemove(target, config){
 	var pid = target.children('.crossDirll').attr('pid');
 	jQuery('#' + config.table+' td[drillid="'+pid+'"]').each(function(a, b){
@@ -427,19 +426,108 @@ function __nodeRemove(target, config){
 			jQuery(b).parent().remove();
 	});
 }
+
+/**
+* 图形,表格连接
+**/
+function chartComp_Link(x, xval, url, pms, compId, tps, fromId){
+	if(url == null || url == 'null'){
+		alert("未定义接收组件。");
+		return;
+	}
+	var tparam = pms;
+	var box = $("#"+fromId).parents(".ibox-content");
+	if(box.find(".eventback").size() == 0){  //创建事件返回按钮
+		$("<div class=\"eventback\"><span class=\"label label-success\"><i class=\"fa fa-arrow-left\"></i>返回</span></div>").prependTo(box).click(function(){
+			$(this).remove();
+			var pp = {};
+			var p = tparam.split("&");
+			for(i=0; i<p.length; i++){
+				var tmp = p[i].split("=");
+				var k = tmp[0];
+				var v = tmp[1];
+				pp[k] = v;
+			}
+			for(i=0; i<url.length; i++){
+				var u = url[i];
+				var d = compId[i];
+				__showLoading();
+				
+				jQuery("#"+(tps[i]=="chart"?"p":"")+d).load(u, pp, function(){
+					__hideLoading();
+				});
+			}
+		});
+	}
+	pms = pms + x+"="+xval;
+	var pp = {};
+	var p = pms.split("&");
+	for(i=0; i<p.length; i++){
+		var tmp = p[i].split("=");
+		var k = tmp[0];
+		var v = tmp[1];
+		pp[k] = v;
+	}
+	for(i=0; i<url.length; i++){
+		var u = url[i];
+		var d = compId[i];
+		__showLoading();
+		jQuery("#"+(tps[i]=="chart"?"p":"")+d).load(u, pp, function(){
+			__hideLoading();
+		});
+	}
+}
+function rowActionFireTR(config){
+	var obj = $('#' + config.id);
+	
+	obj.on('click','.row-link', function(e){
+		var o = $(this).find("a.lka");
+		var pms = o.attr("parms");
+		var name = o.attr("name");
+		var nameDesc = o.attr("nameDesc");
+		var value = o.attr("value");
+		var id = obj.parents(".dashboard-box").attr("id");
+		config.cb(pms, id, name, nameDesc, value);
+	});
+}
 /**
  * 通过点击表格更新组件
  * @return
  */
 function tableUpdateComp(config){
-	var obj = jQuery('#' + config.id);
+	var obj = $('#' + config.id);
 	
-	obj.on('click', '.row-link', function(e){
-		var tz = jQuery(this);
+	obj.on('click','.row-link', function(e){
+		var tz = $(this);
+	
+		var box = $("#"+config.id).parents(".ibox-content");
+		if(box.find(".eventback").size() == 0){  //创建事件返回按钮
+			$("<div class=\"eventback\"><span class=\"label label-success\"><i class=\"fa fa-arrow-left\"></i>返回</span></div>").prependTo(box).click(function(){
+				$(this).remove();
+				for(i=0; i<config.url.length; i++){
+					u = config.url[i].url;
+					t = config.url[i].target;
+					tp = config.url[i].type;
+					var pp = {};
+					var p = a.attr('parms' + i).split("&");
+					for(j=0; j<p.length; j++){
+						var tmp = p[j].split("=");
+						var k = tmp[0];
+						var v = tmp[1];
+						if(k == config.linkParamName){
+							continue;
+						}
+						pp[k] = v;
+					}
+					$("#"+(tp=="chart"?"p":"")+t).load(u, pp);
+					
+				}
+			});
+		}
+		
 		var a = tz.find('a.lka');
 		if(a.size() > 0){
-			
-			jQuery('#' + config.id + " .row-link").removeClass('link-selected');
+			$('#' + config.id + " .row-link").removeClass('link-selected');
 			tz.addClass('link-selected');
 			
 			for(i=0; i<config.url.length; i++){
@@ -454,13 +542,18 @@ function tableUpdateComp(config){
 					var v = tmp[1];
 					pp[k] = v;
 				}
-				__showLoading();
-				jQuery("#"+(tp=="chart"?"p":"")+t).load(u, pp, function(){
-					__hideLoading();
-				});
+				$("#"+(tp=="chart"?"p":"")+t).load(u, pp);
 				
 			}
 		}
 
 	});
+}
+//全选
+function selectAll(ts, cid){
+	if(ts.checked == true){
+		 $("input[name="+cid+"]").attr("checked",true).prop('checked', true);
+	}else{
+		$("input[name="+cid+"]").attr("checked",false);
+	}
 }

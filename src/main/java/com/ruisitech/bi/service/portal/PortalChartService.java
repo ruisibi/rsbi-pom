@@ -9,13 +9,12 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.ruisi.bi.engine.view.context.chart.ChartContext;
 import com.ruisi.bi.engine.view.context.chart.ChartContextImpl;
 import com.ruisi.bi.engine.view.context.chart.ChartKeyContext;
@@ -30,9 +29,11 @@ import com.ruisi.ext.engine.view.context.dc.grid.GridDataCenterContext;
 import com.ruisi.ext.engine.view.context.form.InputField;
 import com.ruisi.ext.engine.view.context.form.TextFieldContext;
 import com.ruisi.ext.engine.view.context.form.TextFieldContextImpl;
+import com.ruisi.ext.engine.view.emitter.chart.AbstractChartEmitter;
 import com.ruisitech.bi.entity.bireport.ChartJSONDto;
 import com.ruisitech.bi.entity.bireport.DimDto;
 import com.ruisitech.bi.entity.bireport.KpiDto;
+import com.ruisitech.bi.entity.portal.LinkAcceptDto;
 import com.ruisitech.bi.entity.portal.PortalChartQuery;
 import com.ruisitech.bi.service.bireport.BaseCompService;
 import com.ruisitech.bi.service.bireport.ChartService;
@@ -78,7 +79,7 @@ public class PortalChartService extends BaseCompService {
 		super.parserHiddenParam(chart.getPortalParams(), mv, mvParams);	
 		
 		//创建chart
-		ChartContext cr = this.json2Chart(chart.getChartJson(), chart.getKpiJson(), chart.getId(), false);
+		ChartContext cr = this.json2Chart(chart, chart.getId(), false);
 		
 		//重新设置chartId
 		cr.setId("C"+chart.getId());
@@ -94,6 +95,7 @@ public class PortalChartService extends BaseCompService {
 		mv.getChildren().add(cr);
 		cr.setParent(mv);
 		//判断是否有事件，是否需要添加参数
+		/**
 		Map<String, Object> linkAccept = chart.getChartJson().getLinkAccept();
 		if(linkAccept != null && !linkAccept.isEmpty()){
 			//创建参数
@@ -107,7 +109,7 @@ public class PortalChartService extends BaseCompService {
 			ExtContext.getInstance().putServiceParam(mv.getMvid(), linkText.getId(), linkText);
 			mv.setShowForm(true);
 		}
-		
+		**/
 		Map<String, ChartContext> crs = new HashMap<String, ChartContext>();
 		crs.put(cr.getId(), cr);
 		mv.setCharts(crs);
@@ -119,8 +121,9 @@ public class PortalChartService extends BaseCompService {
 		return mv;
 	}
 	
-	public ChartContext json2Chart(ChartJSONDto chartJson, List<KpiDto> kpiJson, String compId, boolean is3g){
+	public ChartContext json2Chart(PortalChartQuery chart, String compId, boolean is3g){
 		ChartContext ctx = new ChartContextImpl();
+		ChartJSONDto chartJson = chart.getChartJson();
 		//设置x
 		DimDto obj = chartJson.getXcol();
 		if(obj != null){
@@ -135,7 +138,7 @@ public class PortalChartService extends BaseCompService {
 				ctx.setXcolDesc(alias);
 			}
 		}
-		
+		List<KpiDto> kpiJson = chart.getKpiJson();
 		KpiDto kpiInfo = kpiJson.get(0);
 		String y = kpiInfo.getAlias();
 		ctx.setYcol(y);
@@ -254,11 +257,17 @@ public class PortalChartService extends BaseCompService {
 				properties.add(val1);
 			}
 		}
+		properties.add(new ChartKeyContext("action","setSeriesColor"));
 		
 		//设置饼图是否显示标签
 		String dataLabel = chartJson.getDataLabel();
-		ChartKeyContext val3 = new ChartKeyContext("showLabel", dataLabel == null ? "" : dataLabel);
-		properties.add(val3);
+		if(dataLabel == null || "false".equals(dataLabel)){
+			ChartKeyContext val3 = new ChartKeyContext("showLabel", "false");
+			properties.add(val3);
+		}else{
+			ChartKeyContext val3 = new ChartKeyContext("showLabel", "true");
+			properties.add(val3);
+		}
 		
 		//设置仪表盘数量
 		ChartKeyContext val1 = new ChartKeyContext("gaugeCnt", "1");
@@ -325,7 +334,7 @@ public class PortalChartService extends BaseCompService {
 		if("map".equals(chartType) && 2 == typeIndex){
 			ctx.setShape("scatterMap");  //地图散点图嵌套
 		}
-		
+		ctx.setSeriesColor(chart.getColors());
 		return ctx;
 	}
 	
@@ -333,6 +342,7 @@ public class PortalChartService extends BaseCompService {
 		String type = (String)link.get("type");
 		String target = (String)link.get("target");
 		String url = (String)link.get("url");
+		String paramName = (String)link.get("paramName");
 		
 		ChartLinkContext clink = new ChartLinkContext();
 		if(url != null && url.length() > 0){
@@ -341,6 +351,7 @@ public class PortalChartService extends BaseCompService {
 			clink.setTarget(target.split(","));
 			clink.setType(type.split(","));
 		}
+		clink.setParamName(paramName);
 		return clink;
 	}
 	
@@ -460,15 +471,19 @@ public class PortalChartService extends BaseCompService {
 		sql.append(dealCubeParams(chart.getParams(), tableAlias));
 		
 		//
-		Map<String, Object> linkAccept = chart.getChartJson().getLinkAccept();
-		if(linkAccept != null &&  !linkAccept.isEmpty()){
-			String col = (String)linkAccept.get("col");
-			String alias = (String)linkAccept.get("alias");
-			String valtype = (String)linkAccept.get("valType");
-			String tname = (String)linkAccept.get("tname");  //维度来源表
-			String dimTname = (String)linkAccept.get("dim_tname");  //维度映射的表
+		LinkAcceptDto linkAccept = chart.getChartJson().getLinkAccept();
+		if(linkAccept != null && release == 1){
+			String col = linkAccept.getCol();
+			String compId = chart.getId();
+			String alias = super.findEventParamName(compId);
+			if(alias == null){
+				alias = linkAccept.getAlias();
+			}
+			String valtype = linkAccept.getValType();
+			String tname = linkAccept.getTname();
+			String dimTname = linkAccept.getDimTname();
 			String ncol = "$" + alias;
-			Integer calc = (Integer)linkAccept.get("calc");
+			Integer calc = linkAccept.getCalc();
 			if("string".equalsIgnoreCase(valtype)){
 				ncol = "'" + ncol + "'";
 			}
@@ -532,6 +547,16 @@ public class PortalChartService extends BaseCompService {
 		//替换 ## 为 函数，##在velocity中为注释意思
 		ret = ret.replaceAll("##", "\\$extUtils.printJH()").replaceAll("@", "'");
 		return ret;
+	}
+	
+	public Object queryChartColors(){
+		AbstractChartEmitter.ColorVO[] vls = AbstractChartEmitter.ColorVO.values();
+		String[] v = new String[vls.length];
+		for(int i=0; i<vls.length; i++){
+			AbstractChartEmitter.ColorVO c = vls[i];
+			v[i] = c.toString();
+		}
+		return v;
 	}
 
 	public Map<String, InputField> getMvParams() {

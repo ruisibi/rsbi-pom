@@ -27,6 +27,7 @@ public class PortalChartQuery {
 	private String type;
 	
 	private Map<String, Object> style = new HashMap<String, Object>();
+	private Map<String, Integer> colors;  //系列颜色
 	
 	public List<PortalParamDto> getPortalParams() {
 		return portalParams;
@@ -107,6 +108,12 @@ public class PortalChartQuery {
 	}
 	public void setStyle(Map<String, Object> style) {
 		this.style = style;
+	}
+	public Map<String, Integer> getColors() {
+		return colors;
+	}
+	public void setColors(Map<String, Integer> colors) {
+		this.colors = colors;
 	}
 	
 }

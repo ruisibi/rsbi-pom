@@ -11,7 +11,9 @@
   4.开放源码，采用apache2.0开源协议，用户可任意使用而不需我公司授权（标准版除外）。<br>
   
   <p>
-  
+# 系统更新：<br>
+睿思BI4.0最大一次更新，多维分析支持钻透（到明细）及导出明细，美化图形，优化事件（组件联动），组件联动增加后退按钮，自定义图形序列颜色，图形支持显示值，修复其他BUG等内容。  <br/>
+
 # 产品安装：<br/>
   1.安装数据，系统基于mysql数据库，先创建rs_report数据库，再解压datas/rs_report_data.zip文件，通过 mysql -u root -p rs_report< rs_report_data.bak 命令还原文件到 rs_report 数据库中。 <br>
   2.安装程序，此项目为maven工程，通过maven打包项目。 <br>

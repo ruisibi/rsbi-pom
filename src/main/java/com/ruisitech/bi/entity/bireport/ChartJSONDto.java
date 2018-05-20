@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.ruisitech.bi.entity.portal.LinkAcceptDto;
+
 public class ChartJSONDto {
 	
 	private String type;
@@ -14,7 +16,7 @@ public class ChartJSONDto {
 	private DimDto scol;
 	private DimDto ycol; //"ycol":{"type":"kpi"}
 	private Map<String, Object> link;
-	private Map<String, Object> linkAccept;
+	private LinkAcceptDto linkAccept;
 	
 	private String maparea;
 	private String mapAreaName;
@@ -86,12 +88,15 @@ public class ChartJSONDto {
 	public void setLink(Map<String, Object> link) {
 		this.link = link;
 	}
-	public Map<String, Object> getLinkAccept() {
+	
+	public LinkAcceptDto getLinkAccept() {
 		return linkAccept;
 	}
-	public void setLinkAccept(Map<String, Object> linkAccept) {
+
+	public void setLinkAccept(LinkAcceptDto linkAccept) {
 		this.linkAccept = linkAccept;
 	}
+
 	public String getMaparea() {
 		return maparea;
 	}

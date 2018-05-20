@@ -3,11 +3,11 @@ package com.ruisitech.bi.service.bireport;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.ruisitech.bi.entity.model.DataSource;
 import com.ruisitech.bi.mapper.model.DataSourceMapper;
 import com.ruisitech.bi.mapper.model.DatasetMapper;
@@ -50,7 +50,7 @@ public class ModelCacheService {
 		JSONObject ret = dsets.get(id);
 		if(ret == null){
 			String cfg = dsetMapper.getDatasetCfg(id);
-			dsets.put(id, JSONObject.fromObject(cfg));
+			dsets.put(id, JSON.parseObject(cfg));
 			ret = dsets.get(id);
 		}
 		return ret;

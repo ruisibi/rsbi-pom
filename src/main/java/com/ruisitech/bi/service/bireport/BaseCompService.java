@@ -7,9 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.ruisi.ext.engine.util.PasswordEncrypt;
 import com.ruisi.ext.engine.view.context.ExtContext;
 import com.ruisi.ext.engine.view.context.MVContext;
@@ -22,7 +21,9 @@ import com.ruisi.ispire.dc.grid.GridShift;
 import com.ruisitech.bi.entity.bireport.KpiDto;
 import com.ruisitech.bi.entity.model.DataSource;
 import com.ruisitech.bi.entity.portal.CompParamDto;
+import com.ruisitech.bi.entity.portal.PortalChartQuery;
 import com.ruisitech.bi.entity.portal.PortalParamDto;
+import com.ruisitech.bi.entity.portal.PortalTableQuery;
 
 /**
  * 组件基类Service
@@ -30,6 +31,8 @@ import com.ruisitech.bi.entity.portal.PortalParamDto;
  *
  */
 public abstract class BaseCompService {
+	
+	protected JSONObject pageBody; //页面配置信息
 
 	public Map<String, String> createTableAlias(JSONObject dset){
 		Map<String, String> tableAlias = new HashMap<String, String>();
@@ -308,4 +311,62 @@ public abstract class BaseCompService {
 		String name = colName.replaceAll("\\((\\S+)\\)", "(" + alias+"$1" + ")");
 		return name;
 	}
+	
+	/**
+	 * 组件联动时，获取 paranName
+	 * @param compId
+	 * @return
+	 */
+	public String findEventParamName(String compId){
+		if(pageBody == null){
+			throw new RuntimeException("pageBody 未初始化...");
+		}
+		String paramName = null;
+		for(int i=1; true; i++){
+			Object tmp = pageBody.get("tr" + i);
+			if(tmp == null){
+				break;
+			}
+			JSONArray trs = (JSONArray)tmp;
+			for(int j=0; j<trs.size(); j++){
+				JSONObject td = trs.getJSONObject(j);
+				Object cldTmp = td.get("children");
+				if(cldTmp != null){
+					JSONArray children = (JSONArray)cldTmp;
+					for(int k=0; k<children.size(); k++){
+						JSONObject comp = children.getJSONObject(k);
+						String type = comp.getString("type");
+						if("chart".equals(type)){
+							PortalChartQuery chart = JSONObject.toJavaObject(comp, PortalChartQuery.class);
+							Map<String, Object> link = chart.getChartJson().getLink();
+							if(link != null){
+								String target = (String)link.get("target");
+								if(target != null && target.indexOf(compId) >= 0){
+									paramName = (String)link.get("paramName");
+									break;
+								}
+							}
+						}else if("table".equals(type)){
+							PortalTableQuery table = JSONObject.toJavaObject(comp, PortalTableQuery.class);
+							Map<String, Object> link =  table.getLink();
+							if(link != null){
+								String target = (String)link.get("target");
+								if(target != null && target.indexOf(compId) >= 0){
+									paramName = (String)link.get("paramName");
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return paramName;
+	}
+
+	public void setPageBody(JSONObject pageBody) {
+		this.pageBody = pageBody;
+	}
+	
+	
 }

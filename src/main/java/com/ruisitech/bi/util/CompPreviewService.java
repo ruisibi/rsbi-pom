@@ -128,12 +128,9 @@ public class CompPreviewService {
 		//把MV放入内存对象
 		if(mv instanceof MVContext){
 			MVContext mvo = (MVContext)mv;
-			//判断mv是否已经存在，如果存在不用再放入内存对象。
-			if(!ExtContext.getInstance().chkMvExist(mvo.getMvid())){
-				String formId = ExtConstants.formIdPrefix + IdCreater.create();
-				mvo.setFormId(formId);
-				ExtContext.getInstance().putMVContext(mvo);
-			}
+			String formId = ExtConstants.formIdPrefix + IdCreater.create();
+			mvo.setFormId(formId);
+			ExtContext.getInstance().putMVContext(mvo , false);
 		}
 		Map<String, InputField> params =  this.params;
 		InputOption option = InputOptionFactory.createInputOption(request, response, params);

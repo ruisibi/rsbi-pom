@@ -1336,16 +1336,15 @@ function compevent(compId){
 		clink = comp.link;
 		linkaccept = comp.linkAccept;
 	}
-	var str = "<select id=\"linkcomp\" name=\"linkcomp\" class=\"inputform2\"><option value=\"\"></option>";
+	var str = "";
 	for(i=0; i<curTmpInfo.comps.length; i++){
 		var o = curTmpInfo.comps[i];
 		if(o.type == 'chart' || o.type == 'table'){
 			if(o.id != compId){  //不添加它自己
-				str = str + "<option value=\""+o.id+"\" "+(clink&&clink.target==o.id?"selected":"")+" >"+o.name+"</option>";
+				str = str + "<div class=\"checkbox checkbox-info\"><input id=\"cc"+i+"\" type=\"checkbox\" name=\"linkcomp\" value=\""+o.id+"\" "+(clink&&clink.target.indexOf(o.id)>=0 ?"checked":"")+"><label for=\"cc"+i+"\">"+o.name+"</label></div>";
 			}
 		}
 	}
-	str = str + "</select>";
 	var cols;
 	var findCubeCols = function(cubeId){
 		var ret = "";
@@ -1367,9 +1366,9 @@ function compevent(compId){
 	var str2 = "<select id=\"acceptCol\" name=\"acceptCol\" class=\"inputform2\"><option value=\"\"></option>";
 	str2 = str2 + findCubeCols(comp.cubeId);
 	str2 = str2 + "</select>";
-	var ctx = "<div id=\"compevent_tab\" style=\"height:auto; width:auto;\"><div title=\"事件发起\"><div class=\"textpanel\"><span class=\"inputtext\">联动组件：</span>"+str+"<br/> &nbsp; &nbsp; ->或-> <br/><span class=\"inputtext\">链接到URL：</span><input type=\"text\" name=\"linkurl\" id=\"linkurl\" class=\"inputform2\" value=\""+(clink&&clink.url?clink.url:"")+"\"><br/><a href=\"javascript:;\" id=\"cleanPostEvent\">清除事件发起</a></div></div><div title=\"事件接收\"><div class=\"textpanel\"><span class=\"inputtext\">接收字段：</span>"+str2+"<br/><span class=\"inputtext\">默认值：</span><input type=\"text\" name=\"dftval\" id=\"dftval\" class=\"inputform2\" value=\""+(linkaccept&&linkaccept.dftval?linkaccept.dftval:"")+"\"><br/><span class=\"inputtext\">默认值类型：</span><select name=\"valtype\" id=\"valtype\" class=\"inputform2\"><option value=\"\"></option><option value=\"number\" "+(linkaccept&&linkaccept.valType=="number"?"selected":"")+">数字类型</option><option value=\"string\" "+(linkaccept&&linkaccept.valType=="string"?"selected":"")+">字符类型</option></select><br/><a href=\"javascript:;\" id=\"cleanAcceptEvent\">清除事件接收</a></div></div></div>";
+	var ctx = "<div id=\"compevent_tab\" style=\"height:auto; width:auto;\"><div title=\"事件发起\"><div style=\"padding:10px;\"><span class=\"inputtext\">联动组件：</span><br/>"+str+"<button class=\"btn btn-info btn-sm\" id=\"cleanPostEvent\">清除事件发起</button></div></div><div title=\"事件接收\"><div class=\"textpanel\"><span class=\"inputtext\">接收字段：</span>"+str2+"<br/><br/><button id=\"cleanAcceptEvent\" class=\"btn btn-info btn-sm\">清除事件接收</button></div></div></div>";
 	$('#pdailog').dialog({
-		title: '组件事件设置',
+		title: '组件联动事件设置',
 		width: 330,
 		height: (comp.type=="table"?290:250),
 		closed: false,
@@ -1384,45 +1383,58 @@ function compevent(compId){
 				var tab = $("#pdailog #compevent_tab").tabs("getSelected");
 				var idx = $("#pdailog #compevent_tab").tabs("getTabIndex", tab);
 				if(idx == 0){
-					var linkcompId = $("#compevent_tab #linkcomp").val();
-					var url = $("#compevent_tab #linkurl").val();
-					var sendCol = $("#compevent_tab #sendCol").val();
-					if(linkcompId == '' && url == ""){
-						curTmpInfo.isupdate = true;
-						$('#pdailog').dialog('close');
-						return;
-					}
-					var linkComp = findCompById(linkcompId);
-					if(comp.type == "chart"){
-						comp.chartJson.link = {target:linkcompId, type:(linkComp==null?"":(linkComp.type == 'table' ? "cross": linkComp.type)), url:url, alias: sendCol};
+					var seles = $("#pdailog input[name='linkcomp']:checkbox:checked");
+					if(seles.length > 0){
+						var link = {};
+						if(comp.type == "chart"){
+							comp.chartJson.link = link;
+						}else{
+							comp.link = link;
+						}
+						var targets = "";
+						var types = "";
+						seles.each(function(a, b){
+							var id = $(this).val();
+							var linkComp = findCompById(id);
+							targets = targets + id + ",";
+							types = types + (linkComp.type=="table"?"cross":linkComp.type)+","
+						});
+						targets = targets.substring(0, targets.length - 1);
+						types = types.substring(0, types.length - 1);
+						link.target = targets; 
+						link.type = types;
+						link.paramName = "p"+Math.floor(Math.random()*100);
 					}else{
-						comp.link = {target:linkcompId, type:(linkComp==null?"":(linkComp.type == 'table' ? "cross": linkComp.type)), url:url, alias:sendCol};
+						if(comp.type == "chart"){
+							delete comp.chartJson.link;
+						}else{
+							delete comp.link;
+						}
 					}
 					
 				}else{
 					var col = $("#compevent_tab #acceptCol").val();
+					var val = "";
+					if(col == '' && val == ''){
+						curTmpInfo.isupdate = true;
+						$('#pdailog').dialog('close');
+						return;
+					}
 					var dim = null;
 					for(c=0; c<cols.length; c++){
 						if(cols[c].alias == col){
 							dim = cols[c];
 						}
 					}
-					var val = $("#compevent_tab #dftval").val();
-					var valType = $("#compevent_tab #valtype").val();
-					if(col == '' && val == ''){
-						curTmpInfo.isupdate = true;
-						$('#pdailog').dialog('close');
-						return;
-					}
-					if(valType == ""){
-						msginfo("默认值类型是必填项!")
-						return;
-					}
+					var o = {col:dim.col_name, alias:dim.alias, type:dim.dim_type, dftval: val, valType: dim.valType, tname:dim.tname,dimTname:dim.dim_tname,calc:dim.calc};
 					if(comp.type == "chart"){
-						comp.chartJson.linkAccept = {col:dim.col_name, alias:dim.alias, type:dim.dim_type, dftval: val, valType: valType, tname:dim.tname,dim_tname:dim.dim_tname,calc:dim.calc};
-						chartview(comp, comp.id);
+						comp.chartJson.linkAccept = o;
 					}else{
-						comp.linkAccept = {col:dim.col_name, alias:dim.alias, type:dim.dim_type, dftval: val, valType: valType, tname:dim.tname, dim_tname:dim.dim_tname,calc:dim.calc};
+						if(comp){
+							comp.linkAccept = o;
+						}else{
+							msginfo("组件还未定义数据，不能定义事件。");
+						}
 					}
 				}
 				curTmpInfo.isupdate = true;
@@ -1441,9 +1453,10 @@ function compevent(compId){
 		fit:true
 	});
 	$("#compevent_tab #cleanPostEvent").bind("click", function(){
-		$("#compevent_tab #linkcomp").val("");
-		$("#compevent_tab #linkurl").val("");
-		$("#compevent_tab #sendCol").val("");
+		var comps = $("#pdailog input[name='linkcomp']:checkbox");
+		for(i=0; comps&&i<comps.length; i++){
+			$(comps[i]).prop("checked", false);
+		}
 		if(comp.type == "chart"){
 			delete comp.chartJson.link;
 		}else{
@@ -1456,7 +1469,6 @@ function compevent(compId){
 		$("#compevent_tab #valtype").val("");
 		if(comp.type == "chart"){
 			delete comp.chartJson.linkAccept;
-			chartview(comp, comp.id);
 		}else{
 			delete comp.linkAccept;
 		}
@@ -1714,16 +1726,10 @@ function formatNumber(num,pattern, shortname){
   }
   return r;
 }
-//从写表格链接组件方法
-function tableUpdateComp(config){
-	var obj = jQuery('#' + config.id);
-	obj.on('click', '.row-link', function(e){
-		alert("定制模式下点击无效。");
-	});
-}
+
 //从写图形组件链接方法
 function chartComp_Link(){
-	alert("定制模式下点击无效。");
+	//alert("定制模式下点击无效。");
 }
 //从布局器中查询td(容器)
 function findLayoutById(layoutId){

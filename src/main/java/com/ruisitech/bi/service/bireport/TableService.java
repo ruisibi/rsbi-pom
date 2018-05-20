@@ -13,13 +13,12 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.ruisi.ext.engine.ExtConstants;
 import com.ruisi.ext.engine.init.TemplateManager;
 import com.ruisi.ext.engine.util.IdCreater;
@@ -149,14 +148,17 @@ public class TableService extends BaseCompService {
 		ctx.setLabel(table.getCompId());  //给组件设置label
 		boolean uselink = false;
 		Map<String, Object> link = table.getLink();
-		if(link != null && link.size() > 0){
+		if(link != null && !link.isEmpty()){
 			RowLinkContext rlink = new RowLinkContext();
-			String url = (String)link.get("url");  //url 优先与联动组件
+			rlink.setParamName((String)link.get("paramName"));
+			String url = (String)link.get("url");  //url 优先于联动组件
 			if(url != null && url.length() >0){
 				rlink.setUrl(url);
 			}else{
-				rlink.setTarget(new String[]{(String)link.get("target")});
-				rlink.setType(new String[]{(String)link.get("type")});
+				String target = (String)link.get("target");
+				String type = (String)link.get("type");
+				rlink.setTarget(target.split(","));
+				rlink.setType(type.split(","));
 			}
 			ctx.getCrossRows().setLink(rlink);
 			uselink = true;

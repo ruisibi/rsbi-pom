@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ruisi.bi.engine.view.context.chart.ChartContext;
+import com.ruisi.bi.engine.view.context.chart.ChartKeyContext;
 import com.ruisi.ext.engine.ExtConstants;
 import com.ruisi.ext.engine.init.TemplateManager;
 import com.ruisi.ext.engine.util.IdCreater;
@@ -64,6 +65,7 @@ import com.ruisitech.bi.entity.model.Dimension;
 import com.ruisitech.bi.entity.portal.BoxQuery;
 import com.ruisitech.bi.entity.portal.GridColDto;
 import com.ruisitech.bi.entity.portal.GridQuery;
+import com.ruisitech.bi.entity.portal.LinkAcceptDto;
 import com.ruisitech.bi.entity.portal.PortalChartQuery;
 import com.ruisitech.bi.entity.portal.PortalTableQuery;
 import com.ruisitech.bi.service.bireport.BaseCompService;
@@ -158,6 +160,9 @@ public class PortalPageService extends BaseCompService {
 		}
 		
 		JSONObject body = pageJson.getJSONObject("body");
+		super.setPageBody(body);
+		chartService.setPageBody(body);
+		tableService.setPageBody(body);
 		parserBody(body, mv, param, release);
 		//生成样式
 		TextContext csstext = new TextContextImpl();
@@ -553,10 +558,18 @@ public class PortalPageService extends BaseCompService {
 			return; //未选指标
 		}
 
-		ChartContext cr = chartService.json2Chart(chart.getChartJson(), chart.getKpiJson(), chart.getId(), false);
+		ChartContext cr = chartService.json2Chart(chart, chart.getId(), false);
 		cr.setId("C" + IdCreater.create());
+		//删除action (设置系列颜色事件)
+		for(int i=0; i<cr.getProperties().size(); i++){
+			ChartKeyContext p = cr.getProperties().get(i);
+			if(p.getName().equals("action")){
+				p.setValue(null);
+			}
+		}
 		
-		String sql = chartService.createSql(chart, 0);
+		
+		String sql = chartService.createSql(chart, 1);
 		GridDataCenterContext dc = chartService.getChartService().createDataCenter(chart.getChartJson(), sql);
 		cr.setRefDataCenter(dc.getId());
 		if(mv.getGridDataCenters() == null){
@@ -573,14 +586,23 @@ public class PortalPageService extends BaseCompService {
 		mv.getCharts().put(cr.getId(), cr);
 		
 		//判断是否有事件，是否需要添加参数
-		Map<String, Object> linkAccept = chart.getChartJson().getLinkAccept();
-		if(linkAccept != null &&  !linkAccept.isEmpty()){
-			//创建参数, 如果参数已经存在就不放置
-			if(!this.mvParams.containsKey(linkAccept.get("alias"))){
+		LinkAcceptDto linkAccept = chart.getChartJson().getLinkAccept();
+		if(linkAccept != null){
+			String alias = super.findEventParamName(chart.getId());
+			if(alias == null){
+				alias = linkAccept.getAlias();
+			}
+			String tableColKey = linkAccept.getTableColKey();
+			if(tableColKey != null && tableColKey.length() > 0){  //如果有tableColKey，把tableColKey作为参数ID
+				alias = tableColKey;
+			}
+			//如果参数重复，不放置
+			if(!mvParams.containsKey(alias)){
+				//创建参数
 				TextFieldContext linkText = new TextFieldContextImpl();
 				linkText.setType("hidden");
-				linkText.setDefaultValue((String)linkAccept.get("dftval"));
-				linkText.setId((String)linkAccept.get("alias"));
+				linkText.setDefaultValue(linkAccept.getDftval());
+				linkText.setId(alias);
 				linkText.setShow(true);
 				mv.getChildren().add(0, linkText);
 				linkText.setParent(mv);
@@ -588,7 +610,7 @@ public class PortalPageService extends BaseCompService {
 					this.mvParams.put(linkText.getId(), linkText);
 					ExtContext.getInstance().putServiceParam(mv.getMvid(), linkText.getId(), linkText);
 					mv.setShowForm(true);
-				}	
+				}
 			}
 		}
 		//设置ds
@@ -683,7 +705,7 @@ public class PortalPageService extends BaseCompService {
 			cr.setBaseKpi(mybaseKpi);
 		}
 		
-		String sql = tableService.createSql(table, 0, 0);
+		String sql = tableService.createSql(table, 1, 0);
 		GridDataCenterContext dc = tableService.createDataCenter(sql, table);
 		cr.setRefDataCetner(dc.getId());
 		dc.getConf().setRefDsource(table.getDsid());
@@ -706,15 +728,23 @@ public class PortalPageService extends BaseCompService {
 		cr.setParent(tabTd);
 		
 		//判断是否有事件，是否需要添加参数
-		Map<String, Object> linkAccept = table.getLinkAccept();
-		if(linkAccept != null &&  !linkAccept.isEmpty()){
+		LinkAcceptDto linkAccept = table.getLinkAccept();
+		if(linkAccept != null){
+			String alias = super.findEventParamName(table.getId());
+			if(alias == null){
+				alias = linkAccept.getAlias();
+			}
+			String tableColKey = linkAccept.getTableColKey();
+			if(tableColKey != null && tableColKey.length() > 0){  //如果有tableColKey，把tableColKey作为参数ID
+				alias = tableColKey;
+			}
 			//如果参数重复，不放置
-			if(!this.mvParams.containsKey(linkAccept.get("alias"))){
+			if(!mvParams.containsKey(alias)){
 				//创建参数
 				TextFieldContext linkText = new TextFieldContextImpl();
 				linkText.setType("hidden");
-				linkText.setDefaultValue((String)linkAccept.get("dftval"));
-				linkText.setId((String)linkAccept.get("alias"));
+				linkText.setDefaultValue(linkAccept.getDftval());
+				linkText.setId(alias);
 				linkText.setShow(true);
 				mv.getChildren().add(0, linkText);
 				linkText.setParent(mv);

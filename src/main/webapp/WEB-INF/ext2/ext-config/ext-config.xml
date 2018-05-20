@@ -10,8 +10,21 @@
 	<constant name="fieldLoader" value="com.ruisitech.ext.service.MyCrossFieldLoader" />
 	<constant name="OlapWriter" value="com.ruisitech.ext.service.UserDefinedOlapWriter"/>
 	<constant name="xmlLoader" value="com.ruisitech.ext.service.LoadXmlFromDB"/>
+	
+	<chart shape="line" class="com.ruisi.bi.engine.view.emitter.echarts.chart.LineChart"/>
+	<chart shape="area" class="com.ruisi.bi.engine.view.emitter.echarts.chart.AreaChart"/>
+	<chart shape="bar" class="com.ruisi.bi.engine.view.emitter.echarts.chart.BarChart"/>
+	<chart shape="bubble" class="com.ruisi.bi.engine.view.emitter.echarts.chart.BubbleChart"/>
+	<chart shape="column" class="com.ruisi.bi.engine.view.emitter.echarts.chart.ColumnChart"/>
+	<chart shape="gauge" class="com.ruisi.bi.engine.view.emitter.echarts.chart.GaugeChart"/>
+	<chart shape="map" class="com.ruisi.bi.engine.view.emitter.echarts.chart.MapChart"/>
+	<chart shape="nestingPie" class="com.ruisi.bi.engine.view.emitter.echarts.chart.NestingPieChart"/>
+	<chart shape="pie" class="com.ruisi.bi.engine.view.emitter.echarts.chart.PieChart"/>
+	<chart shape="radar" class="com.ruisi.bi.engine.view.emitter.echarts.chart.RadarChart"/>
+	<chart shape="scatter" class="com.ruisi.bi.engine.view.emitter.echarts.chart.ScatterChart"/>
+	<chart shape="scatterMap" class="com.ruisi.bi.engine.view.emitter.echarts.chart.ScatterMapChart"/>
 		
-	<service id="ext.sys.param.cascade" class="com.ruisi.ext.engine.service.impl.ParameterCascadeServiceImpl" result="global"></service>
+	 <service id="ext.sys.param.cascade" class="com.ruisi.ext.engine.service.impl.ParameterCascadeServiceImpl" result="global"></service>
 	 <service id="ext.sys.fenye.ajax" class="com.ruisi.ext.engine.service.impl.AjaxFenyeServiceImpl" result="global"></service>
 	 <service id="ext.sys.tab.ajax" class="com.ruisi.ext.engine.service.impl.TabAjaxService" result="global"></service>
 	 <service id="ext.sys.export" class="com.ruisi.ext.engine.service.impl.ExportServiceImpl" result="global"></service>
