@@ -280,7 +280,7 @@ public class CubeService {
 			int calcKpi = kpi.getCalcKpi();  //新增度量那创建的计算指标
 			//int calc = kpi.getCalc();  //数据集创建的动态字段
 			if(calcKpi == 0){
-				kpi.setCol(kpi.getAggre()+"("+kpi.getCol()+")");
+				kpi.setCol(kpi.getAggreCol());
 			}else{
 				kpi.setCol(kpi.getCol());
 			}

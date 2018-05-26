@@ -453,7 +453,7 @@ function editcubecol(){
 		return;
 	}
 	var ctx = "";
-	var atp = ["sum","avg","count", "max", "min"];
+	var atp = ["sum","avg","count", "count(distinct)", "max", "min"];
 	if(right.attributes.tp == 'dim'){
 		var cols = $("#cubelefttree").tree("getRoots");
 		var tabstr = "<option value=\"\"></option>";
@@ -633,7 +633,7 @@ function editCalcKpi(update, kpiId){
 	if(update){
 		kpi = $("#cuberighttree").tree("getSelected");
 	}
-	var atp = ["sum","avg","count", "max", "min"];
+	var atp = ["sum","avg","count","count(distinct)", "max", "min"];
 	var tpstr = "";
 	for(i=0; i<atp.length; i++){
 		tpstr = tpstr + "<option value=\""+atp[i]+"\" "+(kpi && atp[i] == kpi.attributes.aggre ? "selected":"")+">"+atp[i]+"</option>";

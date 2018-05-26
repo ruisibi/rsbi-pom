@@ -46,6 +46,14 @@ public class Measure extends CubeColMeta {
 	public String getAggre() {
 		return aggre;
 	}
+	//获取聚合字段字符串
+	public String getAggreCol() {
+		if("count(distinct)".equals(aggre)){  //需要特殊处理
+			return "count(distinct " + super.getCol() + ")";
+		}else{  //sum/avg/max/min/count 不需要特殊处理
+			return aggre +"(" + super.getCol() +")";
+		}
+	}
 	public void setAggre(String aggre) {
 		this.aggre = aggre;
 	}
