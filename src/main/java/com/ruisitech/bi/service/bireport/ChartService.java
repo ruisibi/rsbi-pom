@@ -240,6 +240,8 @@ public class ChartService extends BaseCompService {
 		if(is3g){
 			properties.add(new ChartKeyContext("routeXaxisLable","-45"));
 		}
+		//不显示值
+		properties.add(new ChartKeyContext("showLabel", "false"));
 		
 		ctx.setProperties(properties);
 		
@@ -417,9 +419,9 @@ public class ChartService extends BaseCompService {
 					if("string".equalsIgnoreCase(param.getValType())){
 						vls = RSBIUtils.dealStringParam(param.getVals());
 					}
-					sql.append(" and " + tableAlias.get(tname) + "." + colname + " in ("+vls+")");
+					sql.append(" and " + (param.getCalc() == 0 ?(tableAlias.get(tname) + "."):"") + colname + " in ("+vls+")");
 				}else if(release == 1 || release == 2){
-					sql.append(" #if($"+alias+" != '') and " + tableAlias.get(tname) + "." + colname + " in ($extUtils.printVals($"+alias+", '"+param.getValType()+"')) #end");
+					sql.append(" #if($"+alias+" != '') and " + (param.getCalc() == 0 ?(tableAlias.get(tname) + "."):"") + colname + " in ($extUtils.printVals($"+alias+", '"+param.getValType()+"')) #end");
 				}
 			}
 		}

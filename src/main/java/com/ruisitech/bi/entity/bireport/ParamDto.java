@@ -26,6 +26,7 @@ public class ParamDto extends BaseEntity {
 	private String grouptype;
 	private String name;
 	private Integer filtertype;
+	private Integer calc; //是否动态指标
 	
 	public String getType() {
 		return type;
@@ -158,6 +159,12 @@ public class ParamDto extends BaseEntity {
 	}
 	public void setFiltertype(Integer filtertype) {
 		this.filtertype = filtertype;
+	}
+	public Integer getCalc() {
+		return calc;
+	}
+	public void setCalc(Integer calc) {
+		this.calc = calc;
 	}
 	
 }

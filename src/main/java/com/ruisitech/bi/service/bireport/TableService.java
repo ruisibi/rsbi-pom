@@ -414,9 +414,9 @@ public class TableService extends BaseCompService {
 					if("string".equalsIgnoreCase(valType)){
 						vls = RSBIUtils.dealStringParam(vls);
 					}
-					sql.append(" and " + tableAlias.get(tname) + "." + colname + " in ("+vls+")");
+					sql.append(" and " + (param.getCalc() == 0 ?(tableAlias.get(tname) + "."):"") +colname + " in ("+vls+")");
 				}else if(release == 1 || release == 2){
-					sql.append(" #if($"+alias+" != '') and " + tableAlias.get(tname) + "." +colname + " in ($extUtils.printVals($myUtils.resetVals($"+alias+",'"+tp+"','"+dateformat+"', "+jstype+"), '"+valType+"')) #end");
+					sql.append(" #if($"+alias+" != '') and " + (param.getCalc() == 0 ?(tableAlias.get(tname) + "."):"") +colname + " in ($extUtils.printVals($myUtils.resetVals($"+alias+",'"+tp+"','"+dateformat+"', "+jstype+"), '"+valType+"')) #end");
 				}
 				//生成filter
 				if(jstype != 0){

@@ -103,7 +103,7 @@ function initparam(){
 					return;
 				}
 				var id = node.attributes.col_id;
-				var p = {"id":id, "name":node.text, "type":node.attributes.dim_type, "colname":node.attributes.col_name,"alias":node.attributes.alias, "tname":node.attributes.tname,"cubeId":node.attributes.cubeId,"valType":node.attributes.valType,"tableName":node.attributes.tableName, "tableColKey":node.attributes.tableColKey,"tableColName":node.attributes.tableColName, "dimord":node.attributes.dimord, "grouptype":node.attributes.grouptype,"dateformat":(node.attributes.dateformat==null?"":node.attributes.dateformat),dsid:node.attributes.dsid};
+				var p = {"id":id, "name":node.text, "type":node.attributes.dim_type, "colname":node.attributes.col_name,"alias":node.attributes.alias, "tname":node.attributes.tname,"cubeId":node.attributes.cubeId,"valType":node.attributes.valType,"tableName":node.attributes.tableName, "tableColKey":node.attributes.tableColKey,"tableColName":node.attributes.tableColName,"calc":node.attributes.calc, "dimord":node.attributes.dimord, "grouptype":node.attributes.grouptype,"dateformat":(node.attributes.dateformat==null?"":node.attributes.dateformat),dsid:node.attributes.dsid};
 				pageInfo.params.push(p);
 				var obj = $(this);
 				obj.find("div.ptabhelpr").remove();
