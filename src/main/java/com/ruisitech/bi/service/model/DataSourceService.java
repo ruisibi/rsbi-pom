@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ruisi.ext.engine.ConstantsEngine;
 import com.ruisitech.bi.entity.common.RequestStatus;
 import com.ruisitech.bi.entity.common.Result;
 import com.ruisitech.bi.entity.model.DataSource;
@@ -29,10 +30,14 @@ public class DataSourceService {
 	public static final String mysql = "com.mysql.jdbc.Driver";
 	public static final String oracle = "oracle.jdbc.driver.OracleDriver";
 	public static final String sqlserver = "net.sourceforge.jtds.jdbc.Driver";
+	public static final String db2 = "com.ibm.db2.jcc.DB2Driver";
+	public static final String psql = "org.postgresql.Driver";
 	
 	public static final String showTables_mysql = "show tables";
 	public static final String showTables_oracle = "select table_name from tabs";
 	public static final String showTables_sqlser = "select name from sysobjects where xtype='U' order by name";
+	public static final String showTables_db2 = "select name from sysibm.systables where type='T' and creator='$0'";
+	public static final String showTables_psql = "select tablename from pg_tables where tableowner='$0'";
 	
 	private Logger log = Logger.getLogger(DataSourceService.class);
 	
@@ -166,6 +171,10 @@ public class DataSourceService {
 				qsql = showTables_oracle;
 			}else if("sqlserver".equals(ds.getLinkType())){
 				qsql = showTables_sqlser;
+			}else if("db2".equals(ds.getLinkType())){
+				qsql = ConstantsEngine.replace(showTables_db2, ds.getLinkName());
+			}else if("postgresql".equals(ds.getLinkType())){
+				qsql = ConstantsEngine.replace(showTables_psql, ds.getLinkName());
 			}
 			PreparedStatement ps = conn.prepareStatement(qsql);
 			ResultSet rs = ps.executeQuery();

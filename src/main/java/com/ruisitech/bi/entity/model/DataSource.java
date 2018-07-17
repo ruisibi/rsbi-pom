@@ -27,6 +27,10 @@ public class DataSource extends BaseEntity {
 			clazz = DataSourceService.oracle;
 		}else if(linktype.equals("sqlserver")){
 			clazz = DataSourceService.sqlserver;
+		}else if(linktype.equals("db2")){
+			clazz = DataSourceService.db2;
+		}else if(linktype.equals("postgresql")){
+			clazz = DataSourceService.psql;
 		}
 		return clazz;
 	}

@@ -76,7 +76,7 @@ function newdsource(isupdate, dsid){
 		    }
 		});
 	}
-	 var ctx = "<div id=\"dsource_tab\" style=\"height:auto; width:auto;\"><div title=\"JDBC\"><form id=\"datasourceform\" name=\"datasourceform\"><input type=\"hidden\" name=\"connstate\" id=\"connstate\"><div class=\"textpanel\"><span class=\"inputtext\">数据源名称：</span><input type=\"text\" id=\"dsname\" name=\"dsname\" class=\"inputform\" style=\"width:400px;\" value=\""+(ds&&ds.use=='jdbc'?ds.dsname:"")+"\"><br/><span class=\"inputtext\">数据源类型：</span><select id=\"linkType\" name=\"linkType\" style=\"width:400px;\" class=\"inputform\"><option value=\"mysql\" "+(ds&&ds.use=='jdbc'&&ds.linkType=='mysql'?"selected":"")+">MYSQL</option><option value=\"oracle\" "+(ds&&ds.use=='jdbc'&&ds.linkType=='oracle'?"selected":"")+">ORACLE</option><option value=\"sqlserver\" "+(ds&&ds.use=='jdbc'&&ds.linkType=='sqlserver'?"selected":"")+">SQL Server</option></select><br/><span class=\"inputtext\">连接字符串：</span><input type=\"text\" id=\"linkUrl\" name=\"linkUrl\" class=\"inputform\" style=\"width:400px;\" value=\""+(ds&&ds.use=='jdbc'?ds.linkUrl:"jdbc:mysql://ip/database?useUnicode=true&characterEncoding=UTF8")+"\"><br/><span class=\"inputtext\">连接用户名：</span><input type=\"text\" id=\"linkName\" name=\"linkName\" class=\"inputform\" style=\"width:400px;\" value=\""+(ds&&ds.use=='jdbc'?ds.linkName:"")+"\"> <br/><span class=\"inputtext\">连接密码：</span><input type=\"password\" name=\"linkPwd\" id=\"linkPwd\" style=\"width:400px;\" value=\""+(ds&&ds.use=='jdbc'?ds.linkPwd:"")+"\" class=\"inputform\"></div></form></div><div data-options=\""+(ds&&ds.use=='jndi'?"selected:true":"")+"\" title=\"JNDI\"><div class=\"textpanel\"><span class=\"inputtext\">JNDI名称：</span><input type=\"text\" value=\""+(ds&&ds.use=='jndi'?ds.jndiName:"")+"\" style=\"width:400px;\" name=\"jndiName\" id=\"jndiName\" class=\"inputform\"><br/><span class=\"inputtext\">数据源类型：</span><select id=\"jndilinktype\" name=\"jndilinktype\" style=\"width:400px;\" class=\"inputform\"><option value=\"mysql\" "+(ds&&ds.use=='jndi'&&ds.linkType=='mysql'?"selected":"")+">MYSQL</option><option value=\"oracle\" "+(ds&&ds.use=='jndi'&&ds.linkType=='oracle'?"selected":"")+">ORACLE</option><option value=\"sqlserver\" "+(ds&&ds.use=='jndi'&&ds.linkType=='sqlserver'?"selected":"")+">SQL Server</option></select></div></div></div>";
+	 var ctx = "<div id=\"dsource_tab\" style=\"height:auto; width:auto;\"><div title=\"JDBC\"><form id=\"datasourceform\" name=\"datasourceform\"><input type=\"hidden\" name=\"connstate\" id=\"connstate\"><div class=\"textpanel\"><span class=\"inputtext\">数据源名称：</span><input type=\"text\" id=\"dsname\" name=\"dsname\" class=\"inputform\" style=\"width:400px;\" value=\""+(ds&&ds.use=='jdbc'?ds.dsname:"")+"\"><br/><span class=\"inputtext\">数据源类型：</span><select id=\"linkType\" name=\"linkType\" style=\"width:400px;\" class=\"inputform\"><option value=\"mysql\" "+(ds&&ds.use=='jdbc'&&ds.linkType=='mysql'?"selected":"")+">MYSQL</option><option value=\"oracle\" "+(ds&&ds.use=='jdbc'&&ds.linkType=='oracle'?"selected":"")+">ORACLE</option><option value=\"sqlserver\" "+(ds&&ds.use=='jdbc'&&ds.linkType=='sqlserver'?"selected":"")+">SQL Server</option><option value=\"db2\" "+(ds&&ds.use=='jdbc'&&ds.linkType=='db2'?"selected":"")+">DB2</option><option value=\"postgresql\" "+(ds&&ds.use=='jdbc'&&ds.linkType=='postgresql'?"selected":"")+">postgresql</option></select><br/><span class=\"inputtext\">连接字符串：</span><input type=\"text\" id=\"linkUrl\" name=\"linkUrl\" class=\"inputform\" style=\"width:400px;\" value=\""+(ds&&ds.use=='jdbc'?ds.linkUrl:"jdbc:mysql://ip/database?useUnicode=true&characterEncoding=UTF8")+"\"><br/><span class=\"inputtext\">连接用户名：</span><input type=\"text\" id=\"linkName\" name=\"linkName\" class=\"inputform\" style=\"width:400px;\" value=\""+(ds&&ds.use=='jdbc'?ds.linkName:"")+"\"> <br/><span class=\"inputtext\">连接密码：</span><input type=\"password\" name=\"linkPwd\" id=\"linkPwd\" style=\"width:400px;\" value=\""+(ds&&ds.use=='jdbc'?ds.linkPwd:"")+"\" class=\"inputform\"></div></form></div><div data-options=\""+(ds&&ds.use=='jndi'?"selected:true":"")+"\" title=\"JNDI\"><div class=\"textpanel\"><span class=\"inputtext\">JNDI名称：</span><input type=\"text\" value=\""+(ds&&ds.use=='jndi'?ds.jndiName:"")+"\" style=\"width:400px;\" name=\"jndiName\" id=\"jndiName\" class=\"inputform\"><br/><span class=\"inputtext\">数据源类型：</span><select id=\"jndilinktype\" name=\"jndilinktype\" style=\"width:400px;\" class=\"inputform\"><option value=\"mysql\" "+(ds&&ds.use=='jndi'&&ds.linkType=='mysql'?"selected":"")+">MYSQL</option><option value=\"oracle\" "+(ds&&ds.use=='jndi'&&ds.linkType=='oracle'?"selected":"")+">ORACLE</option><option value=\"sqlserver\" "+(ds&&ds.use=='jndi'&&ds.linkType=='sqlserver'?"selected":"")+">SQL Server</option><option value=\"db2\" "+(ds&&ds.use=='jndi'&&ds.linkType=='db2'?"selected":"")+">DB2</option><option value=\"postgresql\" "+(ds&&ds.use=='jndi'&&ds.linkType=='postgresql'?"selected":"")+">postgresql</option></select></div></div></div>";
 	$('#pdailog').dialog({
 		title: isupdate ? "编辑数据源" : '创建数据源',
 		width: 540,
@@ -229,14 +229,18 @@ function newdsource(isupdate, dsid){
 	$("#pdailog #dsource_tab").tabs({
 		fit:true,border:false
 	});
-	$("#pdailog #linktype").change(function(){
+	$("#pdailog #linkType").change(function(){
 		var val = $(this).val();
 		if(val == "mysql"){
-			$("#pdailog #linkurl").val("jdbc:mysql://ip/database?useUnicode=true&characterEncoding=UTF8");
+			$("#pdailog #linkUrl").val("jdbc:mysql://ip/database?useUnicode=true&characterEncoding=UTF8");
 		}else if(val == "oracle"){
-			$("#pdailog #linkurl").val("jdbc:oracle:thin:@ip:1521/sid");
+			$("#pdailog #linkUrl").val("jdbc:oracle:thin:@ip:1521/sid");
 		}else if(val == "sqlserver"){
-			$("#pdailog #linkurl").val("jdbc:jtds:sqlserver://ip:1433/database");
+			$("#pdailog #linkUrl").val("jdbc:jtds:sqlserver://ip:1433/database");
+		}else if(val == "db2"){
+			$("#pdailog #linkUrl").val("jdbc:db2://ip:50000/database");
+		}else if(val == "postgresql"){
+			$("#pdailog #linkUrl").val("jdbc:postgresql://ip:5432/database");
 		}
 	});
 }
