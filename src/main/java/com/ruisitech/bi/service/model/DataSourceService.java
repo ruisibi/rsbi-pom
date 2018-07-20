@@ -32,12 +32,14 @@ public class DataSourceService {
 	public static final String sqlserver = "net.sourceforge.jtds.jdbc.Driver";
 	public static final String db2 = "com.ibm.db2.jcc.DB2Driver";
 	public static final String psql = "org.postgresql.Driver";
+	public static final String hive = "org.apache.hive.jdbc.HiveDriver";
 	
 	public static final String showTables_mysql = "show tables";
 	public static final String showTables_oracle = "select table_name from tabs";
 	public static final String showTables_sqlser = "select name from sysobjects where xtype='U' order by name";
 	public static final String showTables_db2 = "select name from sysibm.systables where type='T' and creator='$0'";
 	public static final String showTables_psql = "select tablename from pg_tables where tableowner='$0'";
+	public static final String showTables_hive = "show tables";
 	
 	private Logger log = Logger.getLogger(DataSourceService.class);
 	
@@ -175,6 +177,8 @@ public class DataSourceService {
 				qsql = ConstantsEngine.replace(showTables_db2, ds.getLinkName());
 			}else if("postgresql".equals(ds.getLinkType())){
 				qsql = ConstantsEngine.replace(showTables_psql, ds.getLinkName());
+			}else if("hive".equals(ds.getLinkType())){
+				qsql = showTables_hive;
 			}
 			PreparedStatement ps = conn.prepareStatement(qsql);
 			ResultSet rs = ps.executeQuery();

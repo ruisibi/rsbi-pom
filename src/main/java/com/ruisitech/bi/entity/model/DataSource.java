@@ -31,6 +31,8 @@ public class DataSource extends BaseEntity {
 			clazz = DataSourceService.db2;
 		}else if(linktype.equals("postgresql")){
 			clazz = DataSourceService.psql;
+		}else if(linktype.equals("hive")){
+			clazz = DataSourceService.hive;
 		}
 		return clazz;
 	}

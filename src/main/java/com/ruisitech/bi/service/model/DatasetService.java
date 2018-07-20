@@ -88,6 +88,9 @@ public class DatasetService {
 		List<DSColumn> cols = new ArrayList<DSColumn>();
 		for(int i=0; i<meta.getColumnCount(); i++){
 			String name = meta.getColumnName(i+1);
+			if(name.indexOf(".") >= 0){
+				name = name.substring(name.indexOf(".") + 1, name.length());
+			}
 			String tp = meta.getColumnTypeName(i+1);
 			//meta.get
 			//tp转换
@@ -195,6 +198,9 @@ public class DatasetService {
 			int idx = 1;
 			for(int i=0; i<meta.getColumnCount(); i++){
 				String name = meta.getColumnName(i+1);
+				if(name.indexOf(".") >= 0){
+					name = name.substring(name.indexOf(".") + 1, name.length());
+				}
 				String tp = meta.getColumnTypeName(i+1);
 				//遇到a$idx 表示字段做分割, 需要变换字段所属表信息
 				if("a$idx".equalsIgnoreCase(name)){
