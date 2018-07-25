@@ -308,6 +308,14 @@
             <scope>system</scope>
             <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
     	</dependency>
+    	
+    	<!-- https://mvnrepository.com/artifact/org.apache.kylin/kylin-jdbc -->
+		<dependency>
+		    <groupId>org.apache.kylin</groupId>
+		    <artifactId>kylin-jdbc</artifactId>
+		    <version>2.2.0</version>
+		</dependency>
+    	
         
         <dependency>
             <groupId>org.eclipse.jetty.aggregate</groupId>

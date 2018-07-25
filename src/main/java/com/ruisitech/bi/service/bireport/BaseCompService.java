@@ -307,6 +307,10 @@ public abstract class BaseCompService {
 	 */
 	public String convertKpiName(KpiDto kpi, Map<String, String> tableAlias){
 		String colName = kpi.getCol_name();
+		String tname = kpi.getTname();
+		if(tname == null || tname.length() == 0){
+			return colName;
+		}
 		String alias = tableAlias.get(kpi.getTname()) + ".";
 		String name = colName.replaceAll("\\((\\S+)\\)", "(" + alias+"$1" + ")");
 		return name;

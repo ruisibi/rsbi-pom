@@ -316,7 +316,7 @@ public class ChartService extends BaseCompService {
 		
 		List<KpiDto> kpis = chart.getKpiJson();
 		if(kpis.size() == 0){
-			sql.append(" null kpi_value ");
+			sql.append(" 0 kpi_value ");
 		}else{
 			for(int i=0; i<kpis.size(); i++){
 				KpiDto kpi = kpis.get(i);

@@ -168,7 +168,7 @@ public class GridService extends BaseCompService {
 			if(expression != null && expression.length() > 0){
 				sb.append(" "+ expression + " as " + name);
 			}else{
-				sb.append(" "+tableAlias.get(tname)+"."+name);
+				sb.append(" "+tableAlias.get(tname)+"."+name + " as " + name);
 			}
 			if(i != cols.size() - 1){
 				sb.append(",");

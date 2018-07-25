@@ -10,9 +10,8 @@
   3.支持移动BI，通过APP随时随地访问报表数据。 <br>
   4.开放源码，采用apache2.0开源协议，用户可任意使用而不需我公司授权（标准版除外）。<br>
   
-  <p>
 # 系统功能：<br>
-  1。数据源 (支持mysql/oracle/sqlserver/db2/postgresql/hive) <br>
+  1.数据源 (支持：mysql/oracle/sqlserver/db2/postgresql/hive/kylin) <br>
   2.多维分析 <br>
   3.数据报表 <br>
   4.移动BI <br> 

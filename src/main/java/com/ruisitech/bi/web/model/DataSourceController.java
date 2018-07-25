@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ruisi.ext.engine.view.exception.ExtConfigException;
 import com.ruisitech.bi.entity.model.DataSource;
 import com.ruisitech.bi.service.model.DataSourceService;
 import com.ruisitech.bi.util.BaseController;
@@ -33,7 +34,7 @@ public class DataSourceController extends BaseController {
 		return this.buildSucces();
 	}
 	@RequestMapping(value="/testDataSource.action", method = RequestMethod.POST)
-	public @ResponseBody Object test(DataSource ds){
+	public @ResponseBody Object test(DataSource ds) throws ExtConfigException{
 		ds.setUse("jdbc");
 		return dsService.testDataSource(ds);
 	}

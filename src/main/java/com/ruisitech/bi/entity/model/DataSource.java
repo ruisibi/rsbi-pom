@@ -1,7 +1,9 @@
 package com.ruisitech.bi.entity.model;
 
+import com.ruisi.ext.engine.dao.DatabaseHelper;
+import com.ruisi.ext.engine.view.context.ExtContext;
+import com.ruisi.ext.engine.view.exception.ExtConfigException;
 import com.ruisitech.bi.entity.common.BaseEntity;
-import com.ruisitech.bi.service.model.DataSourceService;
 
 public class DataSource extends BaseEntity {
 	
@@ -17,24 +19,12 @@ public class DataSource extends BaseEntity {
 	/**
 	 * 获取驱动类
 	 * @return
+	 * @throws ExtConfigException 
 	 */
-	public String getClazz(){
-		String clazz  = null;
+	public String getClazz() throws ExtConfigException{
 		String linktype = this.getLinkType();
-		if(linktype.equals("mysql")){
-			clazz = DataSourceService.mysql;
-		}else if(linktype.equals("oracle")){
-			clazz = DataSourceService.oracle;
-		}else if(linktype.equals("sqlserver")){
-			clazz = DataSourceService.sqlserver;
-		}else if(linktype.equals("db2")){
-			clazz = DataSourceService.db2;
-		}else if(linktype.equals("postgresql")){
-			clazz = DataSourceService.psql;
-		}else if(linktype.equals("hive")){
-			clazz = DataSourceService.hive;
-		}
-		return clazz;
+		DatabaseHelper db = ExtContext.getInstance().getDatabaseHelper(linktype);
+		return db.getClazz();
 	}
 	
 	public String getLinkType() {
