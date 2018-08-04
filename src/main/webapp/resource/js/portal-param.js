@@ -574,7 +574,7 @@ function setcompfilter(compId){
 	var t = comp.params;
 	for(var i=0; t&&i<t.length; i++){
 		var o = t[i];
-		str = str + "<tr><td class=\"kpiData1 grid3-td\">"+(comp.type=="grid"||comp.type=="box"?o.col:o.colname)+"/"+o.tname+"</td><td class=\"kpiData1 grid3-td\">"+o.type+"</td><td class=\"kpiData1 grid3-td\">"+(o.usetype!='param'?(o.val+(o.val2 =='' ? "":"/"+o.val2)):"连接到参数")+"</td><td class=\"kpiData1 grid3-td\">"+o.valuetype+"</td><td class=\"kpiData1 grid3-td\"><button onclick=\"newdatasetparam(true,'"+o.id+"','"+compId+"');\" class=\"btn btn-info btn-xs\">编辑</button> <button onclick=\"delDatasetFilter('"+o.id+"', '"+compId+"');\" class=\"btn btn-danger btn-xs\">删除</button></td></tr>";
+		str = str + "<tr><td class=\"kpiData1 grid3-td\">"+o.col+"/"+o.tname+"</td><td class=\"kpiData1 grid3-td\">"+o.type+"</td><td class=\"kpiData1 grid3-td\">"+(o.usetype!='param'?(o.val+(o.val2 =='' ? "":"/"+o.val2)):"连接到参数")+"</td><td class=\"kpiData1 grid3-td\">"+o.valuetype+"</td><td class=\"kpiData1 grid3-td\"><button onclick=\"newdatasetparam(true,'"+o.id+"','"+compId+"');\" class=\"btn btn-info btn-xs\">编辑</button> <button onclick=\"delDatasetFilter('"+o.id+"', '"+compId+"');\" class=\"btn btn-danger btn-xs\">删除</button></td></tr>";
 	}
 	str = str + "</table></div>";
 	$('#pdailog').dialog({

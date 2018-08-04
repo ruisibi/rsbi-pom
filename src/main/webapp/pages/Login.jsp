@@ -66,7 +66,7 @@ if(window.top != window.self){
         </div>
         <div class="signup-footer">
             <div align="center"> 
-               © <a href="http://www.ruisitech.com" target="_blank">北京睿思科技有限公司</a> 2016 版权所有
+               © <a href="http://www.ruisitech.com" target="_blank">成都睿思商智科技有限公司</a> 2018 版权所有
             </div>
         </div>
     </div>

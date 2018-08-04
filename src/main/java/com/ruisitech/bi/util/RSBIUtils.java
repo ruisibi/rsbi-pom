@@ -169,7 +169,16 @@ public final class RSBIUtils {
 		sb.append("<link rel=\"stylesheet\" type=\"text/css\" href=\""+host+"/resource/css/animate.css\" />");
 		sb.append("<link rel=\"stylesheet\" type=\"text/css\" href=\""+host+"/resource/css/style.css\" />");
 		sb.append("<link rel=\"stylesheet\" type=\"text/css\" href=\""+host+"/resource/css/font-awesome.css?v=4.4.0\" />");
+		sb.append("<link rel=\"stylesheet\" type=\"text/css\" href=\""+host+"/resource/jquery-easyui-1.4.4/themes/gray/easyui.css\">");
+		sb.append("<link rel=\"stylesheet\" type=\"text/css\" href=\""+host+"/resource/jquery-easyui-1.4.4/themes/icon.css\">");
+		sb.append("<script type=\"text/javascript\" src=\""+host+"/resource/jquery-easyui-1.4.4/jquery.easyui.min.js\"></script>");
 		sb.append("</head>");
+		sb.append("<style>");
+		sb.append("table.r_layout {table-layout:fixed;width:100%;}");
+		sb.append("table.r_layout td.layouttd {padding:10px;}");
+		sb.append(".inputform2 {width:120px;}");
+		sb.append(".inputtext {width:90px;}");
+		sb.append("</style>");
 		sb.append("<body class=\"gray-bg\">");
 	
 		sb.append(body);

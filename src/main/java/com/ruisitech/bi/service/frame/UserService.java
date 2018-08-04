@@ -45,7 +45,7 @@ public class UserService {
 	
 	public String shiroLogin(String userName, String password){
 		UsernamePasswordToken token = new UsernamePasswordToken(userName, password, null);   
-	    token.setRememberMe(true);
+	    token.setRememberMe(false);
 	    // shiro登陆验证  
 	    try {  
 	        SecurityUtils.getSubject().login(token);  

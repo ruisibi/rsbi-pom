@@ -315,8 +315,14 @@
 		    <artifactId>kylin-jdbc</artifactId>
 		    <version>2.2.0</version>
 		</dependency>
-    	
-        
+    	<!-- https://mvnrepository.com/artifact/org.apache.derby/derby 
+		<dependency>
+		    <groupId>org.apache.derby</groupId>
+		    <artifactId>derby</artifactId>
+		    <version>10.13.1.1</version>
+		</dependency>
+		-->
+		
         <dependency>
             <groupId>org.eclipse.jetty.aggregate</groupId>
             <artifactId>jetty-webapp</artifactId>
