@@ -446,6 +446,7 @@ public class PortalTableService  extends BaseCompService {
 	public GridDataCenterContext createDataCenter(String sql, PortalTableQuery table) throws IOException{
 		GridDataCenterContext ctx = new GridDataCenterContextImpl();
 		GridSetConfContext conf = new GridSetConfContext();
+		conf.setRefDsource(table.getDsid());
 		ctx.setConf(conf);
 		ctx.setId("DC-" + IdCreater.create());
 		String name = TemplateManager.getInstance().createTemplate(sql);
