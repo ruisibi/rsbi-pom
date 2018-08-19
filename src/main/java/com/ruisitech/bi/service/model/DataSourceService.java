@@ -168,8 +168,11 @@ public class DataSourceService {
 			}else if(ds.getUse().equals("jdbc")){
 				conn = this.getJDBC(ds);
 			}
-			
-			ResultSet tbs = conn.getMetaData().getTables(null, null, "%", new String[]{"TABLE"});
+			String schem = null;
+			if("oracle".equals(ds.getLinkType())){
+				schem = ds.getLinkName().toUpperCase();
+			}
+			ResultSet tbs = conn.getMetaData().getTables(null, schem, "%", new String[]{"TABLE","VIEW"});
 			while(tbs.next()){
 				Map<String, Object> m = new HashMap<String, Object>();
 				String tname = tbs.getString("TABLE_NAME");
@@ -230,12 +233,5 @@ public class DataSourceService {
 			}
 		}
 		return ret;
-	}
-	
-	private void copyData(ResultSet rs, Map<String, Object> m) throws SQLException{
-		String tname = rs.getString(1);
-		m.put("id", tname);
-		m.put("text", tname);
-		m.put("iconCls", "icon-table");
 	}
 }
