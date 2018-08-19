@@ -7,7 +7,7 @@ function initdsetTable(){
 	$("#dsettable").datagrid("load", {t:Math.random()});
 	return;
     }
-    var ctx = "<table id=\"dsettable\" title=\"数据集管理\" ><thead><tr><th data-options=\"field:'ck',checkbox:true\"></th><th data-options=\"field:'name',width:120\">名称</th><th data-options=\"field:'priTable',width:200,align:'center'\">主表</th><th data-options=\"field:'dsname',width:120,align:'center'\">数据源</th><th data-options=\"field:'useType',width:120,align:'center'\">连接</th></tr></thead></table>";
+    var ctx = "<table id=\"dsettable\" title=\"数据集管理\" ><thead><tr><th data-options=\"field:'ck',checkbox:true\"></th><th data-options=\"field:'name',width:120\">名称</th><th data-options=\"field:'priTable',width:200,align:'left'\">主表</th><th data-options=\"field:'dsname',width:120,align:'center'\">数据源</th><th data-options=\"field:'useType',width:120,align:'center'\">连接</th></tr></thead></table>";
     $("#optarea").html(ctx);
     $("#dsettable").datagrid({
 	singleSelect:true,
@@ -33,6 +33,35 @@ function initdsetTable(){
 		}
 		 newdset(true, row[0].dsetId);
 	  }
+	},{
+		text:"刷新",
+		iconCls:"icon-reload",
+		handler:function(){
+			var row = $("#dsettable").datagrid("getChecked");
+			if(row == null || row.length == 0){
+				$.messager.alert("出错了。","您还未勾选数据。", "error");
+				return;
+			}
+			__showLoading();
+			$.ajax({
+				type:'get',
+				url:'reloadDset.action',
+				dataType:'json',
+				data:{"dsetId":row[0].dsetId, "dsid":row[0].dsid},
+				success: function(dt){
+					__hideLoading();
+					if(dt.result == 0){
+						$.messager.alert("出错了。",dt.msg, "error");
+					}else{
+						$.messager.alert("成功了。","字段刷新成功。", "info");
+					}
+				},
+				error:function(){
+					__hideLoading();
+					$.messager.alert("出错了。","系统异常。", "error");
+				}
+			});
+		}
 	},{
 	  text:'删除',
 	  iconCls:'icon-cancel',
@@ -441,6 +470,7 @@ function editDsColumn(colId, dset, tname){
 				handler:function(){
 					tmp.dispName = $("#dsColumn_div #coldispname").val();
 					tmp.type = $("#dsColumn_div #coltype").val();
+					tmp.isupdate = 'y';
 					//回写值
 					$("#crtdataset #"+tmp.tname+"_"+tmp.name+"_disp").text(tmp.dispName);
 					$("#crtdataset #"+tmp.tname+"_"+tmp.name+"_tp").text(tmp.type);

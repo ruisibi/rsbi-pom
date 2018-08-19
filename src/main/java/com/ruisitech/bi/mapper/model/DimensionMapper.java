@@ -1,6 +1,7 @@
 package com.ruisitech.bi.mapper.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -25,4 +26,6 @@ public interface DimensionMapper {
 	List<String> listGroup(@Param("cubeId") Integer cubeId);
 	
 	Dimension getDimInfo(@Param("dimId") Integer dimId, @Param("cubeId") Integer cubeId);
+	
+	void updateColType(Map<String, Object> dim);
 }

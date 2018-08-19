@@ -6,18 +6,22 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.ruisitech.bi.entity.common.DSColumn;
 import com.ruisitech.bi.entity.model.DataSource;
 import com.ruisitech.bi.entity.model.Dataset;
 import com.ruisitech.bi.mapper.model.DatasetMapper;
+import com.ruisitech.bi.mapper.model.DimensionMapper;
 import com.ruisitech.bi.service.bireport.ModelCacheService;
 
 @Service
@@ -32,14 +36,78 @@ public class DatasetService {
 	@Autowired
 	private ModelCacheService cacheService;
 	
+	@Autowired
+	private DimensionMapper dimMapper;
+	
 	public List<Dataset> listDataset(){
 		return mapper.listDataset();
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
 	public void updateDset(Dataset ds){
 		mapper.updateDset(ds);
+		//同步立方体表的字段类型
+		JSONObject obj = (JSONObject)JSON.parse(ds.getCfg());
+		JSONArray cols = obj.getJSONArray("cols");
+		for(int i=0; i<cols.size(); i++){
+			JSONObject col = cols.getJSONObject(i);
+			String isupdate = (String)col.get("isupdate");
+			if("y".equals(isupdate)){
+				String type = col.getString("type");
+				Map<String,Object> param = new HashMap<String, Object>();
+				param.put("vtype", type);
+				param.put("tname", col.getString("tname"));
+				param.put("col", col.getString("name"));
+				param.put("dset", obj.get("dsetId"));
+				dimMapper.updateColType(param);
+			}
+		}
+		
 		//删除缓存
 		cacheService.removeDset(ds.getDsid());
+	}
+	
+	/**
+	 * 重新加载数据集的字段
+	 * @param dsetId
+	 * @throws Exception 
+	 */
+	public void reloadDset(String dsetId, String dsid) throws Exception{
+		String cfg = mapper.getDatasetCfg(dsetId);
+		JSONObject json = JSON.parseObject(cfg);
+		JSONArray oldCols = json.getJSONArray("cols");
+		List<DSColumn> cols = this.queryMetaAndIncome(json, dsid);
+		//添加新的字段到原数据集中
+		List<DSColumn> addList = new ArrayList<DSColumn>();
+		for(DSColumn col : cols){
+			if(!existCol(col.getName(), oldCols)){
+				addList.add(col);
+			}
+		}
+		if(addList.size() == 0){
+			return;
+		}
+		for(DSColumn col : addList){
+			oldCols.add(JSON.toJSON(col));
+		}
+		String newCfg = json.toJSONString();
+		Dataset ds = new Dataset();
+		ds.setDsetId(dsetId);
+		ds.setCfg(newCfg);
+		mapper.updateDsetCfg(ds);
+	}
+	
+	private boolean existCol(String colName, JSONArray cols){
+		boolean ext = false;
+		for(int i=0; i<cols.size(); i++){
+			JSONObject col = cols.getJSONObject(i);
+			String name = col.getString("name");
+			if(name.equals(colName)){
+				ext = true;
+				break;
+			}
+		}
+		return ext;
 	}
 	
 	public void insertDset(Dataset ds){

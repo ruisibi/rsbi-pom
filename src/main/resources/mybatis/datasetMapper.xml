@@ -31,6 +31,11 @@
 		where dset_Id = #{dsetId}
    </update>
    
+   <update id="updateDsetCfg" parameterType="com.ruisitech.bi.entity.model.Dataset">
+   		update etl_dataset set cfg = #{cfg}
+		where dset_Id = #{dsetId}
+   </update>
+   
    <delete id="deleteDset" parameterType="java.lang.String">
    		delete from etl_dataset where dset_id = #{dsetId}
    </delete>

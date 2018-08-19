@@ -73,4 +73,12 @@
    <select id="listGroup" resultType="java.lang.String" parameterType="java.lang.Integer">
 		select group_id from olap_dim_group where cube_id = #{cubeId}
 	</select>
+	
+	<update id="updateColType" parameterType="java.util.HashMap">
+		update olap_dim_list set key_val_type = #{vtype} where dim_id in (
+			select col_id from olap_cube_col_meta a, olap_cube_meta b where
+			a.cube_id = b.cube_id and b.dset = #{dset}
+			and col_name = #{col} and tname = #{tname}
+		) and col_table_name is null
+	</update>
 </mapper>

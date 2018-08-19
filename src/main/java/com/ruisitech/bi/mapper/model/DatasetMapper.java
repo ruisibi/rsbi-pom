@@ -17,4 +17,6 @@ public interface DatasetMapper {
 	void deleteDset(@Param("dsetId") String dsetId);
 	
 	String getDatasetCfg(@Param("dsetId") String dsetId);
+	
+	void updateDsetCfg(Dataset ds);
 }

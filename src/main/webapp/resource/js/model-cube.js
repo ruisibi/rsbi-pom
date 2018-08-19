@@ -7,7 +7,7 @@ function initcubeTable(){
 	$("#cubetable").datagrid("load", {t:Math.random()});
 	return;
     }
-    var ctx = "<table id=\"cubetable\" title=\"立方体管理\" ><thead><tr><th data-options=\"field:'ck',checkbox:true\"></th><th data-options=\"field:'cubeName',width:120\">立方体名称</th><th data-options=\"field:'desc',width:120,align:'center'\">立方体说明</th><th data-options=\"field:'dsetName',width:120,align:'center'\">数据集</th></tr></thead></table>";
+    var ctx = "<table id=\"cubetable\" title=\"立方体管理\" ><thead><tr><th data-options=\"field:'ck',checkbox:true\"></th><th data-options=\"field:'cubeId',width:80,align:'center'\">标识</th><th data-options=\"field:'cubeName',width:120\">立方体名称</th><th data-options=\"field:'desc',width:120\">立方体说明</th><th data-options=\"field:'dsetName',width:120,align:'center'\">数据集</th></tr></thead></table>";
     $("#optarea").html(ctx);
     $("#cubetable").datagrid({
 	singleSelect:true,
