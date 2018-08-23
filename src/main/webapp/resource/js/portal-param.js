@@ -381,10 +381,10 @@ function newparamval(isupdate, valId){
 			}
 		}
 	}
-	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">Value：</span><input type=\"text\"  id=\"val\" name=\"val\" class=\"inputform\" value=\""+(t==null?"":t.value)+"\"><span class=\"inputtext\">Text：</span><input type=\"text\"  id=\"txt\" name=\"txt\" class=\"inputform\" value=\""+(t==null?"":t.text)+"\"></div>";
+	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">Value：</span><input type=\"text\"  id=\"val\" name=\"val\" class=\"inputform2\" value=\""+(t==null?"":t.value)+"\"><span class=\"inputtext\">Text：</span><input type=\"text\"  id=\"txt\" name=\"txt\" class=\"inputform2\" value=\""+(t==null?"":t.text)+"\"></div>";
 	$('#dsColumn_div').dialog({
 		title: (isupdate == false ? '添加值':'编辑值'),
-		width: 300,
+		width: 330,
 		height: 170,
 		closed: false,
 		cache: false,
@@ -398,11 +398,17 @@ function newparamval(isupdate, valId){
 		buttons:[{
 				text:'确定',
 				handler:function(){
+					var val = $("#dsColumn_div #val").val();
+					var txt = $("#dsColumn_div #txt").val();
+					if(val == "" || txt == ""){
+						msginfo("Value 和 Text 是必填项。");
+						return;
+					}
 					if(isupdate){
-						t.value = $("#dsColumn_div #val").val();
-						t.text = $("#dsColumn_div #txt").val();
+						t.value = val;
+						t.text = txt;
 					}else{
-						curTmpInfo.paramvals.push({value:$("#dsColumn_div #val").val(), text:$("#dsColumn_div #txt").val()});
+						curTmpInfo.paramvals.push({value:val, text:txt});
 					}
 					reloadParamVals();
 					$('#dsColumn_div').dialog('close');
