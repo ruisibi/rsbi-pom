@@ -380,6 +380,16 @@
                 <version>2.5</version>
                 <configuration>
                     <warName>${project.artifactId}</warName>
+                    <webResources>
+                        <resource>
+                            <directory>${project.basedir}/libs</directory>
+                            <targetPath>WEB-INF/lib</targetPath>
+                            <filtering>false</filtering>
+                            <includes>
+                                <include>**/*.jar</include>
+                            </includes>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
 
