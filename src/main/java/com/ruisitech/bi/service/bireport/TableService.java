@@ -1168,11 +1168,12 @@ public class TableService extends BaseCompService {
 		return ret;
 	}
 	
-	public static String createWarning(Map<String, Object> warn, String kpiFmt, StringBuffer scripts ){
+	public String createWarning(Map<String, Object> warn, String kpiFmt, StringBuffer scripts ){
 		String funcName = "warn"+IdCreater.create();
 		scripts.append("function " +funcName+"(val, a, b, c, d){");
 		//先输出值
-		scripts.append("out.print(val, '"+kpiFmt+"');");
+		scripts.append("if(d == 'html'){out.print('<span class=\"kpiValue\">');}");
+		scripts.append("if(val == null){out.print('-')}else{out.print(val, '"+kpiFmt+"');}");
 		scripts.append("if(d != 'html'){"); //只在html模式下起作用
 		scripts.append(" return;");
 		scripts.append("}");
@@ -1183,6 +1184,7 @@ public class TableService extends BaseCompService {
 		scripts.append("}else{");
 		scripts.append("out.print(\"<span class='"+warn.get("pic3")+"'></span>\")");
 		scripts.append("}");
+		scripts.append("if(d == 'html'){out.print('</span>');}");
 		scripts.append("}");
 		return funcName; 
 	}

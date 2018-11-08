@@ -324,7 +324,7 @@ TABLE.grid5 TD.grid5-td {
     font-size: 12px;
     height:26px;
 	overflow:hidden;
-	padding:3px;
+	padding:1px 3px 1px 3px;
 }
 TABLE.grid5 TD.kpiData1 {
 	background-color:#FFF;
