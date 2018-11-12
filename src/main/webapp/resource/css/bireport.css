@@ -209,7 +209,7 @@ span.chartdel {
 	width:110px;
 	white-space: nowrap;
 	overflow:hidden;
-	margin:3px;
+	margin:1px 3px 1px 3px;
 }
 #d_colDims span.s_colDim{
 	white-space: nowrap;
