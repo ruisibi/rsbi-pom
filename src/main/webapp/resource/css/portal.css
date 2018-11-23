@@ -74,6 +74,7 @@ table.r_layout td.layouttd {
     text-align: center;
 	width:120px;
 	font-size:14px;
+	border-radius:5px;
 }
 .tableDatasty .dimcol {
     border: 1px solid #0C6ADF;
@@ -83,6 +84,7 @@ table.r_layout td.layouttd {
     text-align: left;
 	font-size:14px;
 	width:120px;
+	border-radius:5px;
 }
 .tableDatasty .boxcol {
     border: 1px solid #DF7809;
@@ -91,6 +93,7 @@ table.r_layout td.layouttd {
     padding: 5px;
     text-align: center;
 	width:120px;
+	border-radius:5px;
 }
 .tsbd {
 }

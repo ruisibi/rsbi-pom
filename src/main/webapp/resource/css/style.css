@@ -4525,10 +4525,6 @@ body.modal-open {
     padding-top: 110px;
 }
 
-.loginscreen.middle-box {
-    width: 300px;
-}
-
 .loginColumns {
     max-width: 800px;
     margin: 0 auto;
