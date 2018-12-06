@@ -3,6 +3,7 @@ package com.ruisitech.bi.entity.bireport;
 import java.util.Date;
 
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public class OlapInfo extends BaseEntity {
 
@@ -56,5 +57,8 @@ public class OlapInfo extends BaseEntity {
 	public void setCrtuser(String crtuser) {
 		this.crtuser = crtuser;
 	}
-	
+	@Override
+	public void validate() {
+		this.pageName = RSBIUtils.htmlEscape(this.pageName);
+	}
 }

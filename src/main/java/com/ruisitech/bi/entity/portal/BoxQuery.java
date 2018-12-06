@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ruisitech.bi.entity.bireport.KpiDto;
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public class BoxQuery extends BaseEntity {
 
@@ -69,5 +70,9 @@ public class BoxQuery extends BaseEntity {
 	}
 	public void setHeight(Integer height) {
 		this.height = height;
+	}
+	@Override
+	public void validate() {
+		this.name = RSBIUtils.htmlEscape(this.name);
 	}
 }

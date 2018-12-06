@@ -149,5 +149,8 @@ public class PortalTableQuery extends BaseEntity {
 	public void setShowtitle(String showtitle) {
 		this.showtitle = showtitle;
 	}
-	
+	@Override
+	public void validate() {
+		 
+	 }
 }

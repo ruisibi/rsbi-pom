@@ -37,4 +37,8 @@ public class KpiFilterDto extends BaseEntity {
 	public void setVal2(Double val2) {
 		this.val2 = val2;
 	}
+	@Override
+	public void validate() {
+		 
+	 }
 }

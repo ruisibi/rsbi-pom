@@ -33,5 +33,8 @@ public class Area extends BaseEntity {
 		this.cityName = cityName;
 	}
 	
-	
+	@Override
+	public void validate() {
+		
+	}
 }

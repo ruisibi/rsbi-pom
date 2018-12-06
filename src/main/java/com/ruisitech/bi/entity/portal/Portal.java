@@ -3,6 +3,7 @@ package com.ruisitech.bi.entity.portal;
 import java.util.Date;
 
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public class Portal extends BaseEntity {
 	
@@ -77,5 +78,9 @@ public class Portal extends BaseEntity {
 	public void setCataName(String cataName) {
 		this.cataName = cataName;
 	}
-	
+	@Override
+	public void validate() {
+		this.pageName = RSBIUtils.htmlEscape(this.pageName);
+		this.pageId = RSBIUtils.htmlEscape(this.pageId);
+	}
 }

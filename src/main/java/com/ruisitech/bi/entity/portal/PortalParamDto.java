@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public class PortalParamDto extends BaseEntity {
 
@@ -98,6 +99,9 @@ public class PortalParamDto extends BaseEntity {
 	public void setValues(List<Map<String, Object>> values) {
 		this.values = values;
 	}
-	
+	@Override
+	public void validate() {
+		this.name = RSBIUtils.htmlEscape(this.name);
+	}
 	
 }

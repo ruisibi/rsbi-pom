@@ -267,5 +267,8 @@ public class DimDto extends BaseEntity {
 	public void setRouteXaxisLable(String routeXaxisLable) {
 		this.routeXaxisLable = routeXaxisLable;
 	}
-
+	@Override
+	public void validate() {
+		 
+	 }
 }

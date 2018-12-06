@@ -1,6 +1,7 @@
 package com.ruisitech.bi.entity.common;
 
-public class BaseEntity {
+public abstract class BaseEntity {
 	
+	public abstract void validate();
 	
 }

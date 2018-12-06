@@ -80,6 +80,9 @@ public class LinkAcceptDto extends BaseEntity {
 	public void setDimTname(String dimTname) {
 		this.dimTname = dimTname;
 	}
-	
+	@Override
+	public void validate() {
+		
+	}
 	
 }

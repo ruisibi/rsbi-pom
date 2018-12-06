@@ -3,6 +3,7 @@ package com.ruisitech.bi.entity.portal;
 import java.util.Date;
 
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public class MobReportType extends BaseEntity {
 
@@ -63,6 +64,10 @@ public class MobReportType extends BaseEntity {
 	public void setIconCls(String iconCls) {
 		this.iconCls = iconCls;
 	}
-	
-	
+	@Override
+	public void validate() {
+		this.name = RSBIUtils.htmlEscape(this.name);
+		this.note = RSBIUtils.htmlEscape(this.note);
+		this.text = RSBIUtils.htmlEscape(this.text);
+	}
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public final class User extends BaseEntity implements Serializable {
 	
@@ -129,6 +130,11 @@ public final class User extends BaseEntity implements Serializable {
 	public void setLogCnt(Integer logCnt) {
 		this.logCnt = logCnt;
 	}
-
+	
+	@Override
+	public void validate() {
+		this.staffId = RSBIUtils.htmlEscape(this.staffId);
+		this.loginName = RSBIUtils.htmlEscape(this.loginName);
+	}
 	
 }

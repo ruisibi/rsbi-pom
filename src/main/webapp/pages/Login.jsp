@@ -28,24 +28,35 @@
 if(window.top != window.self){
 	window.top.location.href = 'Login.action'
 }
+$(function(){
+	$("#loginForm").validate({
+		submitHandler:function(form){
+				__showLoading();
+			   $.ajax({
+				    type:"POST",
+					data:$(form).serialize(),
+					url:'dologin.action',
+					dataType:'json',
+					success:function(ret){
+						__hideLoading();
+						if(ret.result == 0){
+							msginfo(ret.msg, "error");
+						}else{
+							location.href = 'frame/Frame.action'
+						}
+					},
+					error:function(){
+						__hideLoading();
+						msginfo("系统错误，请稍后再试。", "error");
+					}
+			   });
+			}    
+	});
+});
 </script>
 </head>
 
 <body class="gray-bg">
-	  <c:if test="${requestScope.errorInfo != null}">
-			<div class="panel panel-danger">
-				<div class="panel-heading">
-					${requestScope.errorInfo}
-				</div>
-			</div>
-			<script>
-			$(function(){
-				window.setTimeout(function(){
-					$("div.panel-danger").remove();
-				}, 4000);
-			});
-			</script>
-	  </c:if>
 	  <div class="row border-bottom" role="navigation" style="margin-bottom: 0"> 
 		<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
 		<div class="col-sm-12">
@@ -56,7 +67,7 @@ if(window.top != window.self){
 	  <div class="middle-box signinpanel text-center loginscreen" style="max-width:600px;">
         <div>
             <h2 style="padding:10px 10px 20px 10px;">用户登录</h2>
-             <form method="post" action="dologin.action">
+             <form method="post" id="loginForm">
 					<input type="hidden" name="backurl" value="${backurl}">
 					<div class="row">
 						<div class="col-sm-6"><div style="padding:20px 10px 20px 0px;"><img src="resource/img/xsqq.png"></div></div>

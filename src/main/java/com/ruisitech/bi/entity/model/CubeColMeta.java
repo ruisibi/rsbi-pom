@@ -92,4 +92,8 @@ public class CubeColMeta extends BaseEntity {
 		this.isupdate = isupdate;
 	}
 	
+	@Override
+	public void validate() {
+		 
+	}
 }

@@ -34,4 +34,9 @@ public class QueryMonthDto extends BaseEntity {
 		
 		return betweenYear * 12 + betweenMonth;
 	}
+	
+	@Override
+	public void validate() {
+		 
+	 }
 }

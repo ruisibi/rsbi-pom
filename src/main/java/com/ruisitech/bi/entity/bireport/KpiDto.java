@@ -188,5 +188,8 @@ public class KpiDto extends BaseEntity {
 	public void setTfontsize(Integer tfontsize) {
 		this.tfontsize = tfontsize;
 	}
-	
+	@Override
+	public void validate() {
+		 
+	 }
 }

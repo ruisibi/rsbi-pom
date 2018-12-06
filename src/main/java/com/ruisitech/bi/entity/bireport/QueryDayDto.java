@@ -29,4 +29,9 @@ public class QueryDayDto extends BaseEntity {
 		long result = Math.abs(l1 - l2) / (24 * 60 * 60 * 1000);
 		return (int)result;
 	}
+	
+	@Override
+	public void validate() {
+		 
+	}
 }

@@ -122,5 +122,8 @@ public class TableQueryDto extends BaseEntity {
 		ret.addAll(this.rows);
 		return ret;
 	}
-	
+	@Override
+	public void validate() {
+		 
+	 }
 }

@@ -3,6 +3,7 @@ package com.ruisitech.bi.entity.app;
 import java.util.Date;
 
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public class Collect extends BaseEntity {
 	
@@ -42,4 +43,10 @@ public class Collect extends BaseEntity {
 		this.url = url;
 	}
 	
+	@Override
+	public void validate() {
+		this.title = RSBIUtils.htmlEscape(this.title);
+		this.rid = RSBIUtils.htmlEscape(this.rid);
+		this.url = RSBIUtils.htmlEscape(this.url);
+	}
 }

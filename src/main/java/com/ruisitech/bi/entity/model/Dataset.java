@@ -3,6 +3,7 @@ package com.ruisitech.bi.entity.model;
 import java.util.Date;
 
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public class Dataset extends BaseEntity {
 	
@@ -68,5 +69,9 @@ public class Dataset extends BaseEntity {
 	public void setUseType(String useType) {
 		this.useType = useType;
 	}
-	
+	@Override
+	public void validate() {
+		this.dsname = RSBIUtils.htmlEscape(this.dsname);
+		this.name = RSBIUtils.htmlEscape(this.name);
+	}
 }

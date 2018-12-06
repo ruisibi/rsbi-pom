@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public class Menu extends BaseEntity {
 	
@@ -87,4 +88,9 @@ public class Menu extends BaseEntity {
 		this.children = children;
 	}
 	
+	 @Override
+	public void validate() {
+		this.menuName = RSBIUtils.htmlEscape(this.menuName);
+		this.menuDesc = RSBIUtils.htmlEscape(this.menuDesc);
+	}
 }

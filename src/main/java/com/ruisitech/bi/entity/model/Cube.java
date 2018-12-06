@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public class Cube extends BaseEntity  {
 	
@@ -93,4 +94,10 @@ public class Cube extends BaseEntity  {
 	public void setDelObj(List<Map<String, Object>> delObj) {
 		this.delObj = delObj;
 	}
+	
+	 @Override
+	public void validate() {
+		 this.cubeName = RSBIUtils.htmlEscape(this.cubeName);
+		 this.desc = RSBIUtils.htmlEscape(this.desc);
+	 }
 }

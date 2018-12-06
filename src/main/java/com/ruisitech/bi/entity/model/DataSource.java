@@ -4,6 +4,7 @@ import com.ruisi.ext.engine.dao.DatabaseHelper;
 import com.ruisi.ext.engine.view.context.ExtContext;
 import com.ruisi.ext.engine.view.exception.ExtConfigException;
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public class DataSource extends BaseEntity {
 	
@@ -75,5 +76,11 @@ public class DataSource extends BaseEntity {
 	}
 	public void setDsid(String dsid) {
 		this.dsid = dsid;
+	}
+	
+	@Override
+	public void validate() {
+		this.dsname = RSBIUtils.htmlEscape(this.dsname);
+		this.jndiName = RSBIUtils.htmlEscape(this.jndiName);
 	}
 }

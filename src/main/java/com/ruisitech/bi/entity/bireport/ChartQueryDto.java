@@ -53,4 +53,8 @@ public class ChartQueryDto extends BaseEntity {
 	public void setDsetId(String dsetId) {
 		this.dsetId = dsetId;
 	}
+	@Override
+	public void validate() {
+		 
+	}
 }

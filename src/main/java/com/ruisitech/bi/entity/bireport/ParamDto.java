@@ -166,5 +166,8 @@ public class ParamDto extends BaseEntity {
 	public void setCalc(Integer calc) {
 		this.calc = calc;
 	}
-	
+	@Override
+	public void validate() {
+		 
+	 }
 }

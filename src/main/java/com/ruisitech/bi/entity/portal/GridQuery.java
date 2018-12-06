@@ -3,6 +3,7 @@ package com.ruisitech.bi.entity.portal;
 import java.util.List;
 
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public class GridQuery extends BaseEntity {
 
@@ -92,5 +93,8 @@ public class GridQuery extends BaseEntity {
 	public void setIsnotfy(String isnotfy) {
 		this.isnotfy = isnotfy;
 	}
-	
+	@Override
+	public void validate() {
+		this.name = RSBIUtils.htmlEscape(this.name);
+	}
 }

@@ -205,4 +205,59 @@ public final class RSBIUtils {
 		String ret = CalendarTag.getFestival((String)key, df);
 		return ret;
 	}
+	
+	/**
+	 * 将容易引起xss漏洞的半角字符直接替换成全角字符 在保证不删除数据的情况下保存 
+	 * @param str
+	 * @return
+	 */
+	public static String htmlEscape(String value){
+		if(value == null || value.length() == 0){
+			return value;
+		}
+		value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+        value = value.replaceAll("\\(", "&#40;").replaceAll("\\)", "&#41;");
+        value = value.replaceAll("'", "&#39;");
+        value = value.replaceAll("eval\\((.*)\\)", "");
+        value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']", "\"\"");
+        value = value.replaceAll("script", "");
+        return value;
+	}
+	
+	 /**
+     * Escape解码
+     * @param src 加盐字符串
+     * @return 明文
+     */
+    public static String unescape(String src) {
+        StringBuffer tmp = new StringBuffer();
+        tmp.ensureCapacity(src.length());
+        int lastPos = 0, pos = 0;
+        char ch;
+        while (lastPos < src.length()) {
+            pos = src.indexOf("%", lastPos);
+            if (pos == lastPos) {
+                if (src.charAt(pos + 1) == 'u') {
+                    ch = (char) Integer.parseInt(src
+                            .substring(pos + 2, pos + 6), 16);
+                    tmp.append(ch);
+                    lastPos = pos + 6;
+                } else {
+                    ch = (char) Integer.parseInt(src
+                            .substring(pos + 1, pos + 3), 16);
+                    tmp.append(ch);
+                    lastPos = pos + 3;
+                }
+            } else {
+                if (pos == -1) {
+                    tmp.append(src.substring(lastPos));
+                    lastPos = src.length();
+                } else {
+                    tmp.append(src.substring(lastPos, pos));
+                    lastPos = pos;
+                }
+            }
+        }
+        return tmp.toString();
+    }
 }

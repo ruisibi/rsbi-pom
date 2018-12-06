@@ -1,6 +1,7 @@
 package com.ruisitech.bi.entity.portal;
 
 import com.ruisitech.bi.entity.common.BaseEntity;
+import com.ruisitech.bi.util.RSBIUtils;
 
 public class GridColDto extends BaseEntity {
 
@@ -67,5 +68,9 @@ public class GridColDto extends BaseEntity {
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
-	
+	@Override
+	public void validate() {
+		this.name = RSBIUtils.htmlEscape(this.name);
+		this.dispName = RSBIUtils.htmlEscape(this.dispName);
+	}
 }
