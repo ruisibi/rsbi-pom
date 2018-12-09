@@ -87,6 +87,10 @@ public class HandlerExecutionChainWrapper extends HandlerExecutionChain {
 			
 			//对Controller的方法参数进行调用前处理
 			//过滤String类型参数中可能存在的XSS注入
+			String methodName = method.getName();
+			if("print".equals(methodName) || "export".equals(methodName)){  //不拦截打印，导出
+				return method.invoke(target, args);
+			}
 			if (args != null) {
 				for (int i=0;i<args.length;i++) {
 					if (args[i]==null)
