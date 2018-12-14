@@ -53,8 +53,17 @@ public class UserService {
 	        return "账号不存在或者密码错误！";  
 	    } catch (IncorrectCredentialsException ex) {  
 	        return "账号不存在或者密码错误！";  
-	    } catch (AuthenticationException ex) {  
-	        return ex.getMessage(); // 自定义报错信息  
+	    } catch (AuthenticationException ex) {
+	    	String ret = null;
+	    	Throwable t = ex;
+	    	while(true){
+	    		t = t.getCause();
+	    		if(t == null || t.getCause() == null){
+	    			ret = t.getMessage();
+	    			break;
+	    		}
+	    	}
+	    	return "系统错误：" + ret;
 	    } catch (Exception ex) {  
 	        ex.printStackTrace();  
 	        return "内部错误，请重试！";  
