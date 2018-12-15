@@ -79,7 +79,6 @@ public class OlapService {
 		String key = d.getColkey();
 		String name = d.getColtext();
 		String dimord = d.getDimord();
-		String ordcol = d.getOrdcol();
 		String tname = d.getTname();
 		String coltable = d.getColTable();
 		String sql = "select distinct " +  (key==null||key.length() == 0 ? col : key) + " \"id\", " + (name==null||name.length() == 0 ?col:name) + " \"name\" from ";
@@ -87,11 +86,8 @@ public class OlapService {
 		if(keyword != null && keyword.length() > 0){
 			sql += " where "+(name==null||name.length() == 0 ?col:name)+" like '%"+keyword+"%'";
 		}
-		if(ordcol != null && ordcol.length() > 0){
-			sql += " order by " + ordcol;
-		}
-		if(ordcol != null && ordcol.length() > 0 && dimord != null && dimord.length() > 0){
-			sql += " " + dimord;
+		if(dimord != null && dimord.length() > 0){
+			sql += " order by " + (key==null||key.length() == 0 ? col : key)+ " " + dimord;
 		}
 		sql = sql.replaceAll("@", "'");
 		

@@ -1,7 +1,7 @@
 ﻿if($ == undefined){
 	$ = jQuery;
 }
-var dateformat = ['yyyymmdd', 'yyyy-mm-dd', 'yyyy年mm月dd日', 'yyyymm', 'yyyy-mm', 'yyyy年mm月', 'yyyyqq' ,'yyyy-qq', 'yyyy年qq季度', 'yyyy', 'yyyy年'];
+var dateformat = ['yyyymmdd', 'yyyy-mm-dd', 'yyyy年mm月dd日', 'yyyymm', 'yyyy-mm', 'yyyy年mm月', 'yyyy', 'yyyy年'];
 function initcubeTable(){
     if($("#cubetable").size() > 0){
 	$("#cubetable").datagrid("load", {t:Math.random()});
@@ -291,7 +291,7 @@ function initRightCubeTree(cube){
 		}
 		for(i=0; i<cube.dims.length; i++){
 			var d = cube.dims[i];
-			var obj = {id:d.id, text:d.text, attributes:{tp:"dim",drag:true,col:d.col_name,tname:d.tname,dispName:d.text,vtype:d.valType,alias:d.alias, dimtype:d.dim_type,colTable:(d.tableName==null?"":d.tableName),colkey:(d.tableColKey==null?"":d.tableColKey), coltext:(d.tableColName==null?"":d.tableColName),ordcol:(d.ordcol==null?"":d.ordcol), dimord:(d.dimord==null?"":d.dimord), dateformat:(d.dateformat==null?"":d.dateformat), calc:d.iscalc==1?true:false, targetId:d.col_id },iconCls:"icon-dim"};
+			var obj = {id:d.id, text:d.text, attributes:{tp:"dim",drag:true,col:d.col_name,tname:d.tname,dispName:d.text,vtype:d.valType,alias:d.alias, dimtype:d.dim_type,colTable:(d.tableName==null?"":d.tableName),colkey:(d.tableColKey==null?"":d.tableColKey), coltext:(d.tableColName==null?"":d.tableColName), dimord:(d.dimord==null?"":d.dimord), dateformat:(d.dateformat==null?"":d.dateformat), calc:d.iscalc==1?true:false, targetId:d.col_id },iconCls:"icon-dim"};
 			
 			if(d.grouptype != "" && d.grouptype != null){
 				var group = groupexist(d.grouptype);
@@ -459,7 +459,6 @@ function editcubecol(){
 		var tabstr = "<option value=\"\"></option>";
 		var keystr = "<option value=\"\"></option>";
 		var txtstr = "<option value=\"\"></option>";
-		var ordstr = "<option value=\"\"></option>";
 		var tables = [];
 		for(i=0; i<cols.length; i++){
 			var clds = cols[i].children;
@@ -479,7 +478,7 @@ function editcubecol(){
 		for(i=0; i<dateformat.length; i++){
 			fmtstr = fmtstr + "<option value=\""+dateformat[i]+"\" "+(right.attributes.dateformat==dateformat[i]?"selected":"")+">"+dateformat[i]+"</option>";
 		}
-		ctx = "<div class=\"textpanel\"><span class=\"inputtext\">维度字段：</span>"+right.attributes.col+"<br/><span class=\"inputtext\">别名：</span>"+right.attributes.alias+"<br/><span class=\"inputtext\">显示名称：</span><input type=\"text\" id=\"dimname\" name=\"dimname\" class=\"inputform2\" value=\""+right.attributes.dispName+"\"><br/><span class=\"inputtext\">维度类型：</span><select id=\"dimtype\" name=\"dimtype\" class=\"inputform2\"><option value=\"\"></option><option value=\"year\" "+(right.attributes.dimtype=='year'?"selected":"")+">年</option><option value=\"quarter\" "+(right.attributes.dimtype=='quarter'?"selected":"")+">季度</option><option value=\"month\" "+(right.attributes.dimtype=='month'?"selected":"")+">月</option><option value=\"day\" "+(right.attributes.dimtype=='day'?"selected":"")+">日</option><option value=\"prov\" "+(right.attributes.dimtype=='prov'?"selected":"")+">省份</option><option value=\"city\" "+(right.attributes.dimtype=='city'?"selected":"")+">地市</option></select><br/><span class=\"inputtext\">维度格式：</span><select id=\"dateformat\" class=\"inputform2\">"+fmtstr+"</select><br/><span class=\"inputtext\">维度对应表：</span><select id=\"colTable\" class=\"inputform2\" name=\"colTable\">"+tabstr+"</select><br/><span class=\"inputtext\">维度Key字段：</span><select id=\"colkey\" class=\"inputform2\" name=\"colkey\">"+keystr+"</select><br/><span class=\"inputtext\">维度Text字段：</span><select id=\"coltext\" name=\"coltext\" class=\"inputform2\">"+txtstr+"</select><br/><span class=\"inputtext\">排序字段：</span><select id=\"ordcol\" name=\"ordcol\" class=\"inputform2\">"+ordstr+"</select><br/><span class=\"inputtext\">排序方式：</span><select id=\"dimord\" name=\"dimord\" class=\"inputform2\"><option value=\"\"></option><option "+(right.attributes.dimord=="asc"?"selected":"")+" value=\"asc\">正序</option><option value=\"desc\" "+(right.attributes.dimord=="desc"?"selected":"")+">倒叙</option></select></div>";
+		ctx = "<div class=\"textpanel\"><span class=\"inputtext\">维度字段：</span>"+right.attributes.col+"<br/><span class=\"inputtext\">别名：</span>"+right.attributes.alias+"<br/><span class=\"inputtext\">显示名称：</span><input type=\"text\" id=\"dimname\" name=\"dimname\" class=\"inputform2\" value=\""+right.attributes.dispName+"\"><br/><span class=\"inputtext\">维度类型：</span><select id=\"dimtype\" name=\"dimtype\" class=\"inputform2\"><option value=\"\"></option><option value=\"year\" "+(right.attributes.dimtype=='year'?"selected":"")+">年</option><option value=\"quarter\" "+(right.attributes.dimtype=='quarter'?"selected":"")+">季度</option><option value=\"month\" "+(right.attributes.dimtype=='month'?"selected":"")+">月</option><option value=\"day\" "+(right.attributes.dimtype=='day'?"selected":"")+">日</option><option value=\"prov\" "+(right.attributes.dimtype=='prov'?"selected":"")+">省份</option><option value=\"city\" "+(right.attributes.dimtype=='city'?"selected":"")+">地市</option></select><br/><span class=\"inputtext\">维度格式：</span><select id=\"dateformat\" class=\"inputform2\">"+fmtstr+"</select><br/><span class=\"inputtext\">维度对应表：</span><select id=\"colTable\" class=\"inputform2\" name=\"colTable\">"+tabstr+"</select><br/><span class=\"inputtext\">维度Key字段：</span><select id=\"colkey\" class=\"inputform2\" name=\"colkey\">"+keystr+"</select><br/><span class=\"inputtext\">维度Text字段：</span><select id=\"coltext\" name=\"coltext\" class=\"inputform2\">"+txtstr+"</select><br/><span class=\"inputtext\">排序方式：</span><select id=\"dimord\" name=\"dimord\" class=\"inputform2\"><option value=\"\"></option><option "+(right.attributes.dimord=="asc"?"selected":"")+" value=\"asc\">正序</option><option value=\"desc\" "+(right.attributes.dimord=="desc"?"selected":"")+">倒叙</option></select></div>";
 	}else if(right.attributes.tp == 'kpi'){
 		var tpstr = "";
 		for(i=0; i<atp.length; i++){
@@ -488,7 +487,7 @@ function editcubecol(){
 		ctx = "<div class=\"textpanel\"><span class=\"inputtext\">度量字段：</span>"+right.attributes.col+"<br/><span class=\"inputtext\">别名：</span>"+right.attributes.alias+"<br/><span class=\"inputtext\">显示名称：</span><input type=\"text\" id=\"kpiname\" name=\"kpiname\" class=\"inputform2\" value=\""+right.attributes.dispName+"\"><br/>"
 		+ "<span class=\"inputtext\">计算方式：</span><select id=\"kpiaggre\" name=\"kpiaggre\" class=\"inputform2\">"+tpstr+"</select> <br>"
 		+ "<span class=\"inputtext\">度量单位：</span><input type=\"text\" id=\"kpiunit\" name=\"kpiunit\" class=\"inputform2\" value=\""+(right.attributes.unit?right.attributes.unit:"")+"\"> <br>"
-		+ "<span class=\"inputtext\">格式化：</span>" + ftmstr("kpifmt","inputform2",right.attributes.fmt?right.attributes.fmt:"") + "<br/><span class=\"inputtext\">度量解释：</span><textarea name=\"kpinote\" id=\"kpinote\"  cols=\"25\" style=\"height:32px;\" rows=\"2\">"+(right.attributes.kpinote?right.attributes.kpinote:"")+"</textarea></div>";
+		+ "<span class=\"inputtext\">格式化：</span>" + ftmstr("kpifmt","inputform2",right.attributes.fmt?right.attributes.fmt:"") + "<br/><span class=\"inputtext\">度量解释：</span><textarea name=\"kpinote\" id=\"kpinote\"  cols=\"25\" class=\"inputform2\" style=\"height:32px;\" rows=\"2\">"+(right.attributes.kpinote?right.attributes.kpinote:"")+"</textarea></div>";
 	}else if(right.attributes.tp == 'group'){
 		ctx = "<div class=\"textpanel\"><span class=\"inputtext\">分组名称：</span><input type=\"text\" id=\"groupname\" name=\"groupname\" value=\""+right.attributes.dispName+"\" class=\"inputform2\"><br/></div>";
 	}
@@ -536,7 +535,6 @@ function editcubecol(){
 						right.attributes.colTable = $("#dsColumn_div #colTable").val();
 						right.attributes.colkey = $("#dsColumn_div #colkey").val();
 						right.attributes.coltext = $("#dsColumn_div #coltext").val();
-						right.attributes.ordcol = $("#dsColumn_div #ordcol").val();
 						right.attributes.dimord = $("#dsColumn_div #dimord").val();
 						right.attributes.dateformat = dtfmt;
 						right.attributes.isupdate = "y";  //表示维度已经更改过了。
@@ -558,10 +556,9 @@ function editcubecol(){
 			}]
 	});
 	if(right.attributes.tp == 'dim'){
-		var upcolfunc = function(tname, colkey, coltext, ordcol){
+		var upcolfunc = function(tname, colkey, coltext){
 			var keystr = "<option value=\"\"></option>";
 			var txtstr = "<option value=\"\"></option>";
-			var ordstr = "<option value=\"\"></option>";
 			var cols = $("#cubelefttree").tree("getRoots");
 			for(i=0; i<cols.length; i++){
 				var c = cols[i];
@@ -570,19 +567,17 @@ function editcubecol(){
 					if(t.attributes && t.attributes.tname == tname){
 						keystr = keystr + "<option value=\""+t.id+"\" "+(colkey==t.id?"selected":"")+">"+t.id+"</option>";
 						txtstr = txtstr + "<option value=\""+t.id+"\" "+(coltext==t.id?"selected":"")+">"+t.id+"</option>";
-						ordstr = ordstr + "<option value=\""+t.id+"\" "+(ordcol==t.id?"selected":"")+">"+t.id+"</option>";
 					}
 				}
 			}
 			$("#dsColumn_div #colkey").html(keystr);
 			$("#dsColumn_div #coltext").html(txtstr);
-			$("#dsColumn_div #ordcol").html(ordstr);
 		}
 		$("#dsColumn_div #colTable").change(function(){
 			upcolfunc($(this).val());
 		});
 		if(right.attributes.colTable && right.attributes.colTable != ''){
-			upcolfunc(right.attributes.colTable, right.attributes.colkey, right.attributes.coltext, right.attributes.ordcol);
+			upcolfunc(right.attributes.colTable, right.attributes.colkey, right.attributes.coltext);
 		}
 	}	
 }
@@ -656,7 +651,7 @@ function editCalcKpi(update, kpiId){
 	for(i=0; i<atp.length; i++){
 		kpiStr = kpiStr + "<button name=\""+atp[i]+"( )\" class=\"btn btn-primary btn-xs\">"+ atp[i]+"</button> ";
 	}
-	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">度量标识：</span><input type=\"text\" class=\"inputform2\" name=\"alias\" id=\"alias\" value=\""+(kpi?kpi.attributes.alias:"")+"\">(英文字符)<br/><span class=\"inputtext\">显示名称：</span><input type=\"text\" class=\"inputform2\" name=\"kpiname\" id=\"kpiname\" value=\""+(kpi?kpi.attributes.dispName:"")+"\"><br/><table cellspacing=\"0\" cellpadding=\"0\"><tbody><tr><td valign=\"top\"><span class=\"inputtext\">表 达 式：</span></td><td><textarea rows=\"2\" style=\"height:52px;\" cols=\"40\" id=\"expression\" name=\"expression\">"+(kpi?kpi.attributes.col:"")+"</textarea></td></tr></tbody></table><div class=\"actColumn\">"+kpiStr+"</div><span class=\"inputtext\">计算方式：</span><select id=\"kpiaggre\" name=\"kpiaggre\" class=\"inputform2\">"+tpstr+"</select><br><span class=\"inputtext\">度量单位：</span><input type=\"text\" value=\""+(kpi?kpi.attributes.unit:"")+"\" class=\"inputform2\" name=\"kpiunit\" id=\"kpiunit\"><br/><span class=\"inputtext\">格式化：</span>" + ftmstr("kpifmt","inputform2",(kpi?kpi.attributes.fmt:"")) + "<br/><span class=\"inputtext\">指标解释：</span><textarea name=\"kpinote\" id=\"kpinote\"  cols=\"25\" style=\"height:32px;\" rows=\"2\">"+(kpi?kpi.attributes.kpinote:"")+"</textarea></div>";
+	var ctx = "<div class=\"textpanel\"><span class=\"inputtext\">度量标识：</span><input type=\"text\" class=\"inputform2\" name=\"alias\" id=\"alias\" value=\""+(kpi?kpi.attributes.alias:"")+"\">(英文字符)<br/><span class=\"inputtext\">显示名称：</span><input type=\"text\" class=\"inputform2\" name=\"kpiname\" id=\"kpiname\" value=\""+(kpi?kpi.attributes.dispName:"")+"\"><br/><table cellspacing=\"0\" cellpadding=\"0\"><tbody><tr><td valign=\"top\"><span class=\"inputtext\">表 达 式：</span></td><td><textarea rows=\"2\" style=\"height:52px;\" cols=\"40\" id=\"expression\" name=\"expression\" class=\"inputform2\">"+(kpi?kpi.attributes.col:"")+"</textarea></td></tr></tbody></table><div class=\"actColumn\">"+kpiStr+"</div><span class=\"inputtext\">计算方式：</span><select id=\"kpiaggre\" name=\"kpiaggre\" class=\"inputform2\">"+tpstr+"</select><br><span class=\"inputtext\">度量单位：</span><input type=\"text\" value=\""+(kpi?kpi.attributes.unit:"")+"\" class=\"inputform2\" name=\"kpiunit\" id=\"kpiunit\"><br/><span class=\"inputtext\">格式化：</span>" + ftmstr("kpifmt","inputform2",(kpi?kpi.attributes.fmt:"")) + "<br/><span class=\"inputtext\">指标解释：</span><textarea name=\"kpinote\" id=\"kpinote\"  cols=\"25\" style=\"height:32px;\" class=\"inputform2\" rows=\"2\">"+(kpi?kpi.attributes.kpinote:"")+"</textarea></div>";
 	if($("#dsColumn_div").size() == 0){
 		$("<div id=\"dsColumn_div\" class=\"easyui-menu\"></div>").appendTo("body");
 	}
@@ -795,7 +790,7 @@ function savecubecfg(pageJson, update){
 		if(d.attributes.tp == "group"){
 			curGroup = d;
 		}else{
-			var obj = {name:d.attributes.dispName, type:d.attributes.dimtype,col:d.attributes.col, tname:d.attributes.tname, alias:d.attributes.alias, vtype: d.attributes.vtype, colTable:d.attributes.colTable,colkey:d.attributes.colkey,coltext:d.attributes.coltext,ordcol:d.attributes.ordcol,dimord:d.attributes.dimord, dateformat:d.attributes.dateformat,calc:(d.attributes.calc&&d.attributes.calc==true?1:0),targetId:d.attributes.targetId,isupdate:d.attributes.isupdate};
+			var obj = {name:d.attributes.dispName, type:d.attributes.dimtype,col:d.attributes.col, tname:d.attributes.tname, alias:d.attributes.alias, vtype: d.attributes.vtype, colTable:d.attributes.colTable,colkey:d.attributes.colkey,coltext:d.attributes.coltext,dimord:d.attributes.dimord, dateformat:d.attributes.dateformat,calc:(d.attributes.calc&&d.attributes.calc==true?1:0),targetId:d.attributes.targetId,isupdate:d.attributes.isupdate};
 			var p = $("#cuberighttree").tree("getParent", d.target);
 			if(p.attributes && p.attributes.tp == "group"){
 				obj.groupName = p.text;

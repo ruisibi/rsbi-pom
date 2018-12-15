@@ -901,8 +901,8 @@ function kpiproperty(){
 	var compId = curTmpInfo.compId.replace("T", "");
 	var comp = findCompById(compId);
 	var kpi = findKpiById(kpiId, comp.kpiJson);
-	var ctx = "<div style='line-height:30px; margin:5px;'><span class=\"inputtext\">度量名称：</span>"+kpi.kpi_name+"<br><span class=\"inputtext\">所 属 表：</span>"+comp.tname+"<br><span class=\"inputtext\">度量单位：</span><select id=\"kpiunit\" name=\"kpiunit\" class=\"inputform\"><option value='1'></option><option value='1000'>千</option><option value='10000'>万</option><option value='1000000'>百万</option><option value='100000000'>亿</option></select>"+kpi.unit+"<br><span class=\"inputtext\">格 式 化：</span>"+
-		"<select id=\"fmt\" name=\"fmt\" class=\"inputform\"><option value=\"###,##0\">整数</option><option value=\"###,##0.0\">小数(保留1位)</option><option value=\"###,##0.00\">小数(保留2位)</option><option value=\"0.00%\">百分比</option></select></div>";
+	var ctx = "<div style='line-height:30px; margin:5px;'><span class=\"inputtext\">度量名称：</span>"+kpi.kpi_name+"<br><span class=\"inputtext\">度量单位：</span><select id=\"kpiunit\" name=\"kpiunit\" class=\"inputform\"><option value='1'></option><option value='1000'>千</option><option value='10000'>万</option><option value='1000000'>百万</option><option value='100000000'>亿</option></select>"+kpi.unit+"<br><span class=\"inputtext\">格 式 化：</span>"+
+		"<select id=\"fmt\" name=\"fmt\" class=\"inputform\"><option value=\"\"></option><option value=\"###,##0\">整数</option><option value=\"###,##0.0\">小数(保留1位)</option><option value=\"###,##0.00\">小数(保留2位)</option><option value=\"0.00%\">百分比</option></select></div>";
 	$('#pdailog').dialog({
 		title: '度量属性',
 		width: 400,

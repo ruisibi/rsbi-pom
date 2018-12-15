@@ -469,14 +469,10 @@ public class PortalPageService extends BaseCompService {
 		String key = d.getColkey();
 		String name = d.getColtext();
 		String dimord = d.getDimord();
-		String ordcol = d.getOrdcol();
 		String sql =  "select distinct " +  (key==null||key.length() == 0 ? col : key) + " \"value\", " + (name==null||name.length() == 0 ?col:name) + " \"text\" from ";
 		sql += (d.getColTable() == null || d.getColTable().length() == 0 ? d.getTname() : d.getColTable());
-		if(ordcol != null && ordcol.length() > 0){
-			sql += " order by " + ordcol;
-		}
-		if(ordcol != null && ordcol.length() > 0 && dimord != null && dimord.length() > 0){
-			sql += " " + dimord;
+		if(dimord != null && dimord.length() > 0){
+			sql += " order by " + (key==null||key.length() == 0 ? col : key) + " " + dimord;
 		}
 		 //直接从数据中查询。
 		return sql;

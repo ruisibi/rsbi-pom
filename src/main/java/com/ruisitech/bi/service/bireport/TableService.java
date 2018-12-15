@@ -498,11 +498,10 @@ public class TableService extends BaseCompService {
 			for(int i=0; i<table.getCols().size(); i++){
 				DimDto dim = dims.get(i);
 				if(dim.getDimord() != null && dim.getDimord().length() > 0){
-					if(dim.getOrdcol() != null && dim.getOrdcol().length() > 0){  //处理维度排序
-						order.append(dim.getOrdcol() + " " + dim.getDimord() + ",");
-					}else{
-						order.append(dim.getColname() + " " + dim.getDimord() + ",");
-					}
+					order.append(dim.getTableColKey() != null && dim.getTableColKey().length() > 0 ? dim.getTableColKey() : dim.getColname());
+					order.append(" ");
+					order.append(dim.getDimord());
+					order.append(",");
 				}
 			}
 			//判断是否按指标排序
@@ -518,11 +517,10 @@ public class TableService extends BaseCompService {
 			for(int i=0; i<table.getRows().size(); i++){
 				DimDto dim = table.getRows().get(i);
 				if(dim.getDimord() != null && dim.getDimord().length() > 0){
-					if(dim.getOrdcol() != null && dim.getOrdcol().length() > 0){  //处理维度排序
-						order.append(dim.getOrdcol() + " " + dim.getDimord() + ",");
-					}else{
-						order.append(dim.getColname() + " " + dim.getDimord() + ",");
-					}
+					order.append(dim.getTableColKey() != null && dim.getTableColKey().length() > 0 ? dim.getTableColKey() : dim.getColname());
+					order.append(" ");
+					order.append(dim.getDimord());
+					order.append(",");
 				}
 			}
 			

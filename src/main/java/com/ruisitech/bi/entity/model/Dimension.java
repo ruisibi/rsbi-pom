@@ -9,9 +9,9 @@ public class Dimension extends CubeColMeta {
 	private String colkey;
 	private String coltext;
 	private String dimord;
+	private String ordcol;
 	private String vtype;
 	private String colTable;
-	private String ordcol;
 	private Integer cubeId;
 	private String groupId;
 	private String groupName;
@@ -65,12 +65,6 @@ public class Dimension extends CubeColMeta {
 	public void setColTable(String colTable) {
 		this.colTable = colTable;
 	}
-	public String getOrdcol() {
-		return ordcol;
-	}
-	public void setOrdcol(String ordcol) {
-		this.ordcol = ordcol;
-	}
 	public Integer getCubeId() {
 		return cubeId;
 	}
@@ -94,6 +88,12 @@ public class Dimension extends CubeColMeta {
 	}
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
+	}
+	public String getOrdcol() {
+		return ordcol;
+	}
+	public void setOrdcol(String ordcol) {
+		this.ordcol = ordcol;
 	}
 
 }

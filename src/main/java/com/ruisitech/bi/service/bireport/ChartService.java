@@ -496,12 +496,10 @@ public class ChartService extends BaseCompService {
 			for(int i=0; i<dims.size(); i++){
 				DimDto dim = dims.get(i);
 				if(dim.getDimord() != null && dim.getDimord().length() > 0){
-					if(dim.getOrdcol() != null && dim.getOrdcol().length() > 0){  //处理维度排序
-						order.append(dim.getOrdcol() + " " + dim.getDimord() + ",");
-					}else{
-						//需要处理 是否计算列
-						order.append("" +(dim.getCalc() != null && dim.getCalc() == 1 ? dim.getColname():tableAlias.get(dim.getTname()) + "." + dim.getColname()) + " " + dim.getDimord() + ",");
-					}
+					order.append(dim.getTableColKey() != null && dim.getTableColKey().length() > 0 ? dim.getTableColKey() : dim.getColname());
+					order.append(" ");
+					order.append(dim.getDimord());
+					order.append(",");
 				}
 			}
 			if(order.length() <= 11 ){  //判断是否拼接了 order by 字段
