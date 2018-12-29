@@ -134,7 +134,7 @@ function chartview(json, compId){
 }
 function initChartKpiDrop(id){
 	$("#T" + id + " #xcol, #T" + id +" #ycol, #T"+id+" #scol").droppable({
-		accept:"#datasettree .tree-node",
+		accept:"ul.chartTreeCss .tree-node",
 		onDragEnter:function(e,source){
 			var node = $("#datasettree").tree("getNode", source);
 			var tp = node.attributes.col_type;
@@ -267,7 +267,7 @@ function initChartKpiDrop(id){
 */
 function initChartByScatter(id){
 	$("#T" + id + " #xcol, #T" + id +" #ycol, #T"+id+" #y2col, #T"+id+" #y3col, #T"+id+" #scol").droppable({
-		accept:"#datasettree .tree-node",
+		accept:"ul.chartTreeCss .tree-node",
 		onDragEnter:function(e,source){
 			var node = $("#datasettree").tree("getNode", source);
 			var tp = node.attributes.col_type;

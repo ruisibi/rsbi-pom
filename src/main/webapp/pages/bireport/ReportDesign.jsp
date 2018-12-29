@@ -71,6 +71,11 @@ $(function(){
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 		var activeTab = $(e.target).attr("idx"); 
 		pageInfo.idx = activeTab;
+		if(pageInfo.idx == "2"){  //图
+			$("#datasettree").removeClass("tableTreeCss").addClass("chartTreeCss");
+		}else{  //表
+			$("#datasettree").removeClass("chartTreeCss").addClass("tableTreeCss");
+		}
 	});
 	if(pageInfo.idx == "2"){
 		$('a[data-toggle="tab"]').last().tab('show');

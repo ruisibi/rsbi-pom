@@ -18,13 +18,19 @@ public class UserDefinedOlapWriter implements OlapWriterInterface {
 		table = (TableQueryDto)request.getAttribute("table");
 		
 		out.print("<div class='rowDimsList'>");
+		out.print("<table class=\"grid5\" cellpadding=\"0\" cellspacing=\"0\">");
+		out.print("<tr>");
 		List<DimDto> rows = table.getRows();
 		for(int i=0; i<rows.size(); i++){
 			DimDto row  = rows.get(i);
 			Integer id = row.getId();
 			String name = row.getDimdesc();
+			out.print("<th>");
 			out.print("<span>"+name+" <a href=javascript:; onclick='setRdimInfo(this, \""+id+"\", \""+ name +"\")' class='dimoptbtn set'> &nbsp; </a></span>");
+			out.print("</th>");
 		}
+		out.print("</tr>");
+		out.print("</table>");
 		out.println("</div>");
 	}
 

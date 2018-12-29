@@ -3,7 +3,7 @@
 }
 function reloadDatasetTree(){
 	$("#datasettreediv ul").remove();
-	$("#datasettreediv").append("<ul id=\"datasettree\"></ul>");
+	$("#datasettreediv").append("<ul id=\"datasettree\" class=\"tableTreeCss\"></ul>");
 	if(pageInfo.selectDs == null || pageInfo.selectDs == "null"){
 		$('#datasettree').tree({
 			dnd:false,

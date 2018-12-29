@@ -48,10 +48,6 @@
 
 <p>5.权限管理</p>
 
-<p class="text-warning">如果您觉得我们的系统对您有用，可以给我们捐款，让我们做出更好的产品。<br/></p>
-<img src="../resource/img/zfb.png"><br/> 
-(支付宝扫码捐款)
-<br/>
 <br/>
 <p class="text-warning">如果您需要更多功能，可以<button class="btn btn-primary btn-sm" onclick="window.open('https://www.ruisitech.com/product.html')">购买标准版</button></p>
 

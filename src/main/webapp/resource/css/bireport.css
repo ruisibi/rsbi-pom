@@ -38,15 +38,31 @@ TABLE.d_table2 TD {
     padding: 0px;
     font-size: 12px;
 }
-#d_colDims,#d_rowDims{
+#d_colDims {
 	background-color:#EEEEEE;
+	width:500px;
+	overflow:hidden;
+}
+#d_rowDims {
+	background-color:#EEEEEE;
+	height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#d_rowDims::-webkit-scrollbar {
+      width: 0px;
+      height: 0px;
+}
+.coldim {
+	width:110px;
+	overflow:hidden;
 }
 .colDimsList span{
 	display:-moz-inline-box;  
 	display:inline-block;
-	width:80px;
+	width:110px;
 	border:1px solid #CACACA;
-	padding:2px;
+	padding:5px;
 	margin:3px 0px 3px 3px;
 	background-color:#FFFFCC;
 	text-align:center;
@@ -54,8 +70,7 @@ TABLE.d_table2 TD {
 .rowDimsList span{
 	display:-moz-inline-box;  
 	display:inline-block;
-	width:117px;
-	border:1px solid #CACACA;
+	width:126px;
 	border-right:none;
 	background-color:#FFFFCC;
 	text-align:center;
@@ -101,7 +116,7 @@ tr.scrollColThead th span a.extKpibtn {
 }
 .chartselect .selleft ul li {
 	margin:0px;
-	padding:8px;
+	padding:6px;
 	background-color:#EEE;
 	border-bottom:solid 1px #CCCCCC;
 	cursor:pointer;
@@ -133,6 +148,15 @@ tr.scrollColThead th span a.extKpibtn {
 	height:26px;
 	border-radius:5px;
 }
+.tsbd .h_ctx_multi {
+	border:1px solid #7F9DB9;
+	height:120px;
+	overflow:auto;
+	border-radius:5px;
+}
+.tsbd .h_ctx_multi .multi_one {
+
+}
 .chartctx {
 	border:1px solid #CACACA;
 	height:170px;
@@ -152,6 +176,13 @@ span.charttxt {
 	overflow:hidden;
 	white-space:nowrap;
 }
+span.charttxt2 {
+	display:-moz-inline-box;  
+	display:inline-block;
+	width:90px;
+	overflow:hidden;
+	white-space:nowrap;
+}
 span.charticon {
 	display:-moz-inline-box;  
 	display:inline-block;
@@ -163,7 +194,7 @@ span.charticon {
 	background-repeat:no-repeat;
 	opacity: 0.6;
 	float:right;
-	margin-top:3px;
+	margin-top:4px;
 }
 span.chartdel {
 	display:-moz-inline-box;  
@@ -193,25 +224,32 @@ span.chartdel {
 	height:170px;
 	float:left;
 }
-#d_colDims span.colkpi{
+#d_colDims span.colkpi, #d_colDims2 span.colkpi{
 	display:-moz-inline-box;  
 	display:inline-block;
 	width:110px;
 	overflow:hidden;
 	padding:5px 0px 0px 3px;
 }
+#d_kpi {
+	height:300px;
+	overflow:auto;
+	width:500px;
+}
 #d_kpi span.kpiValue{ 
 	display:block;
 	width:110px;
+	padding-right: 3px;
 }
 #d_rowDims span.s_rowDim{  
 	display:block;
-	width:110px;
+	width:120px;
 	white-space: nowrap;
 	overflow:hidden;
-	margin:1px 3px 1px 3px;
+	margin:0px 3px 0px 3px;
+	line-height:17px;
 }
-#d_colDims span.s_colDim{
+#d_colDims span.s_colDim, #d_colDims2 span.s_colDim{
 	white-space: nowrap;
 }
 .chartdrillmenu{
@@ -237,7 +275,7 @@ span.chartdel {
 	background-position:center center;
 	text-decoration:none;
 }
-#d_colDims span.colkpi span.kpiname{
+#d_colDims span.colkpi span.kpiname, #d_colDims2 span.colkpi span.kpiname{
 	display:-moz-inline-box;  
 	display:inline-block;
 	white-space:nowrap;
@@ -274,7 +312,7 @@ span.chartdel {
 	overflow:auto;
 }
 .openlistbody {
-	width:600px;
+	width:430px;
 	height:320px;
 	overflow:hidden;
 	margin:auto;
@@ -305,7 +343,6 @@ span.chartdel {
 }
 /** olap 视图样式*/
 TABLE.grid5 {
-	width: 100%;
     border-collapse:collapse;
     border-spacing: 0px;
     border-cellpadding: 0px;
@@ -314,7 +351,7 @@ TABLE.grid5 THEAD {color: black;text-align: center}
 TABLE.grid5 TH {
     border: 1px solid #CACACA;
     font-size: 13px;
-     height:26px;
+    height:26px;
     background-color: #EEEEEE;
     text-align: left;
 	font-weight:normal;
@@ -324,7 +361,6 @@ TABLE.grid5 TD.grid5-td {
     font-size: 12px;
     height:26px;
 	overflow:hidden;
-	padding:1px 3px 1px 3px;
 }
 TABLE.grid5 TD.kpiData1 {
 	background-color:#FFF;
@@ -372,51 +408,6 @@ TABLE.grid5 td.pms, TABLE.grid3 td.pms {
 	height:218px;
 	overflow:auto;
 }
-.warning1 {
-	display: inline-block;
-    width: 16px;
-	height:16px;
-	background-image:url(../image/j1.png);
-	background-repeat: no-repeat;
-	background-position: center center;
-}
-.warning2 {
-	display: inline-block;
-    width: 16px;
-	height:16px;
-	background-image:url(../image/j2.png);
-	background-repeat: no-repeat;
-	background-position: center center;
-}
-.warning3 {
-	display: inline-block;
-    width: 16px;
-	height:16px;
-	background-image:url(../image/j3.png);
-	background-repeat: no-repeat;
-	background-position: center center;
-}
-.warning4 {
-	display: inline-block;
-    width: 16px;
-	height:16px;
-	background-image:url(../image/w1.png);
-	background-repeat: no-repeat;
-	background-position: center center;
-}
-.warning5 {
-	display: inline-block;
-    width: 16px;
-	height:16px;
-	background-image:url(../image/w2.png);
-	background-repeat: no-repeat;
-	background-position: center center;
-}
-.warning6 {
-	display: inline-block;
-    width: 16px;
-	height:16px;
-	background-image:url(../image/w3.png);
-	background-repeat: no-repeat;
-	background-position: center center;
+.hidebody {
+	overflow:hidden !important;
 }

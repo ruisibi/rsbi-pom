@@ -17,7 +17,7 @@ function crtCrossTable(){
 function initDropDiv(id){
 	var ischg = false;
 	$("#T" + id + " #d_colDims, #T" + id +" #d_rowDims, #T"+id+" #d_kpi").droppable({
-		accept:"#datasettree .tree-node",
+		accept:"ul.tableTreeCss .tree-node",
 		onDragEnter:function(e,source){
 			var node = $("#datasettree").tree("getNode", source);
 			var tp = node.attributes.col_type;
@@ -157,6 +157,29 @@ function initDropDiv(id){
 			}
 		}
 	});
+	//注册固定表头事件
+	fireTableScroll(id);
+}
+function fireTableScroll(id){
+	$("#T"+id+" #d_kpi").scroll(function(){
+		var top = $(this).scrollTop();
+		//$("#d_rowDims table").css("margin-top", "-"+top+"px");
+		$("#T"+id+" #d_rowDims").scrollTop(top);
+		var left = $(this).scrollLeft();
+		$("#T"+id+" #d_colDims table").css("margin-left", "-"+left+"px");
+	});
+	$("#T"+id+" #d_rowDims").scroll(function(){
+		var top = $(this).scrollTop();
+		//$("#d_kpi table").css("margin-top", "-"+top+"px");
+		$("#T"+id+" #d_kpi").scrollTop(top);
+	});
+	var w = $(window).width(), h = $(window).height();
+	h = h - 300;
+	var t = (w / 12) * 6;
+	w = w - t;
+	$("#T"+id+" #d_rowDims").height(h);
+	$("#T"+id+" #d_colDims").width(w);
+	$("#T"+id+" #d_kpi").width(w).height(h);
 }
 //查找维度分组
 function findGroup(dims, group, curNode){
