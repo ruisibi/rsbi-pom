@@ -46,7 +46,7 @@ TABLE.d_table2 TD {
 #d_rowDims {
 	background-color:#EEEEEE;
 	height: 300px;
-    overflow-y: auto;
+    overflow-y: hidden;
     overflow-x: hidden;
 }
 #d_rowDims::-webkit-scrollbar {
@@ -241,6 +241,9 @@ span.chartdel {
 	width:110px;
 	padding-right: 3px;
 }
+#d_kpi::-webkit-scrollbar {
+	width:11px;
+}
 #d_rowDims span.s_rowDim{  
 	display:block;
 	width:120px;
@@ -305,14 +308,12 @@ span.chartdel {
 	overflow:auto;
 }
 .openlist {
-	width:600px;
 	height:290px;
 	display:inline-block;
 	overflow-x: hidden;
 	overflow:auto;
 }
 .openlistbody {
-	width:430px;
 	height:320px;
 	overflow:hidden;
 	margin:auto;

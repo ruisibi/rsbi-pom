@@ -35,7 +35,7 @@ function updateChart(){
 	$('#pdailog').dialog({
 		title: '切换图表',
 		width: 400,
-		height: 375,
+		height: 340,
 		closed: false,
 		cache: false,
 		modal: true,

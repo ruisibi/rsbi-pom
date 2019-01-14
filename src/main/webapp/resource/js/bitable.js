@@ -163,20 +163,19 @@ function initDropDiv(id){
 function fireTableScroll(id){
 	$("#T"+id+" #d_kpi").scroll(function(){
 		var top = $(this).scrollTop();
-		//$("#d_rowDims table").css("margin-top", "-"+top+"px");
-		$("#T"+id+" #d_rowDims").scrollTop(top);
+		$("#d_rowDims table").css("margin-top", "-"+top+"px");
+		//$("#T"+id+" #d_rowDims").scrollTop(top);
 		var left = $(this).scrollLeft();
 		$("#T"+id+" #d_colDims table").css("margin-left", "-"+left+"px");
 	});
-	$("#T"+id+" #d_rowDims").scroll(function(){
-		var top = $(this).scrollTop();
-		//$("#d_kpi table").css("margin-top", "-"+top+"px");
-		$("#T"+id+" #d_kpi").scrollTop(top);
-	});
-	var w = $(window).width(), h = $(window).height();
+	var comp = findCompById(id);
+	var rowLvl = comp.rows?comp.rows.length:1;
+	var w = $("#optarea").width(), h = $(window).height();
 	h = h - 300;
-	var t = (w / 12) * 6;
-	w = w - t;
+	w = w - (127 * rowLvl);
+	if(w <0){
+		w = 200;
+	}
 	$("#T"+id+" #d_rowDims").height(h);
 	$("#T"+id+" #d_colDims").width(w);
 	$("#T"+id+" #d_kpi").width(w).height(h);
