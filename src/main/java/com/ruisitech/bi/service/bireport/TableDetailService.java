@@ -23,7 +23,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ruisi.ext.engine.dao.DaoHelper;
 import com.ruisi.ext.engine.util.DaoUtils;
-import com.ruisi.ext.engine.util.PasswordEncrypt;
 import com.ruisi.ext.engine.view.builder.dsource.DataSourceBuilder;
 import com.ruisi.ext.engine.view.context.dsource.DataSourceContext;
 import com.ruisi.ext.engine.view.context.grid.PageInfo;
@@ -39,9 +38,6 @@ import com.ruisitech.bi.entity.model.DataSource;
  */
 @Service
 public class TableDetailService extends BaseCompService {
-	
-	@Autowired
-	private DaoHelper daoHelper;
 	
 	@Autowired
 	private ModelCacheService cacheService;
@@ -87,7 +83,7 @@ public class TableDetailService extends BaseCompService {
 			String linktype = ds.getLinkType();
 			dsource.putProperty("linktype", linktype);
 			dsource.putProperty("linkname", ds.getLinkName());
-			dsource.putProperty("linkpwd", PasswordEncrypt.encode(ds.getLinkPwd()));
+			dsource.putProperty("linkpwd", ds.getLinkPwd());
 			dsource.putProperty("linkurl", ds.getLinkUrl());
 		}else{
 			dsource.putProperty("jndiname", ds.getJndiName());

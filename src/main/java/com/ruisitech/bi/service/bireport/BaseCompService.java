@@ -9,7 +9,6 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.ruisi.ext.engine.util.PasswordEncrypt;
 import com.ruisi.ext.engine.view.context.ExtContext;
 import com.ruisi.ext.engine.view.context.MVContext;
 import com.ruisi.ext.engine.view.context.dsource.DataSourceContext;
@@ -54,7 +53,7 @@ public abstract class BaseCompService {
 			String linktype = ds.getLinkType();
 			dsource.putProperty("linktype", linktype);
 			dsource.putProperty("linkname", ds.getLinkName());
-			dsource.putProperty("linkpwd", PasswordEncrypt.encode(ds.getLinkPwd()));
+			dsource.putProperty("linkpwd", ds.getLinkPwd());
 			dsource.putProperty("linkurl", ds.getLinkUrl());
 		}else{
 			dsource.putProperty("jndiname", ds.getJndiName());

@@ -170,6 +170,9 @@ function fireTableScroll(id){
 	});
 	var comp = findCompById(id);
 	var rowLvl = comp.rows?comp.rows.length:1;
+	if(rowLvl == 0){
+		rowLvl = 1;
+	}
 	var w = $("#optarea").width(), h = $(window).height();
 	h = h - 300;
 	w = w - (127 * rowLvl);
