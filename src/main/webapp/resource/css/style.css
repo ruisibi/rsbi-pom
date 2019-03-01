@@ -1,10 +1,3 @@
-/*
- *
- *   H+ - 后台主题UI框架
- *   version 4.0
- *
-*/
-
 h1,
 h2,
 h3,
@@ -4761,6 +4754,7 @@ ul.notes li div {
 .file-box {
     float: left;
     width: 220px;
+    height:180px;
 }
 
 .file-manager h5 {
@@ -6799,7 +6793,7 @@ body.rtls.top-navigation .footer.fixed {
 
 /*
  *
- *   SKIN 1 - H+ - 后台主题UI框架
+ *   SKIN 1 - H+ - 鍚庡彴涓婚UI妗嗘灦
  *   NAME - Blue light
  *
 
@@ -6947,7 +6941,7 @@ body.skin-1 {
 
 /*
  *
- *   SKIN 3 - H+ - 后台主题UI框架
+ *   SKIN 3 - H+ - 鍚庡彴涓婚UI妗嗘灦
  *   NAME - Yellow/purple
  *
 
@@ -7668,7 +7662,7 @@ TABLE.grid3 TR.row-embed{
 	text-align:right;
 	padding:3px;
 }
-/**指标着色**/
+/**鎸囨爣鐫�鑹�**/
 .kpi_up {
 	color:red;
 }
@@ -7676,7 +7670,7 @@ TABLE.grid3 TR.row-embed{
 	color:green;
 }
 
-/*** 锁定表头表格样式 **/
+/*** 閿佸畾琛ㄥご琛ㄦ牸鏍峰紡 **/
 TABLE.lockgrid {
 	border-collapse:collapse;
 	table-layout:fixed;

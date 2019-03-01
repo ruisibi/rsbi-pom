@@ -565,6 +565,7 @@ function printData(){
 	var tabId = $("div.tabs-container li.active a").attr("idx");
 	var info = JSON.parse(JSON.stringify(pageInfo));  //复制对象
 	var comp = findCompById(tabId, info);
+	delete comp.dims;
 	info.comps = [comp];
 	var json =  JSON.stringify(info);
 	var url2 = "about:blank";
