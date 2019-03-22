@@ -172,7 +172,11 @@ public class DataSourceService {
 			if("oracle".equals(ds.getLinkType())){
 				schem = ds.getLinkName().toUpperCase();
 			}
-			ResultSet tbs = conn.getMetaData().getTables(null, schem, "%", new String[]{"TABLE","VIEW"});
+			String catalog = null;
+			if("mysql".equals(ds.getLinkType())) {
+				catalog = conn.getCatalog();
+			}
+			ResultSet tbs = conn.getMetaData().getTables(catalog, schem, "%", new String[]{"TABLE","VIEW"});
 			while(tbs.next()){
 				Map<String, Object> m = new HashMap<String, Object>();
 				String tname = tbs.getString("TABLE_NAME");

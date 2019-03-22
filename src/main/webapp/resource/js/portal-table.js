@@ -15,6 +15,7 @@ function selecttable(){
 		},
 		buttons:[{
 				text:'确定',
+				iconCls:"icon-ok",
 				handler:function(){
 					var node = $("#targettables").tree("getSelected");
 					if(node == null){
@@ -29,6 +30,7 @@ function selecttable(){
 				}
 			},{
 				text:'取消',
+				iconCls:"icon-cancel",
 				handler:function(){
 					$('#pdailog').dialog('close');
 				}

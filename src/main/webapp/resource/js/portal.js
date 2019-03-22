@@ -215,7 +215,7 @@ function helper(){
 	"1.选择数据。<br/><img src=\"../resource/img/ybp1.gif\"><br/>"+
 	"2.选择组件。<br/><img src=\"../resource/img/ybp2.gif\"><br/>"+
 	"3.配置组件数据。<br/><img src=\"../resource/img/ybp3.gif\"><br/>"+
-	"睿思BI-数据报表V3.0 <br/> <b>北京睿思科技有限公司 版权所有</b></div>";
+	"</div>";
 	$('#pdailog').dialog({
 		title: '帮助',
 		width: 730,
@@ -228,6 +228,7 @@ function helper(){
 		content:ctx,
 		buttons:[{
 				text:'关闭',
+				icon:"icon-ok",
 				handler:function(){
 					$('#pdailog').dialog('close');
 				}
