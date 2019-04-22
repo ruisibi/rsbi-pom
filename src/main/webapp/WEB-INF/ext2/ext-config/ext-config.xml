@@ -3,7 +3,7 @@
 	<constant name="devMode" value="true" />
 	<constant name="dbName" value="mysql" />
 
-	<constant name="resPath" value="http://bi.rosetech.cn" />
+	<constant name="resPath" value="https://www.ruisitech.com/cloud" />
 	<constant name="xmlResource" value="/WEB-INF/ext2/ext-config/pages/" />
 	<constant name="securityClass" value="com.ruisitech.ext.service.ExtLoginChecker"/>
 	<constant name="loginUserClass" value="com.ruisitech.ext.service.ExtLoginInfoLoader"/>

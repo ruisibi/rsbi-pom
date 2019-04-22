@@ -103,7 +103,7 @@ function exportPage(tp){
 		});
 	}
 	$("#expff #picinfo").val(strs);
-	$("#expff").submit();
+	$("#expff").submit().remove();
 }
 </script>
 <style>

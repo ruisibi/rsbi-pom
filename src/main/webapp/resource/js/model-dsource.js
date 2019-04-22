@@ -232,7 +232,7 @@ function newdsource(isupdate, dsid){
 	$("#pdailog #linkType").change(function(){
 		var val = $(this).val();
 		if(val == "mysql"){
-			$("#pdailog #linkUrl").val("jdbc:mysql://ip/database?useUnicode=true&characterEncoding=UTF8");
+			$("#pdailog #linkUrl").val("jdbc:mysql://ip/database?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8");
 		}else if(val == "oracle"){
 			$("#pdailog #linkUrl").val("jdbc:oracle:thin:@ip:1521/sid");
 		}else if(val == "sqlser"){
