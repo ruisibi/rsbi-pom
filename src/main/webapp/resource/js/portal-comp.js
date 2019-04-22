@@ -1353,6 +1353,58 @@ function setCdimInfo(ts, id, name, compId){
 	
 	$("#dimoptmenu").menu("show", {left:offset.left, top:offset.top - 124});
 }
+function getDimTop(){
+	var dimid = curTmpInfo.ckid;
+	var compId = curTmpInfo.compId.replace("T", "");
+	var pos  = curTmpInfo.pos;
+	var name = curTmpInfo.dimname;
+	var comp = findCompById(compId);
+	var dim = null;
+	var dims = null;
+	if(pos == 'col'){
+		dims = comp.cols;
+	}else{
+		dims = comp.rows;
+	}
+	for(var i=0; i<dims.length; i++){
+		if(dims[i].id == dimid){
+			dim = dims[i];
+			break;
+		}
+	}
+	
+	var ctx = "<div style=\"margin:20px;\"><span class=\"inputtext\">维度取Top：</span><input type=\"text\" id=\"top\" name=\"top\" size=\"5\" value=\""+(dim.top?dim.top:"")+"\"><br/><span class=\"inputtext\"></span><select id=\"type\" name=\"type\" class=\"inputform2\"><option value=\"number\" "+(dim.topType=="number"?"selected":"")+">数字</option><option value=\"percent\" "+(dim.topType=="percent"?"selected":"")+">百分比</option></select></div>";
+	$('#pdailog').dialog({
+		title: '维度取Top',
+		width: 360,
+		height: 170,
+		closed: false,
+		cache: false,
+		modal: true,
+		toolbar:null,
+		content: ctx,
+		buttons:[{
+				text:'完成',
+				iconCls:"icon-ok",
+				handler:function(){
+					var top = $("#pdailog #top").numberbox("getValue");
+					var type = $("#pdailog #type").val();
+					dim.top = top;
+					dim.topType = type;
+					curTmpInfo.isupdate = true;
+					$('#pdailog').dialog('close');
+					tableView(comp, compId);
+				}
+			},{
+				text:'取消',
+				iconCls:"icon-cancel",
+				handler:function(){
+					$('#pdailog').dialog('close');
+				}
+			}]
+	});
+	$("#pdailog #top").numberbox({width:180, height:28});
+}
 function setRdimInfo(ts, id, name, compId){
 	var offset = $(ts).offset();
 	curTmpInfo.ckid = id;

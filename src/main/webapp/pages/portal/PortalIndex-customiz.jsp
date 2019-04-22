@@ -146,6 +146,7 @@ jQuery(function(){
     </div>
     </div>
     <div iconCls="icon-sum" onclick="aggreDim()" id="m_aggre">聚合...</div>
+    <div onclick="getDimTop('table')">取Top...</div>
     <div onclick="delJsonKpiOrDim('dim')" iconCls="icon-remove">删除</div>
 </div>
 <div id="kpioptmenu" class="easyui-menu">
