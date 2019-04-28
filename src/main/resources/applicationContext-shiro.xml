@@ -35,7 +35,18 @@
 	        </property>  
         </bean>  
   
-        
+  		<!-- shiro 记住我 配置  -->
+        <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+	       <constructor-arg value="rememberMe" />
+	       <property name="httpOnly" value="true" />
+	       <!-- 默认记住30天（单位：秒） -->
+	       <property name="maxAge" value="2592000" />
+	   </bean>
+	   <!-- rememberMe管理器 -->
+	   <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+	       <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />
+	       <property name="cookie" ref="rememberMeCookie" />
+	   </bean>
         <!-- 配置进行授权和认证的 Realm -->  
         <bean id="myRealm" class="com.ruisitech.bi.service.frame.ShiroDbRealm">  
              <property name="userService" ref="userService" />  
@@ -45,6 +56,7 @@
         <!-- 配置 Shiro 的 SecurityManager Bean. -->  
         <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">  
              <property name="realm" ref="myRealm"/>   
+             <property name="rememberMeManager" ref="rememberMeManager" />
        </bean>  
        <!-- 配置 Bean 后置处理器: 会自动的调用和 Spring 整合后各个组件的生命周期方法. -->  
         <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/> 
