@@ -1,6 +1,7 @@
 package com.ruisitech.bi.util;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 import javax.script.Compilable;
@@ -130,6 +131,7 @@ public class CompPreviewService {
 			MVContext mvo = (MVContext)mv;
 			String formId = ExtConstants.formIdPrefix + IdCreater.create();
 			mvo.setFormId(formId);
+			mvo.setCreateDate(new Date());
 			ExtContext.getInstance().putMVContext(mvo , false);
 		}
 		Map<String, InputField> params =  this.params;

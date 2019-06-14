@@ -116,7 +116,8 @@ public class PortalPageService extends BaseCompService {
 		mv.setChildren(new ArrayList<Element>());
 		String formId = ExtConstants.formIdPrefix + IdCreater.create();
 		mv.setFormId(formId);
-		mv.setMvid(deftMvId);
+		String mvId = pageJson.getString("id");  //用报表ID做MV得ID，防止报表串表
+		mv.setMvid("mv_" + mvId);
 		
 		IncludeContext inc = new IncludeContextImpl();
 		String stylename = (String)pageJson.get("stylename");
@@ -629,8 +630,7 @@ public class PortalPageService extends BaseCompService {
 		//创建corssReport
 		GridReportContext cr = gridSerivce.json2Grid(grid);
 		//设置ID
-		String id = ExtConstants.reportIdPrefix + IdCreater.create();
-		cr.setId(id);
+		cr.setId("g_" + grid.getId());
 		cr.setRefDsource(grid.getDsid());
 		
 		//创建数据sql

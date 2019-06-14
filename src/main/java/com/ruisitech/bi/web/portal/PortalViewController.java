@@ -39,12 +39,13 @@ public class PortalViewController {
 
 	@RequestMapping(value="/view.action")
 	public @ResponseBody Object view(String pageId, HttpServletRequest req, HttpServletResponse res) throws Exception {
-		ExtContext.getInstance().removeMV(PortalPageService.deftMvId);
 		String cfg = portalService.getPortalCfg(pageId);
 		if(cfg == null){
 			return "找不到报表文件。";
 		}
 		JSONObject json = (JSONObject)JSON.parse(cfg);
+		String id = json.getString("id");
+		ExtContext.getInstance().removeMV("mv_" + id);
 		MVContext mv = pageService.json2MV(json, false, false);
 		CompPreviewService ser = new CompPreviewService(req, res, req.getServletContext());
 		ser.setParams(pageService.getMvParams());

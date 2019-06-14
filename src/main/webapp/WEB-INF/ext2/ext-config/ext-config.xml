@@ -10,6 +10,7 @@
 	<constant name="fieldLoader" value="com.ruisitech.ext.service.MyCrossFieldLoader" />
 	<constant name="OlapWriter" value="com.ruisitech.ext.service.UserDefinedOlapWriter"/>
 	<constant name="xmlLoader" value="com.ruisitech.ext.service.LoadXmlFromDB"/>
+	<constant name="contextListener" value="com.ruisitech.bi.util.MVCleanListener"/>
 	
 	<chart shape="line" class="com.ruisi.bi.engine.view.emitter.echarts.chart.LineChart"/>
 	<chart shape="area" class="com.ruisi.bi.engine.view.emitter.echarts.chart.AreaChart"/>
