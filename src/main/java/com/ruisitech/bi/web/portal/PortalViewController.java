@@ -56,16 +56,16 @@ public class PortalViewController {
 	
 	@RequestMapping(value="/export.action")
 	public void export(String type, String pageId, String json, String picinfo, HttpServletRequest req, HttpServletResponse res) throws Exception {
-		ExtContext.getInstance().removeMV(PortalPageService.deftMvId);
 		if(json == null || json.length() == 0){
 			json = portalService.getPortalCfg(pageId);
 		}
 		req.setAttribute("picinfo", picinfo);
 		JSONObject obj = (JSONObject)JSON.parse(json);
-		MVContext mv = pageService.json2MV(obj, false, true);
+		String mvId = "mv_" + obj.getString("id");
+		MVContext mv = ExtContext.getInstance().getMVContext(mvId);
 		
 		CompPreviewService ser = new CompPreviewService(req, res, req.getServletContext());
-		ser.setParams(pageService.getMvParams());
+		ser.setParams(ExtContext.getInstance().getParams(mvId));
 		ser.initPreview();
 		
 		String fileName = "file.";
@@ -119,7 +119,6 @@ public class PortalViewController {
 	
 	@RequestMapping(value="/print.action")
 	public String print(String pageId, String pageInfo, HttpServletRequest req, HttpServletResponse res) throws Exception {
-		ExtContext.getInstance().removeMV(PortalPageService.deftMvId);
 		if(pageInfo == null || pageInfo.length() == 0){
 			pageInfo = portalService.getPortalCfg(pageId);
 		}
@@ -127,10 +126,12 @@ public class PortalViewController {
 			return null;
 		}
 		JSONObject obj = (JSONObject)JSON.parse(pageInfo);
-		MVContext mv = pageService.json2MV(obj, false, false);
+
+		String mvId = "mv_" + obj.getString("id");
+		MVContext mv = ExtContext.getInstance().getMVContext(mvId);
 		
 		CompPreviewService ser =  new CompPreviewService(req, res, req.getServletContext());
-		ser.setParams(pageService.getMvParams());
+		ser.setParams(ExtContext.getInstance().getParams(mvId));
 		ser.initPreview();
 		String ret = ser.buildMV(mv, req.getServletContext());
 		req.setAttribute("str", ret);
