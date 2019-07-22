@@ -136,7 +136,7 @@ function newdset(isupdate, dsetId){
 		   }
 		}
 	});
-	var ctx = "<div id=\"crtdataset\"><div title=\"基本信息\"><div class=\"textpanel\"><span class=\"inputtext\">数据集名称：</span><input type=\"text\" id=\"name\" name=\"name\" value=\""+(transform.name?transform.name:"")+"\" class=\"inputform\"><br/><span class=\"inputtext\">数据源：</span><select id=\"dsid\" class=\"inputform\">"+dsls+"</select><br/><span class=\"inputtext\" style=\"width:120px;\">选择表：</span><br/><div class=\"tablesleft\"><div class=\"tabletitle\">待选表</div><ul id=\"allTablesTree\" style=\"height:270px; width:100%; overflow:auto\"></ul></div><div class=\"tablescenter\"><input id=\"left2right\" type=\"button\" style=\"margin-top:120px;\" value=\">\" title=\"选择\" class=\"btn btn-primary btn-sm\"><br/><br/><input type=\"button\" id=\"right2left\"  value=\"<\" title=\"移除\" class=\"btn btn-primary btn-sm\"></div><div class=\"tablesright\"><div class=\"tabletitle\">已选表</div><ul id=\"selTablesTree\" class=\"easyui-tree\" style=\"height:270px; width:100%; overflow:auto\">"+treeStr+"</ul></div></div></div><div title=\"表关联\"><div class=\"textpanel\"><div style=\"float:right\"><input type=\"button\" id=\"jointable\" value=\"关联\" class=\"btn btn-primary btn-xs\"> <br/> <input type=\"button\" id=\"unjointable\" value=\"取消\" class=\"btn btn-primary btn-xs\"></div><span class=\"inputtext\">主表： </span><select id=\"mastertable\" class=\"inputform\" style=\"width:300px;\" "+(isupdate?"disabled":"")+">"+tables+"</select>"+(isupdate?"<font color='#999'>(禁止更改)</font>":"")+"<br/><ul class=\"easyui-tree\" id=\"masterTableTree\" style=\"margin-left:100px;border:1px solid #999; width:300px; height:320px; overflow:auto\"></ul></div></div>"+(isupdate?"<div title=\"表字段\"></div><div title=\"动态字段\"></div>":"")+"</div>";
+	var ctx = "<div id=\"crtdataset\"><div title=\"基本信息\"><div class=\"textpanel\"><span class=\"inputtext\">数据集名称：</span><input type=\"text\" id=\"name\" name=\"name\" value=\""+(transform.name?transform.name:"")+"\" class=\"inputform\"><br/><span class=\"inputtext\">数据源：</span><select id=\"dsid\" class=\"inputform\">"+dsls+"</select><br/><span class=\"inputtext\" style=\"width:120px;\">选择表：</span><br/><div class=\"tablesleft\"><div class=\"tabletitle\">待选表</div><div style='line-height: 20px;'><input id=\"tablesearch\" style=\"width:100%;\"></input></div><ul id=\"allTablesTree\" style=\"height:240px; width:100%; overflow:auto\"></ul></div><div class=\"tablescenter\"><input id=\"left2right\" type=\"button\" style=\"margin-top:120px;\" value=\">\" title=\"选择\" class=\"btn btn-primary btn-sm\"><br/><br/><input type=\"button\" id=\"right2left\"  value=\"<\" title=\"移除\" class=\"btn btn-primary btn-sm\"></div><div class=\"tablesright\"><div class=\"tabletitle\">已选表</div><ul id=\"selTablesTree\" class=\"easyui-tree\" style=\"height:270px; width:100%; overflow:auto\">"+treeStr+"</ul></div></div></div><div title=\"表关联\"><div class=\"textpanel\"><div style=\"float:right\"><input type=\"button\" id=\"jointable\" value=\"关联\" class=\"btn btn-primary btn-xs\"> <br/> <input type=\"button\" id=\"unjointable\" value=\"取消\" class=\"btn btn-primary btn-xs\"></div><span class=\"inputtext\">主表： </span><select id=\"mastertable\" class=\"inputform\" style=\"width:300px;\" "+(isupdate?"disabled":"")+">"+tables+"</select>"+(isupdate?"<font color='#999'>(禁止更改)</font>":"")+"<br/><ul class=\"easyui-tree\" id=\"masterTableTree\" style=\"margin-left:100px;border:1px solid #999; width:300px; height:320px; overflow:auto\"></ul></div></div>"+(isupdate?"<div title=\"表字段\"></div><div title=\"动态字段\"></div>":"")+"</div>";
 	$('#pdailog').dialog({
 		title: isupdate?'编辑数据集':'创建数据集',
 		width: 700,
@@ -238,6 +238,34 @@ function newdset(isupdate, dsetId){
 				});
 			}
 		}
+	});
+	$('#tablesearch').searchbox({
+		searcher:function(value,name){
+			__showLoading();
+			$.ajax({
+				type:'post',
+				url:'listTables.action',
+				dataType:'json',
+				data:{dsid:$("#pdailog #dsid").val(), tname:value},
+				success: function(dt){
+					__hideLoading();
+					$("#allTablesTree").tree({
+						data: dt
+					});
+				
+					//隐藏已经选择的表
+					var cld = $("#selTablesTree").tree("getChildren");
+					for(i=0; i<cld.length; i++){
+						var id = cld[i].id;
+						var o = $("#allTablesTree").tree("find", id);
+						if(o){
+							$(o.target).attr("hide", "y").hide();
+						}
+					}
+				}
+			});
+		},
+		prompt:'请输入表名.'
 	});
 	//加载目标表
 	var initTablesFunc = function(dsid){

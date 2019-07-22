@@ -158,7 +158,7 @@ public class DataSourceService {
 		return ret;
 	}
 	
-	public List<Map<String, Object>> listTables(String dsid) throws Exception{
+	public List<Map<String, Object>> listTables(String dsid, String searchTname) throws Exception{
 		DataSource ds = mapper.getDataSource(dsid);
 		final List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
 		Connection conn = null;
@@ -176,7 +176,7 @@ public class DataSourceService {
 			if("mysql".equals(ds.getLinkType())) {
 				catalog = conn.getCatalog();
 			}
-			ResultSet tbs = conn.getMetaData().getTables(catalog, schem, "%", new String[]{"TABLE","VIEW"});
+			ResultSet tbs = conn.getMetaData().getTables(catalog, schem, (searchTname!=null&&searchTname.length() > 0) ?("%"+searchTname+"%"):"%", new String[]{"TABLE","VIEW"});
 			while(tbs.next()){
 				Map<String, Object> m = new HashMap<String, Object>();
 				String tname = tbs.getString("TABLE_NAME");

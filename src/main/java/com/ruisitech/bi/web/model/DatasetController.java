@@ -29,8 +29,8 @@ public class DatasetController extends BaseController {
 	}
 	
 	@RequestMapping(value="/listTables.action")
-	public @ResponseBody Object listTables(String dsid) throws Exception{
-		return dsservice.listTables(dsid);
+	public @ResponseBody Object listTables(String dsid, String tname) throws Exception{
+		return dsservice.listTables(dsid, tname);
 	}
 	
 	@RequestMapping(value="/listTableColumns.action")
