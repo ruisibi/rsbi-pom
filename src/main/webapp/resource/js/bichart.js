@@ -177,14 +177,14 @@ function initChartKpiDrop(id){
 					return;
 				}
 			}
-			
+			/**
 			//判断拖入的度量是否是（同比、环比），如果是，需要判断当前维度是否有date类型
 			if(node.attributes.calc_kpi == 1){
 				if(!isExistDateDim(json, 'chart')){
 					msginfo("您拖入的度量需要图形中有时间类型的维度(年/季度/月/日)。");
 					return;
 				}
-			}
+			}**/
 		
 			json.cubeId = node.attributes.cubeId;
 			json.dsid = node.attributes.dsid;
