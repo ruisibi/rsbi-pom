@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -172,6 +173,14 @@ public class DataSourceService {
 			if("oracle".equals(ds.getLinkType())){
 				schem = ds.getLinkName().toUpperCase();
 			}
+			if("postgresql".equals(ds.getLinkType())) {
+				if (ds.getLinkUrl().toLowerCase().indexOf("schema") > 0) {
+					String currentSchema = ds.getLinkUrl().toLowerCase().substring(ds.getLinkUrl().toLowerCase().lastIndexOf("schema"));
+					int start = currentSchema.indexOf("=");
+					int end = currentSchema.indexOf("&");
+					schem = currentSchema.substring(start + 1,end > 0 ? end : currentSchema.length());
+				}
+			}
 			String catalog = null;
 			if("mysql".equals(ds.getLinkType())) {
 				catalog = conn.getCatalog();
@@ -180,6 +189,9 @@ public class DataSourceService {
 			while(tbs.next()){
 				Map<String, Object> m = new HashMap<String, Object>();
 				String tname = tbs.getString("TABLE_NAME");
+				if (StringUtils.isNotBlank(schem)) {
+					tname = schem + "." + tname;
+				}
 				m.put("id", tname);
 				m.put("text", tname);
 				m.put("iconCls", "icon-table");
