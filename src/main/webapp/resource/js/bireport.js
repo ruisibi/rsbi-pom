@@ -3,7 +3,15 @@
 }
 function reloadDatasetTree(){
 	$("#datasettreediv ul").remove();
-	$("#datasettreediv").append("<ul id=\"datasettree\" class=\"tableTreeCss\"></ul>");
+	var css = "tableTreeCss";
+	var tab = $('div.tabs-container li.active a');
+	if(tab.length > 0 ){
+		var idx = tab.attr("idx");
+		if(Number(idx) == 2){
+			css = "chartTreeCss";
+		}
+	}
+	$("#datasettreediv").append("<ul id=\"datasettree\" class=\""+css+"\"></ul>");
 	if(pageInfo.selectDs == null || pageInfo.selectDs == "null"){
 		$('#datasettree').tree({
 			dnd:false,
