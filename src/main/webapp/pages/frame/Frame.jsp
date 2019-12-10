@@ -78,11 +78,6 @@
 		
 	});
 </script>
-<style>
-.nav > li > a {
-    font-weight: 600;
-}
-</style>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
     <div id="wrapper">
         <!--左侧导航开始-->
@@ -104,10 +99,15 @@
                         <div class="logo-element">睿思BI
                         </div>
                     </li>
+                    <div class="nav-user">
+                     	<button class="btn btn-default btn-outline btn-xs uinfo-btn" id="uinfobtn" type="button"> <i class="fa fa-user"></i></button> 
+                     	 &nbsp; 
+                     	<button class="btn btn-default btn-outline btn-xs uinfo-btn" type="button" title="切换菜单" onclick="swatch(this)"><i class="fa fa-bars"></i></button>
+                     </div>
                     
 					<c:forEach var="ent" items="${ menus }">
 					<li>
-                        <a <c:if test="${ ent.children.size() == 0 }">class="J_menuItem" href="${ent.menuUrl}"</c:if>>
+                        <a <c:if test="${ ent.children.size() == 0 }">class="J_menuItem" href="${ent.menuUrl}"  mid="${ ent.menuId }"</c:if>>
                             <c:if test="${ent.avatar != null && ent.avatar != '' }"><i class="${ent.avatar}"></i></c:if>
                             <span class="nav-label">${ent.menuName}</span>
 							<c:if test="${ ent.children.size() > 0 }"><span class="fa arrow"></span></c:if>
@@ -116,7 +116,7 @@
 							<ul class="nav nav-second-level">
 								<c:forEach var="child" items="${ ent.children }">
 									 <li>
-										<a <c:if test="${ child.children.size() == 0 }">class="J_menuItem" href="${child.menuUrl}" </c:if> >
+										<a <c:if test="${ child.children.size() == 0 }">class="J_menuItem" href="${child.menuUrl}"  mid="${ child.menuId }"</c:if> >
 											<c:if test="${child.avatar != null && child.avatar != '' }"><i class="${child.avatar}"></i></c:if>
 											<span class="nav-label">${child.menuName}</span>
 											<c:if test="${ child.children.size() > 0 }"><span class="fa arrow"></span></c:if>
@@ -125,7 +125,7 @@
 											<ul class="nav nav-third-level">
 												<c:forEach var="sub" items="${ child.children }">
 													 <li>
-														<a class="J_menuItem" href="${sub.menuUrl}">
+														<a class="J_menuItem" href="${sub.menuUrl}" mid="${ sub.menuId }">
 															<c:if test="${sub.avatar != null && sub.avatar != '' }"><i class="${sub.avatar}"></i></c:if>
 															<span class="nav-label">${sub.menuName}</span>
 														</a>
@@ -145,58 +145,31 @@
         <!--左侧导航结束-->
         <!--右侧部分开始-->
         <div id="page-wrapper" class="gray-bg dashbard-1">
-            <div class="row border-bottom">
-                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-                    <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-info " href="javascript:;"><i class="fa fa-bars"></i> </a>
-					<!--
-                        <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
-                            <div class="form-group">
-                                <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
-                            </div>
-                        </form>
-						-->
-                    </div>
-                    <ul class="nav navbar-top-links navbar-right">
-						
-                        <li class="dropdown">
-                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                <i class="fa fa-user"></i>${uinfo.loginName}
-                            </a>
-                            <ul class="dropdown-menu dropdown-alerts">
-								
-								<li>
-                                    <a href="javascript:showDailog('userInfo');">
-                                        <div>个人信息</div>
-                                    </a>
-                                </li>
-								<li>
-                                    <a href="http://www.ruisitech.com/suggest.html" target="_blank">
-                                        <div>问题反馈</div>
-                                    </a>
-                                </li>
-								<li>
-                                    <a href="http://www.ruisitech.com/docs.htm" target="_blank">
-                                        <div>使用手册</div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:showDailog('chgPsd');">
-                                        <div>修改密码</div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:logout()">
-                                        <div> 退出登录</div>
-                                    </a>
-                                </li>
-                           
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="row J_mainContent" id="content-main">
-                <iframe id="J_iframe" width="100%" height="100%" src="Welcome.action" frameborder="0" seamless></iframe>
+            <div class="row J_mainContent">
+            	<div class="tabpanel_tab_content">
+	            	<div class="tabpanel_header">
+	            		<ul class="tabpanel_mover"><li id="t_home" class="active"><div class="title"><i class="fa fa-home"></i> 首页</div></li></ul>
+	            	</div>
+	            	<div class="tabpanel_header_ref">
+            			<a class="btn btn-link btn-xs" onclick="gotab('right')" title="右移选项卡">
+                            <i class="glyphicon glyphicon-chevron-left"></i>
+                        </a>
+                       <a class="btn btn-link btn-xs" id="taboptbtn">
+                            <i class="fa fa-exchange"></i>
+                        </a>
+                        <a class="btn btn-link btn-xs" onclick="gotab('left')" title="左移选项卡">
+                            <i class="glyphicon glyphicon-chevron-right"></i> 
+                        </a>
+            		</div>
+            				
+	            </div>
+            	
+            	<div class="tabpanel_content J_mainContent2">
+            		<div class="html_content" id="b_home">
+            			<iframe width="100%" height="100%" src="Welcome.action" frameborder="0" seamless=""></iframe>
+            		</div>
+            	</div>
+                
             </div>
         </div>
         <!--右侧部分结束-->
@@ -223,5 +196,47 @@
 			</div>
 		</div>
 	</div>
+	
+	<ul class="dropdown-menu dropdown-alerts" id="uinfodiv" style="z-index:9999;">
+		<li class="uinfo">
+			<i class="fa fa-user"></i> 系统管理员 
+		</li>
+		<li>
+                              <a href="javascript:showDailog('userInfo');">
+                                  <div>个人信息</div>
+                              </a>
+                          </li>
+		<li>
+                              <a href="http://www.ruisitech.com/suggest.html" target="_blank">
+                                  <div>问题反馈</div>
+                              </a>
+                          </li>
+		<li>
+                              <a href="http://www.ruisibi.cn/book.htm" target="_blank">
+                                  <div>使用手册</div>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="javascript:showDailog('chgPsd');">
+                                  <div>修改密码</div>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="javascript:logout()">
+                                  <div> 退出登录</div>
+                              </a>
+                          </li>
+                     
+                      </ul>
+	                    	<ul class="dropdown-menu dropdown-user" id="taboptdiv" style="z-index:9999;">
+	                              <li><a href="javascript:menuflash('ref')">刷新当前页面</a>
+	                              </li>
+								  <li><a href="javascript:fullScreem()">全屏当前页面</a>
+	                              </li>
+	                              <li><a href="javascript:menuflash('close')">关闭其他页面</a>
+	                              </li>
+	                              <li><a href="javascript:menuflash('closeAll')">关闭全部页面</a>
+	                              </li>
+	                          </ul>
 </body>
 </html>

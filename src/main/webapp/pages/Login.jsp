@@ -66,8 +66,8 @@ $(function(){
 	  </div>
 	  <div class="middle-box signinpanel text-center loginscreen" style="max-width:600px;">
         <div>
-            <h2 style="padding:10px 10px 20px 10px;">用户登录</h2>
              <form method="post" id="loginForm">
+             		<h2 style="padding:10px 10px 20px 10px;">用户登录</h2>
 					<input type="hidden" name="backurl" value="${backurl}">
 					<div class="row">
 						<div class="col-sm-6"><div style="padding:20px 10px 20px 0px;"><img src="resource/img/xsqq.png"></div></div>

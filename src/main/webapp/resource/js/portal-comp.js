@@ -232,7 +232,7 @@ function insertText(state, layoutId, compId){
 		cache: false,
 		modal: true,
 		toolbar:null,
-		content: '<div class="textpanel"><textarea name="txtctx" id="txtctx" style=\"width:450px;height:145px;\"></textarea></div>',
+		content: '<div class="textpanel" style="line-height: 20px;"><textarea name="txtctx" id="txtctx" style=\"width:450px;height:145px;\"></textarea></div>',
 		buttons:[{
 					text:'确定',
 					iconCls:"icon-ok",
@@ -389,25 +389,38 @@ function bindResizeEvent(compId, tp){
 		},
 		onDragEnd:function(e, $el, newWidth, newHeight, opt){
 			var c = findCompById(compId);
-			var h = Math.round(($el.height())/10) * 10;  //没加padding的值
-			$el.animate({"height":(h + 8 )+"px"});  //加padding
+			var h = Math.round($el.height());
 			if(c.type == "chart"){
 				c.chartJson.height = h;
 				//设置图像高度
 				var o = document.getElementById('C'+compId);
 				if(o){
 					var chart = echarts.getInstanceByDom(o);
-					$("#C"+compId).height((h)+"px"); 
-					chart.resize("auto", "auto");
+					if(chart){
+						$("#C"+compId).height((h)+"px"); 
+						chart.resize("auto", "auto");
+					}
 				}
+			}else if(c.type == 'mbox'){
+				c.height = h;
+				$("#c_"+compId+" .ccctx table.data-t").animate({"height": c.height+"px"});
 			}else if(c.type == "box"){
-				c.height = h; 
+				if(c.chart || c.thbDim || c.progressBar){
+					c.height = h -  60;
+				}else{
+					c.height = h;
+				}
+				$el.find(".boxcls").css({"line-height": c.height + "px", "height":c.height+"px"});
 			}else if(c.type == "table"){
-				c.height = h -  26; //减去 表头距离
+				var headHeight = $("#c_"+compId+" div.lock-dg-header table.lockgrid").height();  //表头高度
+				c.height = h -  headHeight; //减去 表头距离
 				$("#c_"+compId+" .lock-dg-body").animate({"height":c.height+"px"});
 			}else if(c.type == "grid"){
-				c.height = (h - 25 - (c.isnotfy =="true" ?  0 : 35)); //减去表头距离， 分页距离
-				$("#c_"+compId+" .lock-dg-body").animate({"height": c.height+"px"});
+				var headHeight = $("#c_"+compId+" div.lock-dg-header table.lockgrid").height();  //表头高度
+				var fyHeight = $("#c_"+compId+" div.pagesizeinfo").height() + 6;  //分页高度	(padding:6px)						
+				h = Math.round(h - Math.round(headHeight) - (c.isnotfy =="true" ?  0 : Math.round(fyHeight))); //减去表头距离， 分页距离
+				$("#c_"+compId+" .lock-dg-body").animate({"height": h+"px"});
+				c.height = h;
 			}else if(c.type == "text"){
 				c.height = h; 
 			}else if(c.type == "pic"){

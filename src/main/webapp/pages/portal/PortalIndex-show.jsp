@@ -112,7 +112,7 @@ table.r_layout {
 	width:100%;
 }
 table.r_layout td.layouttd {
-	padding:10px;
+	padding:5px;
 }
 .inputform2 {
 	width:120px;
@@ -126,6 +126,9 @@ table.r_layout td.layouttd {
     <div>
         <!--向左对齐-->
         <ul class="nav navbar-nav navbar-left">
+        <c:if test="${ income != 'menu' }">
+		<li><a href="PortalIndex.action"><i class="fa fa-arrow-left"></i>返回</a></li>
+		</c:if>
 		<c:if test="${ income != 'menu' }">
 		<li><a href="customization.action?pageId=${pageId}"><i class="fa fa-edit"></i>定制</a></li>
 		</c:if>
@@ -143,13 +146,11 @@ table.r_layout td.layouttd {
             </ul>
         </li>
 		<li><a href="javascript:printpage();"><i class="fa fa-print"></i>打印</a></li>
-		<c:if test="${ income != 'menu' }">
-		<li><a href="PortalIndex.action"><i class="fa fa-arrow-left"></i>返回</a></li>
-		</c:if>
+		
         </ul>
     </div>
 </nav>
-<div class="animated fadeInDown" style="margin:10px;">
+<div class="animated fadeInDown">
 <div id="optarea"></div>
 </div>
 

@@ -25,7 +25,7 @@ table.r_layout {
 	width:100%;
 }
 table.r_layout td.layouttd {
-	padding:10px;
+	padding:5px;
 }
 .inputform2 {
 	width:120px;

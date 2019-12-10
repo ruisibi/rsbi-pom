@@ -49,7 +49,7 @@ a:focus {
 
 .nav li>a {
     display: block;
-    /*white-space: nowrap;*/
+    font-size: 13px;
 }
 
 .nav.navbar-right > li > a {
@@ -457,16 +457,21 @@ body.canvas-menu .navbar-static-side {
     width: 220px;
     z-index: 2001;
     height: 100%;
+    box-shadow:0 0 5px 2px rgba(0,0,0,0.4);
 }
 
 body.fixed-sidebar.mini-navbar .navbar-static-side {
     width: 70px;
 }
-
+body.fixed-sidebar.screem-navbar .navbar-static-side {
+    width: 0px;
+}
 body.fixed-sidebar.mini-navbar #page-wrapper {
     margin: 0 0 0 70px;
 }
-
+body.fixed-sidebar.screem-navbar #page-wrapper {
+    margin: 0px;
+}
 body.body-small.fixed-sidebar.mini-navbar #page-wrapper {
     margin: 0 0 0 70px;
 }
@@ -3227,11 +3232,12 @@ video {
 }
 
 .inmodal .modal-body {
-    background: #f8fafb;
+    overflow: auto;
 }
 
 .inmodal .modal-header {
     text-align: center;
+    background-color: #f8fafb;
 }
 
 .animated.modal.fade .modal-dialog {
@@ -3253,6 +3259,7 @@ video {
     margin-top: 0;
 	text-align:center;
 	padding:5px;
+	background-color: #f8fafb;
 }
 
 
@@ -4246,7 +4253,8 @@ a.close-canvas-menu:hover {
 }
 
 .m-t-xs {
-   background-image: url(../img/frame3/headerbg.gif);
+   background-color: #1c2b36;
+   border-bottom: 1px solid #000000;
 }
 
 .m-t-sm {
@@ -6793,7 +6801,7 @@ body.rtls.top-navigation .footer.fixed {
 
 /*
  *
- *   SKIN 1 - H+ - 鍚庡彴涓婚UI妗嗘灦
+ *   SKIN 1 - H+ - 閸氬骸褰存稉濠氼暯UI濡楀棙鐏�
  *   NAME - Blue light
  *
 
@@ -6941,7 +6949,7 @@ body.skin-1 {
 
 /*
  *
- *   SKIN 3 - H+ - 鍚庡彴涓婚UI妗嗘灦
+ *   SKIN 3 - H+ - 閸氬骸褰存稉濠氼暯UI濡楀棙鐏�
  *   NAME - Yellow/purple
  *
 
@@ -7662,7 +7670,7 @@ TABLE.grid3 TR.row-embed{
 	text-align:right;
 	padding:3px;
 }
-/**鎸囨爣鐫�鑹�**/
+/**閹稿洦鐖ｉ惈锟介懝锟�**/
 .kpi_up {
 	color:red;
 }
@@ -7670,7 +7678,7 @@ TABLE.grid3 TR.row-embed{
 	color:green;
 }
 
-/*** 閿佸畾琛ㄥご琛ㄦ牸鏍峰紡 **/
+/*** 闁夸礁鐣剧悰銊ャ仈鐞涖劍鐗搁弽宄扮础 **/
 TABLE.lockgrid {
 	border-collapse:collapse;
 	table-layout:fixed;
@@ -7775,4 +7783,111 @@ TABLE.lockgrid div.dg-cell {
 	right:5px;
 	cursor:pointer;
 	z-index:9999;
+}
+.nav .nav-user {
+    text-align: right;
+    padding: 5px 10px 0px 0px;
+}
+.nav .nav-user .uinfo-btn {
+	border:none; 
+	font-size:16px;
+	color:#ccc !important;
+}
+.nav .nav-user .uinfo-btn:hover {
+	color:#272727 !important;
+}
+.tabpanel_header {
+    width: calc(100% - 80px);
+    overflow: hidden;
+    display: inline-block;
+}
+.tabpanel_header_ref {
+	width: 80px; 
+	float: right;
+	margin-top:5px;
+}
+/**框架选项卡*/
+.tabpanel_tab_content {
+    height: 51px;
+    line-height: 40px;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+        box-shadow: 0 2px 3px 0 rgba(0,0,0,.16), 0 2px 5px 0 rgba(0,0,0,.12);
+}
+.tabpanel_mover {
+	margin: 0px;
+    padding: 0px;
+    position: relative;
+}
+.tabpanel_mover li {
+	width: 110px;
+    line-height: 22px;
+    padding: 15px;
+    background-color: #f4f6f8;
+    display: inline-block;
+    position: relative;
+    list-style-type: none;
+    cursor: pointer;
+    border-right: 1px solid #ddd;
+    overflow: hidden;
+}
+.tabpanel_mover li:hover {
+	background-color: #e3e1e1;
+}
+.tabpanel_mover li .title {
+    font-size: 13px;
+    overflow: hidden;
+    float: left;
+    color: #4285f4;
+    width:80px;
+    text-overflow:ellipsis;
+}
+.J_mainContent {
+    height: 100%;
+    overflow: hidden;
+}
+.J_mainContent2 {
+	height: calc(100% - 50px);
+    overflow: hidden;
+} 
+.tabpanel_content .html_content {
+	width: 100%;
+    height: 100%;
+}
+.tabpanel_mover li .closer {
+    position: absolute;
+    right: 0px;
+    top: 20px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    background:none;
+    font-size: 10px;
+    display:none;
+	color:#4285f4;
+}
+.tabpanel_mover li.active:hover > .closer {
+	display:block;
+	color:#ffffff;
+}
+.tabpanel_mover li:hover > .closer {
+	display:block;
+}
+.tabpanel_mover li.active {
+	background-color:#4285f4;
+}
+.tabpanel_mover li.active .title {
+	color:#fff;
+}
+.dropdown-menu .uinfo {
+	font-size:13px;
+	color:#668a99; 
+	padding:5px 5px 5px 10px;
+	border-bottom:solid 1px #dbdbdb;
+}
+span.formtext {
+	display: inline-block;
+    width: 70px;
 }

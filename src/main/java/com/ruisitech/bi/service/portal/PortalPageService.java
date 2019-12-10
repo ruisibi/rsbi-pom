@@ -133,31 +133,53 @@ public class PortalPageService extends BaseCompService {
 		Object param = pageJson.get("params");
 		if(param != null && ((JSONArray)param).size()>0){
 			DivContext outdiv = new DivContextImpl();
-			outdiv.setStyleClass("ibox");
-			outdiv.setStyle("margin:10px;");
+			outdiv.setStyleClass("ibox reportParams");
+			outdiv.setStyle("margin:5px;");
 			outdiv.setChildren(new ArrayList<Element>());
 			outdiv.setParent(mv);
 			mv.getChildren().add(outdiv);
+			
+			//row div
+			DivContext rows = new DivContextImpl();
+			rows.setStyleClass("row");
+			rows.setChildren(new ArrayList<Element>());
+			outdiv.getChildren().add(rows);
+			rows.setParent(outdiv);
+			
+			
 			DivContext div = new DivContextImpl();
 			div.setStyleClass("ibox-content");
-			div.setStyle("padding:5px;");
-			div.setParent(outdiv);
+			div.setStyle("padding:5px;border:none;");
+			div.setParent(rows);
 			div.setChildren(new ArrayList<Element>());
-			outdiv.getChildren().add(div);
+			rows.getChildren().add(div);
 			
 			JSONArray pp = (JSONArray)param;
 			for(int i=0; i<pp.size(); i++){
 				this.parserParam(pp.getJSONObject(i), div, mv, release?false:true);
 			}
-			//if(!export){
-				//创建提交按钮
-				ButtonContext btn = new ButtonContextImpl();
-				btn.setDesc("查询");
-				btn.setType("button");
-				btn.setMvId(new String[]{mv.getMvid()});
-				div.getChildren().add(btn);
-				btn.setParent(div);
-			//}
+
+			//创建提交按钮
+			DivContext btndiv = new DivContextImpl();
+			btndiv.setStyleClass("col-sm-3");
+			btndiv.setChildren(new ArrayList<Element>());
+			div.getChildren().add(btndiv);
+			btndiv.setParent(div);
+			
+			ButtonContext btn = new ButtonContextImpl();
+			btn.setDesc("查询");
+			btn.setType("button");
+			btn.setMvId(new String[]{mv.getMvid()});
+			btndiv.getChildren().add(btn);
+			btn.setParent(btndiv);
+			//清除按钮
+			ButtonContext clearBtn = new ButtonContextImpl();
+			clearBtn.setDesc("清除");
+			clearBtn.setType("button");
+			clearBtn.setOnClick("clear_params");
+			clearBtn.setStyleClass("btn btn-success btn-sm");
+			btndiv.getChildren().add(clearBtn);
+			clearBtn.setParent(btndiv);
 		}
 		
 		JSONObject body = pageJson.getJSONObject("body");
@@ -224,7 +246,7 @@ public class PortalPageService extends BaseCompService {
 						if(k == children.size() - 1){
 							div.setStyle("margin-bottom:auto;");
 						}
-						div.setStyle((div.getStyle() == null ? "" : div.getStyle()) + "border:none;");  //去除div边框
+						div.setStyle((div.getStyle() == null ? "" : div.getStyle()) + "border:none;margin-bottom:10px;");  //去除div边框
 						
 						//判断是否生成title
 						String showtitle = (String)comp.get("showtitle");
@@ -388,6 +410,7 @@ public class PortalPageService extends BaseCompService {
 				}
 				input.setDefaultValue(def);
 			}
+			input.setOutBox(true);
 			div.getChildren().add(input);
 			input.setParent(div);
 			

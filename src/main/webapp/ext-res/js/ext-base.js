@@ -557,3 +557,19 @@ function selectAll(ts, cid){
 		$("input[name="+cid+"]").attr("checked",false);
 	}
 }
+//报表清除参数
+function clear_params(paramNames){
+	for(var i=0; i<paramNames.length; i++){
+		var tp = paramNames[i].type;
+		var p = paramNames[i].name;
+		if(paramNames[i].type == 'mselect'){
+			$('#'+p).combobox("clear");
+		}else if(paramNames[i].type == 'select'){
+			$('#'+p).val("");
+		}else{
+			$('#'+p).val("");
+		}
+		
+		
+	}
+};

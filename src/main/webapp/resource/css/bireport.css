@@ -21,7 +21,7 @@ table.d_table td.blank {
 	border:none;
 }
 TABLE.d_table TD {
-    border: 1px solid #CACACA;
+    border: 1px solid #dee5e7;
     padding: 0px;
     font-size: 12px;
 }
@@ -39,12 +39,12 @@ TABLE.d_table2 TD {
     font-size: 12px;
 }
 #d_colDims {
-	background-color:#EEEEEE;
+	background-color:#f6f8f8;
 	width:500px;
 	overflow:hidden;
 }
 #d_rowDims {
-	background-color:#EEEEEE;
+	background-color:#f6f8f8;
 	height: 300px;
     overflow-y: hidden;
     overflow-x: hidden;
@@ -350,15 +350,15 @@ TABLE.grid5 {
 }
 TABLE.grid5 THEAD {color: black;text-align: center}
 TABLE.grid5 TH {
-    border: 1px solid #CACACA;
+    border: 1px solid #dee5e7;
     font-size: 13px;
     height:26px;
-    background-color: #EEEEEE;
+    background-color: #f6f8f8;
     text-align: left;
 	font-weight:normal;
 }
 TABLE.grid5 TD.grid5-td {
-    border: 1px solid #CACACA;
+    border: 1px solid #dee5e7;
     font-size: 12px;
     height:26px;
 	overflow:hidden;
@@ -367,7 +367,7 @@ TABLE.grid5 TD.kpiData1 {
 	background-color:#FFF;
 }
 TABLE.grid5 TD.kpiData2 {
-	background-color:#F7F7F7;
+	background-color:#f6f8f8;
 }
 TABLE.grid5 td.pms, TABLE.grid3 td.pms {
     color: #ff0000;

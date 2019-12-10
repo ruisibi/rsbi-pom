@@ -144,10 +144,7 @@ $(function(){
 <div class="wrapper wrapper-content">
 	<div class="row">
 		<div class="col-sm-3">
-			<div class="ibox">
-				<div class="ibox-title">
-					<h5>数据模型</h5>
-				</div>
+			<div class="ibox" style="border:none;">
 				<div class="ibox-content">
 					<button class="btn btn-block btn-primary" onclick="selectdataset()"><i class="fa fa-refresh"></i> 切换数据</button>
 					<p class="text-warning">拖拽数据到表格或图表中展现</p>
@@ -157,7 +154,7 @@ $(function(){
 		</div>
 		
 		<div class="col-sm-9 animated fadeInRight">
-			<div class="ibox">
+			<div class="ibox" style="border:none;">
 				<div class="ibox-content" id="p_param" style="padding:5px;">
 					<div class="ptabhelpr">拖拽维度到此处作为筛选条件</div>
 				</div>

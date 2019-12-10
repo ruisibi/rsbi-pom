@@ -157,14 +157,14 @@ span.charticon {
 	margin-top:3px;
 }
 #optparam span.pppp {
-    background-color: #ffffcc;
+    background-color: #f6f8f8;
     border: 1px solid #cacaca;
     display: inline-block;
     margin: 5px;
     padding: 2px;
     text-align: center;
-	width:180px;
-	border-radius:3px;
+    width: 180px;
+    border-radius: 3px;
 }
 #optparam span.text {
     cursor: pointer;
@@ -293,4 +293,7 @@ span.rlayout div.onelayout {
 	border:1px solid #990000;
 	height:30px;
 	display:inline-block;
+}
+#optarea .ibox {
+    margin-bottom: 10px !important;
 }
