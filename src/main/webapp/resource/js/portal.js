@@ -1,4 +1,4 @@
-if($ == undefined){
+﻿if($ == undefined){
 	$ = jQuery;
 }
 /*布局器*/

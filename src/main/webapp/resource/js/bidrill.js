@@ -1,4 +1,4 @@
-if($ == undefined){
+﻿if($ == undefined){
 	$ = jQuery;
 }
 function drill(dimId, compId, pos, val, vdesc, oldDimId, islink){
