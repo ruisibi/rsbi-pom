@@ -97,9 +97,9 @@ public class PortalTableService  extends BaseCompService {
 				sql.append(tableAlias.get(tname)+"."+key+", "+tableAlias.get(tname)+"." + txt + ",");
 			}else{
 				if(iscalc == 1){
-					sql.append(dim.getColname()+" "+dim.getAlias()+", ");
+					sql.append(dim.getColname()+" as "+dim.getAlias()+", ");
 				}else{
-					sql.append(tableAlias.get(t)+"."+dim.getColname()+" "+dim.getAlias()+", ");
+					sql.append(tableAlias.get(t)+"."+dim.getColname()+" as "+dim.getAlias()+", ");
 				}
 			}
 			
@@ -119,9 +119,9 @@ public class PortalTableService  extends BaseCompService {
 					sql.append(tableAlias.get(tname)+"."+key+", "+ tableAlias.get(tname) +"." + txt + ",");
 				}else{
 					if(iscalc == 1){
-						sql.append(dim.get("colname")+" "+dim.get("code")+", ");
+						sql.append(dim.get("colname")+" as "+dim.get("code")+", ");
 					}else{
-						sql.append(tableAlias.get(t)+"."+dim.get("colname")+" "+dim.get("code")+", ");
+						sql.append(tableAlias.get(t)+"."+dim.get("colname")+" as "+dim.get("code")+", ");
 					}
 				}
 			}

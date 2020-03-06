@@ -60,7 +60,7 @@ $(function(){
 	  <div class="row border-bottom" role="navigation" style="margin-bottom: 0"> 
 		<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
 		<div class="col-sm-12">
-		<img src="resource/img/frame3/log2.png" class="img-responsive">
+		<img src="resource/img/frame3/log3.png" class="img-responsive">
 		</div>
 		</nav>
 	  </div>

@@ -383,9 +383,9 @@ public class PortalChartService extends BaseCompService {
 				sql.append(tableAlias.get(tableName)+"."+key+", " + tableAlias.get(tableName) + "." + txt + ",");
 			}else{
 				if(dim.getCalc() == 0){
-					sql.append(" "+tableAlias.get(tname)+"."+dim.getColname()+" "+dim.getAlias()+", ");
+					sql.append(" "+tableAlias.get(tname)+"."+dim.getColname()+" as "+dim.getAlias()+", ");
 				}else{
-					sql.append(" " + dim.getColname() + " "+dim.getAlias()+", ");
+					sql.append(" " + dim.getColname() + " as "+dim.getAlias()+", ");
 				}
 			}
 			

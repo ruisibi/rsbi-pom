@@ -217,9 +217,9 @@ public class TableService extends BaseCompService {
 				sql.append( tableAlias.get(tname) + "."+key+", " + tableAlias.get(tname) + "." + txt + ",");
 			}else{
 				if(dim.getCalc() == 0){
-					sql.append( tableAlias.get(dim.getTname()) + "." + dim.getColname()+" "+dim.getAlias()+", ");
+					sql.append( tableAlias.get(dim.getTname()) + "." + dim.getColname()+" as "+dim.getAlias()+", ");
 				}else{
-					sql.append( dim.getColname()+" "+dim.getAlias()+", ");
+					sql.append( dim.getColname()+" as "+dim.getAlias()+", ");
 				}
 			}
 		}
