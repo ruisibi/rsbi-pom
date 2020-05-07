@@ -2,6 +2,8 @@
 <ext-config>
 	<constant name="devMode" value="true" />
 	<constant name="dbName" value="mysql" />
+	<!-- 关闭在多维分析中显示节日 -->
+	<constant name="closeFestival" value="true" />
 
 	<constant name="resPath" value="https://www.ruisitech.com/cloud" />
 	<constant name="xmlResource" value="/WEB-INF/ext2/ext-config/pages/" />
