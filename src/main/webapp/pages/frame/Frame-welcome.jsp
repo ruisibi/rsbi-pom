@@ -49,7 +49,7 @@
 <p>5.权限管理</p>
 
 <br/>
-<p class="text-warning">如果您需要更多功能，可以<button class="btn btn-primary btn-sm" onclick="window.open('https://www.ruisitech.com/product.html')">购买标准版</button></p>
+<p class="text-warning">如果您需要更多功能，可以<button class="btn btn-primary btn-sm" onclick="window.open('https://www.ruisitech.com/product.html')">购买企业版</button></p>
 
 <p class="text-info">技术支持QQ群：648548832</p> 
 		</div>
