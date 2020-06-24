@@ -84,7 +84,7 @@
 	
 	<select id="appUserinfo" resultType="java.util.HashMap" parameterType="java.lang.Integer">
 		select login_name "login_name", log_date "log_date", staff_id "staff_id", state "state", log_cnt "log_cnt",
-		 date_start "date_start", date_end "date_end", '北京睿思科技有限公司' as "company"
+		 date_start "date_start", date_end "date_end", '成都睿思商智科技有限公司' as "company"
 		from sc_login_user a
 		 where user_id = #{userId}
 	</select>

@@ -13,7 +13,7 @@
 <body class="easyui-layout">
 <div align='center' style='margin:10px;'><img src="../resource/img/frame3/log2.png"></div>
 <div style="font-size:16px; margin:10px; text-indent:30px; line-height:25px;">
- “睿思BI”是由北京睿思科技有限公司自主研发的企业数据分析/可视化系统。 包含数据导入、数据填报、数据建模、多维分析、数据查询、报表、移动BI等功能模块，方便企业及个人快速建立一套易用，灵活、低成本的在线数据分析平台。
+ “睿思BI”是由成都睿思商智科技有限公司自主研发的企业数据分析/可视化系统。 包含数据导入、数据填报、数据建模、多维分析、数据查询、报表、移动BI等功能模块，方便企业及个人快速建立一套易用，灵活、低成本的在线数据分析平台。
    <p>
    <b>移动端功能介绍： </b><p>
    <p>

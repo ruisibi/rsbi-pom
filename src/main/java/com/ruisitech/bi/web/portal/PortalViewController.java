@@ -5,6 +5,7 @@ import java.io.InputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ruisi.ext.engine.ExtConstants;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -88,6 +89,7 @@ public class PortalViewController {
 		res.setContentType("application/x-msdownload");
 		String contentDisposition = "attachment; filename=\""+fileName+"\"";
 		res.setHeader("Content-Disposition", contentDisposition);
+		req.setAttribute(ExtConstants.isExporting, "true");  //导出状态
 		
 		if("html".equals(type)){
 			String ret = ser.buildMV(mv, req.getServletContext());

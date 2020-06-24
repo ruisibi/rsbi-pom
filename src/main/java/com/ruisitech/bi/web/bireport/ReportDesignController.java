@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ import com.ruisitech.bi.util.RSBIUtils;
 
 @Controller
 @RequestMapping(value = "/bireport")
+@Scope("prototype")
 public class ReportDesignController extends BaseController {
 	
 	@Autowired
