@@ -55,7 +55,7 @@ public class RoleService extends ServiceSupport
 	}
 	/**
 	 * 显示所有关联角色的用户的页面
-	 * @param arg0
+	 * @param option
 	 */
 	public void roleUserList(InputOption option)
 	{
@@ -145,7 +145,7 @@ public class RoleService extends ServiceSupport
 	
 	/**
 	 * 显示角色关联菜单的页面
-	 * @param arg0
+	 * @param option
 	 */
 	public void roleMenuList(InputOption option)
 	{
@@ -189,7 +189,7 @@ public class RoleService extends ServiceSupport
 	}
 	/**
 	 * 保存菜单授权的方法，先删除数据再插入新的菜单授权数据
-	 * @param arg0
+	 * @param option
 	 * @throws IOException 
 	 */
 	@ResultRef("frame.Role-list")
@@ -220,7 +220,7 @@ public class RoleService extends ServiceSupport
 	}
 	/**
 	 * 显示添加关联用户角色时需填写的信息的页面
-	 * @param arg0
+	 * @param option
 	 */
 	public void roleUserPreAdd(InputOption option)
 	{
@@ -228,7 +228,7 @@ public class RoleService extends ServiceSupport
 	}
 	/**
 	 * 删除关联用户角色的方法
-	 * @param arg0
+	 * @param option
 	 * @throws IOException 
 	 */
 	@ResultRef("frame.Role-roleUserList")
@@ -247,7 +247,7 @@ public class RoleService extends ServiceSupport
 	}
 	/**
 	 * 显示添加新角色时需填写的信息页面
-	 * @param arg0
+	 * @param option
 	 */
 	public void preAdd(InputOption option)
 	{
@@ -255,31 +255,39 @@ public class RoleService extends ServiceSupport
 	}
 	/**
 	 * 新增角色信息的方法
-	 * @param arg0
+	 * @param option
 	 */
 	@ResultRef("frame.Role-list")
 	public void add(final InputOption option) throws IOException 
 	{
-		String sql = "insert into sc_role(role_name,role_desc,create_date,create_user, ord) values(?,?,now(),?,?)";
-		daoHelper.execute(sql, new PreparedStatementCallback<Object>(){
-			public Object doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
-				//UUID uuid = UUID.randomUUID();//主键用UUID生成
-				//String id = uuid.toString().replaceAll("-", "");
-				Integer userid = RSBIUtils.getLoginUserInfo().getUserId();
-				//ps.setString(1, id);
-				ps.setString(1, option.getParamValue("name"));
-				ps.setString(2, option.getParamValue("desc"));
-				ps.setInt(3, userid);
-				ps.setInt(4, Integer.parseInt(option.getParamValue("ord")));
-				ps.executeUpdate();
-				return null;
-			}
+		String dbName = RSBIUtils.getConstant(ExtConstants.dbName);
+		String dt = null;
+		if("mysql".equalsIgnoreCase(dbName)){
+			dt ="now()";
+		}else if("oracle".equalsIgnoreCase(dbName)){
+			dt = "sysdate";
+		}else if("sqlser".equalsIgnoreCase(dbName)){
+			dt = "getdate()";
+		}else if("sqlite".equalsIgnoreCase(dbName)){
+			dt = "strftime('%s','now') * 1000";
+		}
+		String sql = "insert into sc_role(role_name,role_desc,create_date,create_user, ord) values(?,?,"+dt+",?,?)";
+		daoHelper.execute(sql, ps -> {
+			//UUID uuid = UUID.randomUUID();//主键用UUID生成
+			//String id = uuid.toString().replaceAll("-", "");
+			//ps.setString(1, id);
+			ps.setString(1, option.getParamValue("name"));
+			ps.setString(2, option.getParamValue("desc"));
+			ps.setString(3, RSBIUtils.getLoginUserInfo().getStaffId());
+			ps.setInt(4, Integer.parseInt(option.getParamValue("ord")));
+			ps.executeUpdate();
+			return null;
 		});
 		super.sendRedirect(option, "frame.Role", "list", true);
 	}
 	/**
 	 * 显示修改角色信息的页面
-	 * @param arg0
+	 * @param option
 	 */
 	public void preMod(InputOption option)
 	{
@@ -287,7 +295,7 @@ public class RoleService extends ServiceSupport
 	}
 	/**
 	 * 修改角色信息的方法
-	 * @param arg0
+	 * @param option
 	 */
 	@ResultRef("frame.Role-list")
 	public void mod(final InputOption option) throws IOException
@@ -307,7 +315,7 @@ public class RoleService extends ServiceSupport
 	}
 	/**
 	 * 删除角色信息的方法
-	 * @param arg0
+	 * @param option
 	 */
 	@ResultRef("frame.Role-list")
 	public void delete(final InputOption option) throws IOException
@@ -330,7 +338,7 @@ public class RoleService extends ServiceSupport
 	}
 	/**
 	 * 关联用户角色的方法
-	 * @param arg0
+	 * @param option
 	 */
 	@ResultRef("frame.Role-roleUserList")
 	public void roleUserAdd(final InputOption option) throws IOException

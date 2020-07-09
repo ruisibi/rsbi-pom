@@ -300,7 +300,7 @@
 		    <artifactId>hive-jdbc</artifactId>
 		    <version>2.3.4</version>
 		</dependency>
-		
+		<!--
 		<dependency>
             <groupId>jdk.tools</groupId>
             <artifactId>jdk.tools</artifactId>
@@ -308,6 +308,7 @@
             <scope>system</scope>
             <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
     	</dependency>
+    	-->
     	
     	<!-- https://mvnrepository.com/artifact/org.apache.kylin/kylin-jdbc -->
 		<dependency>
@@ -315,14 +316,11 @@
 		    <artifactId>kylin-jdbc</artifactId>
 		    <version>2.2.0</version>
 		</dependency>
-    	<!-- https://mvnrepository.com/artifact/org.apache.derby/derby 
 		<dependency>
-		    <groupId>org.apache.derby</groupId>
-		    <artifactId>derby</artifactId>
-		    <version>10.13.1.1</version>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.28.0</version>
 		</dependency>
-		-->
-		
         <dependency>
             <groupId>org.eclipse.jetty.aggregate</groupId>
             <artifactId>jetty-webapp</artifactId>

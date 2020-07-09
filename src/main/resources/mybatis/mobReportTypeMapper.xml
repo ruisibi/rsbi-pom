@@ -18,7 +18,14 @@
 	
 	<insert id="insertType" parameterType="com.ruisitech.bi.entity.portal.MobReportType">
 		insert into portal_3greport_type(name, note, crtuser, crtdate, ord) 
-		values(#{name}, #{note}, #{crtUser}, now(), #{ord})
+		values(#{name}, #{note}, #{crtUser},
+		<if test="dbName == 'mysql'">
+			now()
+		</if>
+		<if test="dbName == 'sqlite'">
+			strftime('%s','now') * 1000
+		</if>,
+		#{ord})
 	</insert>
 	
 	<update id="updateType" parameterType="com.ruisitech.bi.entity.portal.MobReportType">

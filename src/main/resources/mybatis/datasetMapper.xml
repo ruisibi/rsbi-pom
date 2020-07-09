@@ -23,7 +23,14 @@
    
    <insert id="insertDset" parameterType="com.ruisitech.bi.entity.model.Dataset">
    		insert into  etl_dataset(dset_Id, ds_id, name, crtdate, cfg, primary_table) 
-		values(#{dsetId}, #{dsid}, #{name}, now(), #{cfg}, #{priTable})
+		values(#{dsetId}, #{dsid}, #{name},
+	   <if test="dbName == 'mysql'">
+		   now()
+	   </if>
+	   <if test="dbName == 'sqlite'">
+		   strftime('%s','now') * 1000
+	   </if>
+		, #{cfg}, #{priTable})
    </insert>
    
    <update id="updateDset" parameterType="com.ruisitech.bi.entity.model.Dataset">

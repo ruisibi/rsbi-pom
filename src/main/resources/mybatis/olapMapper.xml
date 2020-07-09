@@ -42,13 +42,25 @@
 	</update>
 	
 	<update id="updateOlap" parameterType="com.ruisitech.bi.entity.bireport.OlapInfo">
-		update olap_user_save set pageinfo = #{pageInfo}, updatedate = now() 
+		update olap_user_save set pageinfo = #{pageInfo}, updatedate =
+		<if test="dbName == 'mysql'">
+			now()
+		</if>
+		<if test="dbName == 'sqlite'">
+			strftime('%s','now') * 1000
+		</if>
 		where pageid = #{pageId} 
 	</update>
 	
 	<insert id="insertOlap" parameterType="com.ruisitech.bi.entity.bireport.OlapInfo">
 		insert into olap_user_save(pageid,userid,pageinfo,pagename,  crtdate, updatedate) 
-		values(#{pageId},#{userId}, #{pageInfo}, #{pageName}, now(), now())
+		values(#{pageId},#{userId}, #{pageInfo}, #{pageName},
+		<if test="dbName == 'mysql'">
+			now(), now()
+		</if>
+		<if test="dbName == 'sqlite'">
+			strftime('%s','now') * 1000,strftime('%s','now') * 1000
+		</if>)
 	</insert>
 	
 	<select id="olapExist" resultType="java.lang.Integer" parameterType="java.lang.String">

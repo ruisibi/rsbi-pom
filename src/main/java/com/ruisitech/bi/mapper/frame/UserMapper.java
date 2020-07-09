@@ -19,7 +19,7 @@ public interface UserMapper {
 	
 	List<Map<String, Object>> listUserMenus(@Param("userId") Integer userId);
 	
-	void updateLogDateAndCnt(@Param("userId") Integer userId);
+	void updateLogDateAndCnt(@Param("userId") Integer userId, @Param("dbName") String dbName);
 	
 	String checkPsd(@Param("userId") Integer userId);
 	

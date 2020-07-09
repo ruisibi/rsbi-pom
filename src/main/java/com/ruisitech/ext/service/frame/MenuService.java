@@ -82,6 +82,8 @@ public class MenuService extends ServiceSupport {
 			sql += "sysdate";
 		}else if("sqlser".equalsIgnoreCase(dbName)){
 			sql += "getdate()";
+		}else if("sqlite".equals(dbName)){
+			sql += "strftime('%s','now') * 1000";
 		}
 		sql += ",?,?,?)";
 		daoHelper.execute(sql, new PreparedStatementCallback<Object>(){
@@ -111,6 +113,8 @@ public class MenuService extends ServiceSupport {
 			dt = "now()";
 		}else if("sqlser".equals(dbName)){
 			dt = "GETDATE()";
+		}else if("sqlite".equals(dbName)){
+			dt = "strftime('%s','now') * 1000";
 		}
 		String sql="update sc_menu set menu_name=?,menu_desc=?,menu_date="+dt+",menu_order=?,menu_url=?,avatar=?  where menu_id=?";
 		daoHelper.execute(sql, new PreparedStatementCallback<Object>(){

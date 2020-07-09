@@ -2,6 +2,7 @@ package com.ruisitech.bi.service.frame;
 
 import java.util.Map;
 
+import com.ruisitech.bi.util.RSBIUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -28,7 +29,7 @@ public class UserService {
 	}
 	
 	public void updateLogDateAndCnt(Integer userId){
-		mapper.updateLogDateAndCnt(userId);
+		mapper.updateLogDateAndCnt(userId, RSBIUtils.getConstant("dbName"));
 	}
 	
 	public void modPsd(User u){

@@ -53,16 +53,35 @@
 	
 	<insert id="insertPortal" parameterType="com.ruisitech.bi.entity.portal.Portal">
 		insert into portal_user_save(user_id, pageinfo, pageId, pagename, updatedate, crtdate, cata_id, is3g) 
-		values(#{userId}, #{pageInfo}, #{pageId}, #{pageName}, now(), now(), #{cataId}, #{is3g})
+		values(#{userId}, #{pageInfo}, #{pageId}, #{pageName},
+		<if test="dbName == 'mysql'">
+			now(),now(),
+		</if>
+		<if test="dbName == 'sqlite'">
+			strftime('%s','now') * 1000,strftime('%s','now') * 1000,
+		</if>
+		 #{cataId}, #{is3g})
 	</insert>
 	
 	<update id="updatePortal" parameterType="com.ruisitech.bi.entity.portal.Portal">
-		update portal_user_save set pageinfo = #{pageInfo}, updatedate = now()
+		update portal_user_save set pageinfo = #{pageInfo}, updatedate =
+		<if test="dbName == 'mysql'">
+			now()
+		</if>
+		<if test="dbName == 'sqlite'">
+			strftime('%s','now') * 1000
+		</if>
 		where pageId = #{pageId}
 	</update>
 	
 	<update id="renamePortal" parameterType="com.ruisitech.bi.entity.portal.Portal">
-		update portal_user_save set pagename = #{pageName}, updatedate = now()
+		update portal_user_save set pagename = #{pageName}, updatedate =
+		<if test="dbName == 'mysql'">
+			now()
+		</if>
+		<if test="dbName == 'sqlite'">
+			strftime('%s','now') * 1000
+		</if>
 		where pageId = #{pageId}
 	</update>
 	

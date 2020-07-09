@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ext-config>
 	<constant name="devMode" value="true" />
-	<constant name="dbName" value="mysql" />
+	<constant name="dbName" value="sqlite" />
 	<!-- 关闭在多维分析中显示节日 -->
 	<constant name="closeFestival" value="true" />
 
@@ -34,6 +34,7 @@
 	<db type="hive" class="com.ruisi.ext.engine.dao.HiveHelperImpl"/>
 	<db type="kylin" class="com.ruisi.ext.engine.dao.KylinHelperImpl"/>
 	<db type="postgresql" class="com.ruisi.ext.engine.dao.PostgresqlHelperImpl"/>
+	<db type="sqlite" class="com.ruisitech.bi.util.SqliteHelperImpl"/>
 
 	 <service id="ext.sys.param.cascade" class="com.ruisi.ext.engine.service.impl.ParameterCascadeServiceImpl" result="global"/>
 	 <service id="ext.sys.fenye.ajax" class="com.ruisi.ext.engine.service.impl.AjaxFenyeServiceImpl" result="global"/>

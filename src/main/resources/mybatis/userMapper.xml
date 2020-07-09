@@ -33,8 +33,16 @@
 		 where user_id=#{userId}
     </update>
     
-    <update id="updateLogDateAndCnt" parameterType="java.lang.Integer">
-    	update sc_login_user set log_cnt = log_cnt + 1, log_date = now() where user_id=#{userId}
+    <update id="updateLogDateAndCnt">
+    	update sc_login_user set log_cnt = log_cnt + 1,
+    	log_date =
+		<if test="dbName == 'mysql'">
+    	 now()
+		</if>
+		<if test="dbName == 'sqlite'">
+			strftime('%s','now') * 1000
+		</if>
+    	where user_id=#{userId}
     </update>
     
     <update id="insertuser" parameterType="com.ruisitech.bi.entity.frame.User">
@@ -49,7 +57,12 @@
 		#{mobilePhone},
 		#{email},
 		#{officeTel},
-		now(),
+		<if test="dbName == 'mysql'">
+			now(),
+		</if>
+		<if test="dbName == 'sqlite'">
+			strftime('%s','now') * 1000,
+		</if>
 		#{staffId},
 		#{state}
 		)

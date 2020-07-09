@@ -24,7 +24,14 @@
 	
 	<insert id="addCollect" parameterType="com.ruisitech.bi.entity.app.Collect">
 		insert into report_collect(report_id, user_id,  crtdate) 
-		values(#{rid}, #{userId},now())
+		values(#{rid}, #{userId},
+		<if test="dbName == 'mysql'">
+			now()
+		</if>
+		<if test="dbName == 'sqlite'">
+			strftime('%s','now') * 1000
+		</if>
+		)
 	</insert>
 	
 	<delete id="delCollect" parameterType="com.ruisitech.bi.entity.app.Collect">
