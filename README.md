@@ -1,6 +1,22 @@
 # 睿思BI-开源商业智能，数据可视化系统 (开源版)
 
-### 系统已升级为maven工程，通过 springmvc + spring + mybatis 构建。
+BI系统支撑库变更说明：
+支撑库已更新为sqlite， 直接打成war包即可运行，如果还是需要使用mysql做支撑库，请修改如下配置：<br/>
+
+```java
+application.properties文件：
+
+ #使用mysql
+ jdbc.driver=com.mysql.cj.jdbc.Driver
+ jdbc.url=jdbc:mysql://localhost:3306/rs_report?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=GMT%2B8
+ jdbc.username=root
+ jdbc.password=12345678
+
+src/main/webapp/WEB-INF/ext2/ext-config/ext-config.xml文件
+#修改支撑库为mysql：
+<constant name="dbName" value="mysql" />
+```
+直接下载war包（sqlite支撑库）：https://www.ruisitech.com/files/rsbi.war (下载后放入tomcat直接运行)
 
 “睿思BI”商业智能系统是由[成都睿思商智科技有限公司](https://www.ruisitech.com)自主研发的企业数据分析系统。 系统包含数据建模、数据报表、多维分析、仪表盘、移动BI等功能模块，方便企业快速建立一套易用，灵活、低成本的商业智能平台，实现数据的快速分析及可视化。 <br>
 
