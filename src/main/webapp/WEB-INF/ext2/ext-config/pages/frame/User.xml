@@ -44,7 +44,13 @@
 				</col-config>
 				<ds pageSize="15">
 					<![CDATA[
-					select user_id,staff_id,login_name, a.state "state",log_cnt, datetime(LOG_DATE/1000, 'unixepoch', 'localtime') as ldate
+					select user_id,staff_id,login_name, a.state "state",log_cnt,
+					#if($dbName == 'sqlite')
+					datetime(LOG_DATE/1000, 'unixepoch', 'localtime') as ldate
+					#end
+					#if($dbName == 'mysql')
+					LOG_DATE as ldate
+					#end
 					from sc_login_user a 
 					where 1=1
 					
