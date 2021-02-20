@@ -1,5 +1,7 @@
 # 睿思BI-开源商业智能，数据可视化系统 (开源版)
 
+VUE版本已发布，请访问：https://github.com/ruisibi/rsbi-vue <br/>
+
 BI系统支撑库变更说明：
 支撑库已更新为sqlite， 直接打成war包即可运行，如果还是需要使用mysql做支撑库，请修改如下配置：<br/>
 
