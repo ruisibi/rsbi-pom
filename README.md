@@ -56,10 +56,11 @@ src/main/webapp/WEB-INF/ext2/ext-config/ext-config.xml文件
 # 产品截图：<br/>
 
 数据多维分析<br/>
-![olap](http://www.ruisitech.com/img/olap3.png?v4)  <br/>
+![olap](https://www.ruisitech.com/img/olap3.png?v4)  <br/>
 数据可视化<br/>
-![1](http://www.ruisibi.cn/img/ybpnew.png?v5)  <br/>
+![1](https://www.ruisibi.cn/img/ybpnew.png?v5)  <br/>
 数据建模<br/>
-![2](http://www.ruisibi.cn/img/kybmodel.png?v3)  <br/>
-APP访问<br/>
-![3](http://www.ruisitech.com/img/3g/IMG_1292.PNG?v3)  <br/>
+![2](https://www.ruisibi.cn/img/kybmodel.png?v3)  <br/>
+开源版首页<br/>
+![3](https://www.ruisitech.com/img/olap3.png?v4)  <br/>
+
