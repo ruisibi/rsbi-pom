@@ -9,7 +9,7 @@
 
     <properties>
         <!-- 主要依赖库的版本定义 -->
-        <spring.version>4.3.17.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
         <mysql.version>8.0.11</mysql.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <junit.version>4.11</junit.version>
